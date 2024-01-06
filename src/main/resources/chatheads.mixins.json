@@ -1,0 +1,8 @@
+{
+  "compatibilityLevel": "JAVA_8",
+  "package": "me.ballmc.ChatHeads.mixins",
+  "mixins": [
+    "ChatLineMixin",
+    "GuiNewChatMixin_TextRendering"
+  ]
+}

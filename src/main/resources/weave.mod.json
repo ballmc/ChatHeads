@@ -1,11 +1,8 @@
 {
   "mixinConfigs": [
-    "examplemod.mixins.json"
+    "chatheads.mixins.json"
   ],
   "entrypoints": [
-    "com.example.mod.ExampleMod"
-  ],
-  "hooks": [
-    "com.example.mod.hook.MinecraftHook"
+    "me.ballmc.ChatHeads.Main"
   ]
 }
