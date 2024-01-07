@@ -1,0 +1,2700 @@
+public class net/minecraft/client/gui/GuiNewChat extends net/minecraft/client/gui/Gui implements com/moonsworth/lunar/RIHHROCICHHCHRCORIRRRCICC/OCRHCRIOCRHRORRIHIRRRORRO/IRRCOHRHIIICICORRHIIRRHHC/ROCHIRHIOCCORHIIRRCHHROIC {
+     <ClassVersion=61>
+     <SourceDebug=SMAP
+SourceFile
+Mixin
+*S Mixin
+*F
++ 1 SourceFile
+net/minecraft/client/gui/GuiNewChat.java
++ 2 GuiNewChatMixin_TextRendering.java
+me/ballmc/ChatHeads/mixins/GuiNewChatMixin_TextRendering.java
+*L
+1#1,1469:1
+1#2,500:1470
+*E
+>
+     <SourceFile=SourceFile>
+     <Sig=Lnet/minecraft/client/gui/Gui;>
+     public static org.apache.logging.log4j.Logger logger;
+     public net.minecraft.client.Minecraft mc;
+     public java.util.List sentMessages;
+     public java.util.List chatLines;
+     public java.util.List drawnChatLines;
+     public int scrollPos;
+     public boolean isScrolled;
+     private static float lunar$percentTranslated;
+     private static long lunar$lastUpdate;
+     private float lunar$easedPercent;
+     private static int lunar$newLines;
+     private net.minecraft.client.gui.ChatLine chatting$drawingLine;
+
+     public GuiNewChat(net.minecraft.client.Minecraft arg0) { // <init> //(Lnet/minecraft/client/Minecraft;)V
+         <localVar:index=0 , name=this , desc=Lnet/minecraft/client/gui/GuiNewChat;, sig=null, start=L0, end=L6>
+         <localVar:index=1 , name=☃ , desc=Lnet/minecraft/client/Minecraft;, sig=null, start=L0, end=L6>
+
+         L0 {
+             aload 0 // reference to self
+             invokespecial net/minecraft/client/gui/Gui.<init>()V
+             aload 0 // reference to self
+             aconst_null
+             putfield net/minecraft/client/gui/GuiNewChat.chatting$drawingLine:net.minecraft.client.gui.ChatLine
+         }
+         L1 {
+             aload 0 // reference to self
+             invokestatic com/google/common/collect/Lists.newArrayList()Ljava/util/ArrayList;
+             putfield net/minecraft/client/gui/GuiNewChat.sentMessages:java.util.List
+         }
+         L2 {
+             aload 0 // reference to self
+             invokestatic com/google/common/collect/Lists.newArrayList()Ljava/util/ArrayList;
+             putfield net/minecraft/client/gui/GuiNewChat.chatLines:java.util.List
+         }
+         L3 {
+             aload 0 // reference to self
+             invokestatic com/google/common/collect/Lists.newArrayList()Ljava/util/ArrayList;
+             putfield net/minecraft/client/gui/GuiNewChat.drawnChatLines:java.util.List
+         }
+         L4 {
+             aload 0 // reference to self
+             aload 1
+             putfield net/minecraft/client/gui/GuiNewChat.mc:net.minecraft.client.Minecraft
+         }
+         L5 {
+             return
+         }
+         L6 {
+         }
+     }
+
+     public void drawChat(int arg0) { //(I)V
+         <localVar:index=0 , name=this , desc=Lnet/minecraft/client/gui/GuiNewChat;, sig=null, start=L1, end=L62>
+         <localVar:index=1 , name=☃ , desc=I, sig=null, start=L1, end=L62>
+         <localVar:index=2 , name=☃ , desc=I, sig=null, start=L4, end=L62>
+         <localVar:index=3 , name=☃ , desc=Z, sig=null, start=L5, end=L62>
+         <localVar:index=4 , name=☃ , desc=I, sig=null, start=L6, end=L62>
+         <localVar:index=5 , name=☃ , desc=I, sig=null, start=L7, end=L62>
+         <localVar:index=6 , name=☃ , desc=F, sig=null, start=L8, end=L62>
+         <localVar:index=7 , name=☃ , desc=F, sig=null, start=L13, end=L62>
+         <localVar:index=8 , name=☃ , desc=I, sig=null, start=L14, end=L62>
+         <localVar:index=9 , name=☃ , desc=I, sig=null, start=L18, end=L44>
+         <localVar:index=10 , name=☃ , desc=Lnet/minecraft/client/gui/ChatLine;, sig=null, start=L20, end=L43>
+         <localVar:index=11 , name=☃ , desc=I, sig=null, start=L23, end=L43>
+         <localVar:index=12 , name=☃ , desc=D, sig=null, start=L25, end=L43>
+         <localVar:index=14 , name=☃ , desc=I, sig=null, start=L30, end=L43>
+         <localVar:index=15 , name=☃ , desc=I, sig=null, start=L36, end=L43>
+         <localVar:index=16 , name=☃ , desc=I, sig=null, start=L37, end=L43>
+         <localVar:index=17 , name=☃ , desc=Ljava/lang/String;, sig=null, start=L39, end=L43>
+         <localVar:index=9 , name=☃ , desc=I, sig=null, start=L46, end=L60>
+         <localVar:index=10 , name=☃ , desc=I, sig=null, start=L48, end=L60>
+         <localVar:index=11 , name=☃ , desc=I, sig=null, start=L49, end=L60>
+         <localVar:index=12 , name=☃ , desc=I, sig=null, start=L50, end=L60>
+         <localVar:index=13 , name=☃ , desc=I, sig=null, start=L51, end=L60>
+         <localVar:index=14 , name=☃ , desc=I, sig=null, start=L55, end=L60>
+         <localVar:index=15 , name=☃ , desc=I, sig=null, start=L58, end=L60>
+         <localVar:index=18 , name=callbackInfo18 , desc=Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;, sig=null, start=L0, end=L62>
+         <localVar:index=23 , name=injectorAllocatedLocal23 , desc=I, sig=null, start=L0, end=L62>
+         <localVar:index=22 , name=injectorAllocatedLocal22 , desc=I, sig=null, start=L0, end=L62>
+         <localVar:index=21 , name=injectorAllocatedLocal21 , desc=I, sig=null, start=L0, end=L62>
+         <localVar:index=20 , name=injectorAllocatedLocal20 , desc=I, sig=null, start=L0, end=L62>
+         <localVar:index=19 , name=injectorAllocatedLocal19 , desc=I, sig=null, start=L0, end=L62>
+
+         L0 {
+             new org/spongepowered/asm/mixin/injection/callback/CallbackInfo
+             dup
+             ldc "drawChat" (java.lang.String)
+             iconst_1
+             invokespecial org/spongepowered/asm/mixin/injection/callback/CallbackInfo.<init>(Ljava/lang/String;Z)V
+             astore 18
+             aload 0 // reference to self
+             iload 1
+             aload 18
+             invokespecial net/minecraft/client/gui/GuiNewChat.handler$zga000$lunar$drawChat(ILorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V
+             aload 18
+             invokevirtual org/spongepowered/asm/mixin/injection/callback/CallbackInfo.isCancelled()Z
+             ifeq L1
+             return
+         }
+         L1 {
+             f_new (Locals[19]: net/minecraft/client/gui/GuiNewChat, int, top, top, top, top, top, top, top, top, top, top, top, top, top, top, top, top, org/spongepowered/asm/mixin/injection/callback/CallbackInfo) (Stack[0]) 
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.mc:net.minecraft.client.Minecraft
+             getfield net/minecraft/client/Minecraft.gameSettings:net.minecraft.client.settings.GameSettings
+             getfield net/minecraft/client/settings/GameSettings.chatVisibility:net.minecraft.entity.player.EntityPlayer$EnumChatVisibility
+             getstatic net/minecraft/entity/player/EntityPlayer$EnumChatVisibility.HIDDEN:net.minecraft.entity.player.EntityPlayer$EnumChatVisibility
+             if_acmpne L3
+         }
+         L2 {
+             return
+         }
+         L3 {
+             f_new (Locals[19]: net/minecraft/client/gui/GuiNewChat, int, top, top, top, top, top, top, top, top, top, top, top, top, top, top, top, top, org/spongepowered/asm/mixin/injection/callback/CallbackInfo) (Stack[0]) 
+             aload 0 // reference to self
+             invokevirtual net/minecraft/client/gui/GuiNewChat.getLineCount()I
+             istore 2
+         }
+         L4 {
+             iconst_0
+             istore 3
+         }
+         L5 {
+             iconst_0
+             istore 4
+         }
+         L6 {
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.drawnChatLines:java.util.List
+             invokeinterface java/util/List.size()I
+             istore 5
+         }
+         L7 {
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.mc:net.minecraft.client.Minecraft
+             getfield net/minecraft/client/Minecraft.gameSettings:net.minecraft.client.settings.GameSettings
+             getfield net/minecraft/client/settings/GameSettings.chatOpacity:float
+             ldc 0.9 (java.lang.Float)
+             fmul
+             ldc 0.1 (java.lang.Float)
+             fadd
+             fstore 6
+         }
+         L8 {
+             iload 5
+             ifgt L10
+         }
+         L9 {
+             return
+         }
+         L10 {
+             f_new (Locals[19]: net/minecraft/client/gui/GuiNewChat, int, int, int, int, int, float, top, top, top, top, top, top, top, top, top, top, top, org/spongepowered/asm/mixin/injection/callback/CallbackInfo) (Stack[0]) 
+             aload 0 // reference to self
+             invokevirtual net/minecraft/client/gui/GuiNewChat.getChatOpen()Z
+             ifeq L12
+         }
+         L11 {
+             iconst_1
+             istore 3
+         }
+         L12 {
+             f_new (Locals[19]: net/minecraft/client/gui/GuiNewChat, int, int, int, int, int, float, top, top, top, top, top, top, top, top, top, top, top, org/spongepowered/asm/mixin/injection/callback/CallbackInfo) (Stack[0]) 
+             aload 0 // reference to self
+             invokevirtual net/minecraft/client/gui/GuiNewChat.getChatScale()F
+             fstore 7
+         }
+         L13 {
+             aload 0 // reference to self
+             invokevirtual net/minecraft/client/gui/GuiNewChat.getChatWidth()I
+             i2f
+             fload 7
+             fdiv
+             invokestatic net/minecraft/util/MathHelper.ceiling_float_int(F)I
+             istore 8
+         }
+         L14 {
+             invokestatic net/minecraft/client/renderer/GlStateManager.pushMatrix()V
+         }
+         L15 {
+             fconst_2
+             ldc 20.0 (java.lang.Float)
+             fconst_0
+             fstore 21
+             fstore 20
+             fstore 19
+             aload 0 // reference to self
+             fload 19
+             fload 20
+             fload 21
+             invokespecial net/minecraft/client/gui/GuiNewChat.redirect$zga000$lunar$translateChat_v1_8(FFF)V
+         }
+         L16 {
+             fload 7
+             fload 7
+             fconst_1
+             fstore 21
+             fstore 20
+             fstore 19
+             aload 0 // reference to self
+             fload 19
+             fload 20
+             fload 21
+             iload 1
+             invokespecial net/minecraft/client/gui/GuiNewChat.redirect$zga000$lunar$drawChat$getChatOpen_v1_8(FFFI)V
+         }
+         L17 {
+             iconst_0
+             istore 9
+         }
+         L18 {
+             f_new (Locals[22]: net/minecraft/client/gui/GuiNewChat, int, int, int, int, int, float, float, int, int, top, top, top, top, top, top, top, top, org/spongepowered/asm/mixin/injection/callback/CallbackInfo, top, top, float) (Stack[0]) 
+             iload 9
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.scrollPos:int
+             iadd
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.drawnChatLines:java.util.List
+             invokeinterface java/util/List.size()I
+             if_icmpge L44
+             iload 9
+             iload 2
+             if_icmpge L44
+         }
+         L19 {
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.drawnChatLines:java.util.List
+             iload 9
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.scrollPos:int
+             iadd
+             invokeinterface java/util/List.get(I)Ljava/lang/Object;
+             checkcast net/minecraft/client/gui/ChatLine
+             astore 10
+         }
+         L20 {
+             aload 10
+             ifnonnull L22
+         }
+         L21 {
+             goto L43
+         }
+         L22 {
+             f_new (Locals[22]: net/minecraft/client/gui/GuiNewChat, int, int, int, int, int, float, float, int, int, net/minecraft/client/gui/ChatLine, top, top, top, top, top, top, top, org/spongepowered/asm/mixin/injection/callback/CallbackInfo, top, top, float) (Stack[0]) 
+             iload 1
+             aload 10
+             invokevirtual net/minecraft/client/gui/ChatLine.getUpdatedCounter()I
+             isub
+             istore 11
+         }
+         L23 {
+             iload 11
+             sipush 200
+             if_icmplt L24
+             iload 3
+             ifeq L43
+         }
+         L24 {
+             f_new (Locals[22]: net/minecraft/client/gui/GuiNewChat, int, int, int, int, int, float, float, int, int, net/minecraft/client/gui/ChatLine, int, top, top, top, top, top, top, org/spongepowered/asm/mixin/injection/callback/CallbackInfo, top, top, float) (Stack[0]) 
+             iload 11
+             i2d
+             ldc 200.0 (java.lang.Double)
+             ddiv
+             dstore 12
+         }
+         L25 {
+             dconst_1
+             dload 12
+             dsub
+             dstore 12
+         }
+         L26 {
+             dload 12
+             ldc 10.0 (java.lang.Double)
+             dmul
+             dstore 12
+         }
+         L27 {
+             dload 12
+             dconst_0
+             dconst_1
+             invokestatic net/minecraft/util/MathHelper.clamp_double(DDD)D
+             dstore 12
+         }
+         L28 {
+             dload 12
+             dload 12
+             dmul
+             dstore 12
+         }
+         L29 {
+             ldc 255.0 (java.lang.Double)
+             dload 12
+             dmul
+             d2i
+             istore 14
+         }
+         L30 {
+             iload 3
+             ifeq L32
+         }
+         L31 {
+             sipush 255
+             istore 14
+         }
+         L32 {
+             f_new (Locals[21]: net/minecraft/client/gui/GuiNewChat, int, int, int, int, int, float, float, int, int, net/minecraft/client/gui/ChatLine, int, double, int, top, top, top, org/spongepowered/asm/mixin/injection/callback/CallbackInfo, top, top, float) (Stack[0]) 
+             iload 14
+             i2f
+             fload 6
+             fmul
+             f2i
+             istore 14
+         }
+         L33 {
+             iinc 4 1
+         }
+         L34 {
+             iload 14
+             iconst_3
+             if_icmple L43
+         }
+         L35 {
+             iconst_0
+             istore 15
+         }
+         L36 {
+             iload 9
+             ineg
+             bipush 9
+             imul
+             istore 16
+         }
+         L37 {
+             iload 15
+             iload 16
+             bipush 9
+             isub
+             iload 15
+             iload 8
+             iadd
+             iconst_4
+             iadd
+             iload 16
+             iload 14
+             iconst_2
+             idiv
+             bipush 24
+             ishl
+             istore 23
+             istore 22
+             istore 21
+             istore 20
+             istore 19
+             aload 0 // reference to self
+             iload 19
+             iload 20
+             iload 21
+             iload 22
+             iload 23
+             invokespecial net/minecraft/client/gui/GuiNewChat.redirect$zga000$lunar$drawChat$drawRect(IIIII)V
+         }
+         L38 {
+             aload 10
+             aload 0 // reference to self
+             iload 1
+             aconst_null
+             iload 2
+             iload 3
+             iload 4
+             iload 5
+             fload 6
+             fload 7
+             iload 8
+             iload 9
+             aload 10
+             iload 11
+             dload 12
+             iload 14
+             iload 15
+             iload 16
+             invokespecial net/minecraft/client/gui/GuiNewChat.handler$zzo000$captureChatLine(ILorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;IZIIFFIILnet/minecraft/client/gui/ChatLine;IDIII)V
+             invokevirtual net/minecraft/client/gui/ChatLine.getChatComponent()Lnet/minecraft/util/IChatComponent;
+             invokeinterface net/minecraft/util/IChatComponent.getFormattedText()Ljava/lang/String;
+             astore 17
+         }
+         L39 {
+             invokestatic net/minecraft/client/renderer/GlStateManager.enableBlend()V
+         }
+         L40 {
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.mc:net.minecraft.client.Minecraft
+             getfield net/minecraft/client/Minecraft.fontRendererObj:net.minecraft.client.gui.FontRenderer
+             aload 17
+             iload 15
+             i2f
+             iload 16
+             bipush 8
+             isub
+             i2f
+             ldc 16777215 (java.lang.Integer)
+             iload 14
+             bipush 24
+             ishl
+             iadd
+             istore 23
+             fstore 22
+             fstore 21
+             astore 20
+             astore 19
+             aload 0 // reference to self
+             aload 19
+             aload 20
+             fload 21
+             fload 22
+             iload 23
+             invokespecial net/minecraft/client/gui/GuiNewChat.redirect$zga000$lunar$drawChat$drawStringWithShadow$v1_8(Lnet/minecraft/client/gui/FontRenderer;Ljava/lang/String;FFI)I
+             pop
+         }
+         L41 {
+             invokestatic net/minecraft/client/renderer/GlStateManager.disableAlpha()V
+         }
+         L42 {
+             invokestatic net/minecraft/client/renderer/GlStateManager.disableBlend()V
+         }
+         L43 {
+             f_new (Locals[22]: net/minecraft/client/gui/GuiNewChat, int, int, int, int, int, float, float, int, int, net/minecraft/client/gui/ChatLine, top, top, top, top, top, top, top, org/spongepowered/asm/mixin/injection/callback/CallbackInfo, top, top, float) (Stack[0]) 
+             iinc 9 1
+             goto L18
+         }
+         L44 {
+             f_new (Locals[22]: net/minecraft/client/gui/GuiNewChat, int, int, int, int, int, float, float, int, int, top, top, top, top, top, top, top, top, org/spongepowered/asm/mixin/injection/callback/CallbackInfo, top, top, float) (Stack[0]) 
+             iload 3
+             ifeq L60
+         }
+         L45 {
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.mc:net.minecraft.client.Minecraft
+             getfield net/minecraft/client/Minecraft.fontRendererObj:net.minecraft.client.gui.FontRenderer
+             getfield net/minecraft/client/gui/FontRenderer.FONT_HEIGHT:int
+             istore 9
+         }
+         L46 {
+             ldc -3.0 (java.lang.Float)
+             fconst_0
+             fconst_0
+             invokestatic net/minecraft/client/renderer/GlStateManager.translate(FFF)V
+         }
+         L47 {
+             iload 5
+             iload 9
+             imul
+             iload 5
+             iadd
+             istore 10
+         }
+         L48 {
+             iload 4
+             iload 9
+             imul
+             iload 4
+             iadd
+             istore 11
+         }
+         L49 {
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.scrollPos:int
+             iload 11
+             imul
+             iload 5
+             idiv
+             istore 12
+         }
+         L50 {
+             iload 11
+             iload 11
+             imul
+             iload 10
+             idiv
+             istore 13
+         }
+         L51 {
+             iload 10
+             iload 11
+             if_icmpeq L60
+         }
+         L52 {
+             iload 12
+             ifle L53
+             sipush 170
+             goto L54
+         }
+         L53 {
+             f_new (Locals[22]: net/minecraft/client/gui/GuiNewChat, int, int, int, int, int, float, float, int, int, int, int, int, int, top, top, top, top, org/spongepowered/asm/mixin/injection/callback/CallbackInfo, top, top, float) (Stack[0]) 
+             bipush 96
+         }
+         L54 {
+             f_new (Locals[22]: net/minecraft/client/gui/GuiNewChat, int, int, int, int, int, float, float, int, int, int, int, int, int, top, top, top, top, org/spongepowered/asm/mixin/injection/callback/CallbackInfo, top, top, float) (Stack[1]: int) 
+             istore 14
+         }
+         L55 {
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.isScrolled:boolean
+             ifeq L56
+             ldc 13382451 (java.lang.Integer)
+             goto L57
+         }
+         L56 {
+             f_new (Locals[22]: net/minecraft/client/gui/GuiNewChat, int, int, int, int, int, float, float, int, int, int, int, int, int, int, top, top, top, org/spongepowered/asm/mixin/injection/callback/CallbackInfo, top, top, float) (Stack[0]) 
+             ldc 3355562 (java.lang.Integer)
+         }
+         L57 {
+             f_new (Locals[22]: net/minecraft/client/gui/GuiNewChat, int, int, int, int, int, float, float, int, int, int, int, int, int, int, top, top, top, org/spongepowered/asm/mixin/injection/callback/CallbackInfo, top, top, float) (Stack[1]: int) 
+             istore 15
+         }
+         L58 {
+             iconst_0
+             iload 12
+             ineg
+             iconst_2
+             iload 12
+             ineg
+             iload 13
+             isub
+             iload 15
+             iload 14
+             bipush 24
+             ishl
+             iadd
+             invokestatic net/minecraft/client/gui/GuiNewChat.drawRect(IIIII)V
+         }
+         L59 {
+             iconst_2
+             iload 12
+             ineg
+             iconst_1
+             iload 12
+             ineg
+             iload 13
+             isub
+             ldc 13421772 (java.lang.Integer)
+             iload 14
+             bipush 24
+             ishl
+             iadd
+             invokestatic net/minecraft/client/gui/GuiNewChat.drawRect(IIIII)V
+         }
+         L60 {
+             f_new (Locals[22]: net/minecraft/client/gui/GuiNewChat, int, int, int, int, int, float, float, int, int, top, top, top, top, top, top, top, top, org/spongepowered/asm/mixin/injection/callback/CallbackInfo, top, top, float) (Stack[0]) 
+             invokestatic net/minecraft/client/renderer/GlStateManager.popMatrix()V
+         }
+         L61 {
+             return
+         }
+         L62 {
+         }
+     }
+
+     public void clearChatMessages() { //()V
+         <localVar:index=0 , name=this , desc=Lnet/minecraft/client/gui/GuiNewChat;, sig=null, start=L0, end=L4>
+
+         L0 {
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.drawnChatLines:java.util.List
+             invokeinterface java/util/List.clear()V
+         }
+         L1 {
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.chatLines:java.util.List
+             invokeinterface java/util/List.clear()V
+         }
+         L2 {
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.sentMessages:java.util.List
+             invokeinterface java/util/List.clear()V
+         }
+         L3 {
+             return
+         }
+         L4 {
+         }
+     }
+
+     public void printChatMessage(net.minecraft.util.IChatComponent arg0) { //(Lnet/minecraft/util/IChatComponent;)V
+         <localVar:index=0 , name=this , desc=Lnet/minecraft/client/gui/GuiNewChat;, sig=null, start=L0, end=L2>
+         <localVar:index=1 , name=☃ , desc=Lnet/minecraft/util/IChatComponent;, sig=null, start=L0, end=L2>
+
+         L0 {
+             aload 0 // reference to self
+             aload 1
+             iconst_0
+             invokevirtual net/minecraft/client/gui/GuiNewChat.printChatMessageWithOptionalDeletion(Lnet/minecraft/util/IChatComponent;I)V
+         }
+         L1 {
+             return
+         }
+         L2 {
+         }
+     }
+
+     public void printChatMessageWithOptionalDeletion(net.minecraft.util.IChatComponent arg0, int arg1) { //(Lnet/minecraft/util/IChatComponent;I)V
+         <localVar:index=0 , name=this , desc=Lnet/minecraft/client/gui/GuiNewChat;, sig=null, start=L0, end=L3>
+         <localVar:index=1 , name=☃ , desc=Lnet/minecraft/util/IChatComponent;, sig=null, start=L0, end=L3>
+         <localVar:index=2 , name=☃ , desc=I, sig=null, start=L0, end=L3>
+
+         L0 {
+             aload 0 // reference to self
+             aload 1 // reference to arg0
+             iload 2
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.mc:net.minecraft.client.Minecraft
+             getfield net/minecraft/client/Minecraft.ingameGUI:net.minecraft.client.gui.GuiIngame
+             invokevirtual net/minecraft/client/gui/GuiIngame.getUpdateCounter()I
+             iconst_0
+             invokespecial net/minecraft/client/gui/GuiNewChat.setChatLine(Lnet/minecraft/util/IChatComponent;IIZ)V
+         }
+         L1 {
+             getstatic net/minecraft/client/gui/GuiNewChat.logger:org.apache.logging.log4j.Logger
+             new java/lang/StringBuilder
+             dup
+             invokespecial java/lang/StringBuilder.<init>()V
+             ldc "[CHAT] " (java.lang.String)
+             invokevirtual java/lang/StringBuilder.append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+             aload 1 // reference to arg0
+             invokeinterface net/minecraft/util/IChatComponent.getUnformattedText()Ljava/lang/String;
+             invokevirtual java/lang/StringBuilder.append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+             invokevirtual java/lang/StringBuilder.toString()Ljava/lang/String;
+             invokeinterface org/apache/logging/log4j/Logger.info(Ljava/lang/String;)V
+         }
+         L2 {
+             return
+         }
+         L3 {
+         }
+     }
+
+     public void setChatLine(net.minecraft.util.IChatComponent arg0, int arg1, int arg2, boolean arg3) { //(Lnet/minecraft/util/IChatComponent;IIZ)V
+         <localVar:index=0 , name=this , desc=Lnet/minecraft/client/gui/GuiNewChat;, sig=null, start=L3, end=L22>
+         <localVar:index=1 , name=☃ , desc=Lnet/minecraft/util/IChatComponent;, sig=null, start=L3, end=L22>
+         <localVar:index=2 , name=☃ , desc=I, sig=null, start=L3, end=L22>
+         <localVar:index=3 , name=☃ , desc=I, sig=null, start=L3, end=L22>
+         <localVar:index=4 , name=☃ , desc=Z, sig=null, start=L3, end=L22>
+         <localVar:index=5 , name=☃ , desc=I, sig=null, start=L6, end=L22>
+         <localVar:index=6 , name=☃ , desc=Ljava/util/List;, sig=Ljava/util/List<Lnet/minecraft/util/IChatComponent;>;, start=L7, end=L22>
+         <localVar:index=7 , name=☃ , desc=Z, sig=null, start=L8, end=L22>
+         <localVar:index=8 , name=☃ , desc=Ljava/util/Iterator;, sig=null, start=L9, end=L15>
+         <localVar:index=9 , name=☃ , desc=Lnet/minecraft/util/IChatComponent;, sig=null, start=L10, end=L14>
+         <localVar:index=10 , name=sharedRef10 , desc=Lcom/llamalad7/mixinextras/sugar/ref/LocalRef;, sig=null, start=L0, end=L22>
+         <localVar:index=11 , name=callbackInfo11 , desc=Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;, sig=null, start=L1, end=L22>
+         <localVar:index=19 , name=injectorAllocatedLocal19 , desc=Z, sig=null, start=L1, end=L22>
+         <localVar:index=18 , name=injectorAllocatedLocal18 , desc=Z, sig=null, start=L1, end=L22>
+         <localVar:index=14 , name=injectorAllocatedLocal14 , desc=Lnet/minecraft/client/gui/FontRenderer;, sig=null, start=L1, end=L22>
+         <localVar:index=13 , name=injectorAllocatedLocal13 , desc=I, sig=null, start=L1, end=L22>
+         <localVar:index=12 , name=injectorAllocatedLocal12 , desc=Lnet/minecraft/util/IChatComponent;, sig=null, start=L1, end=L22>
+
+         L0 {
+             new com/llamalad7/mixinextras/sugar/impl/ref/generated/LocalRefImpl
+             dup
+             invokespecial com/llamalad7/mixinextras/sugar/impl/ref/generated/LocalRefImpl.<init>()V
+             astore 10
+             aload 10
+             aconst_null
+             invokevirtual com/llamalad7/mixinextras/sugar/impl/ref/generated/LocalRefImpl.init(Ljava/lang/Object;)V
+         }
+         L1 {
+             aload 0 // reference to self
+             aload 1 // reference to arg0
+             iload 4
+             aload 10
+             invokespecial net/minecraft/client/gui/GuiNewChat.localvar$zga000$lunar$modifyText(Lnet/minecraft/util/IChatComponent;ZLcom/llamalad7/mixinextras/sugar/ref/LocalRef;)Lnet/minecraft/util/IChatComponent;
+             astore 1 // reference to arg0
+             new org/spongepowered/asm/mixin/injection/callback/CallbackInfo
+             dup
+             ldc "setChatLine" (java.lang.String)
+             iconst_1
+             invokespecial org/spongepowered/asm/mixin/injection/callback/CallbackInfo.<init>(Ljava/lang/String;Z)V
+             astore 11
+             aload 0 // reference to self
+             aload 1 // reference to arg0
+             iload 2 // reference to arg1
+             iload 3 // reference to arg2
+             iload 4
+             aload 11
+             aload 10
+             invokespecial net/minecraft/client/gui/GuiNewChat.handler$zga000$lunar$cancelAdd(Lnet/minecraft/util/IChatComponent;IIZLorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;Lcom/llamalad7/mixinextras/sugar/ref/LocalRef;)V
+             aload 11
+             invokevirtual org/spongepowered/asm/mixin/injection/callback/CallbackInfo.isCancelled()Z
+             ifeq L2
+             return
+         }
+         L2 {
+             f_new (Locals[12]: net/minecraft/client/gui/GuiNewChat, net/minecraft/util/IChatComponent, int, int, int, top, top, top, top, top, com/llamalad7/mixinextras/sugar/impl/ref/generated/LocalRefImpl, org/spongepowered/asm/mixin/injection/callback/CallbackInfo) (Stack[0]) 
+             aload 0 // reference to self
+             aload 1 // reference to arg0
+             iload 2 // reference to arg1
+             iload 3 // reference to arg2
+             iload 4
+             aconst_null
+             invokespecial net/minecraft/client/gui/GuiNewChat.handler$zga000$lunar$setChatLine(Lnet/minecraft/util/IChatComponent;IIZLorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V
+         }
+         L3 {
+             iload 2 // reference to arg1
+             ifeq L5
+         }
+         L4 {
+             aload 0 // reference to self
+             iload 2 // reference to arg1
+             invokevirtual net/minecraft/client/gui/GuiNewChat.deleteChatLine(I)V
+         }
+         L5 {
+             f_new (Locals[12]: net/minecraft/client/gui/GuiNewChat, net/minecraft/util/IChatComponent, int, int, int, top, top, top, top, top, com/llamalad7/mixinextras/sugar/impl/ref/generated/LocalRefImpl, org/spongepowered/asm/mixin/injection/callback/CallbackInfo) (Stack[0]) 
+             aload 0 // reference to self
+             invokevirtual net/minecraft/client/gui/GuiNewChat.getChatWidth()I
+             i2f
+             aload 0 // reference to self
+             invokevirtual net/minecraft/client/gui/GuiNewChat.getChatScale()F
+             fdiv
+             invokestatic net/minecraft/util/MathHelper.floor_float(F)I
+             istore 5
+         }
+         L6 {
+             aload 1 // reference to arg0
+             iload 5
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.mc:net.minecraft.client.Minecraft
+             getfield net/minecraft/client/Minecraft.fontRendererObj:net.minecraft.client.gui.FontRenderer
+             iconst_0
+             iconst_0
+             istore 19
+             istore 18
+             astore 14
+             istore 13
+             astore 12
+             aload 0 // reference to self
+             aload 12
+             iload 13
+             aload 14
+             iload 18
+             iload 19
+             invokespecial net/minecraft/client/gui/GuiNewChat.redirect$zga000$lunar$splitChatLines(Lnet/minecraft/util/IChatComponent;ILnet/minecraft/client/gui/FontRenderer;ZZ)Ljava/util/List;
+             astore 6
+         }
+         L7 {
+             aload 0 // reference to self
+             invokevirtual net/minecraft/client/gui/GuiNewChat.getChatOpen()Z
+             istore 7
+         }
+         L8 {
+             aload 6
+             invokeinterface java/util/List.iterator()Ljava/util/Iterator;
+             astore 8
+         }
+         L9 {
+             f_new (Locals[20]: net/minecraft/client/gui/GuiNewChat, net/minecraft/util/IChatComponent, int, int, int, int, java/util/List, int, java/util/Iterator, top, com/llamalad7/mixinextras/sugar/impl/ref/generated/LocalRefImpl, org/spongepowered/asm/mixin/injection/callback/CallbackInfo, java/lang/Object, int, java/lang/Object, top, top, top, int, int) (Stack[0]) 
+             aload 8
+             invokeinterface java/util/Iterator.hasNext()Z
+             ifeq L15
+             aload 8
+             invokeinterface java/util/Iterator.next()Ljava/lang/Object;
+             checkcast net/minecraft/util/IChatComponent
+             astore 9
+         }
+         L10 {
+             iload 7
+             ifeq L13
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.scrollPos:int
+             ifle L13
+         }
+         L11 {
+             aload 0 // reference to self
+             iconst_1
+             putfield net/minecraft/client/gui/GuiNewChat.isScrolled:boolean
+         }
+         L12 {
+             aload 0 // reference to self
+             iconst_1
+             invokevirtual net/minecraft/client/gui/GuiNewChat.scroll(I)V
+         }
+         L13 {
+             f_new (Locals[20]: net/minecraft/client/gui/GuiNewChat, net/minecraft/util/IChatComponent, int, int, int, int, java/util/List, int, java/util/Iterator, net/minecraft/util/IChatComponent, com/llamalad7/mixinextras/sugar/impl/ref/generated/LocalRefImpl, org/spongepowered/asm/mixin/injection/callback/CallbackInfo, java/lang/Object, int, java/lang/Object, top, top, top, int, int) (Stack[0]) 
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.drawnChatLines:java.util.List
+             iconst_0
+             new net/minecraft/client/gui/ChatLine
+             dup
+             iload 3 // reference to arg2
+             aload 9
+             iload 2 // reference to arg1
+             invokespecial net/minecraft/client/gui/ChatLine.<init>(ILnet/minecraft/util/IChatComponent;I)V
+             astore 14
+             istore 13
+             astore 12
+             aload 0 // reference to self
+             aload 12
+             iload 13
+             aload 14
+             aload 1 // reference to arg0
+             iload 2 // reference to arg1
+             iload 3 // reference to arg2
+             iload 4
+             invokespecial net/minecraft/client/gui/GuiNewChat.redirect$zga000$lunar$setChatLine$addEntry(Ljava/util/List;ILjava/lang/Object;Lnet/minecraft/util/IChatComponent;IIZ)V
+         }
+         L14 {
+             goto L9
+         }
+         L15 {
+             f_new (Locals[20]: net/minecraft/client/gui/GuiNewChat, net/minecraft/util/IChatComponent, int, int, int, int, java/util/List, int, java/util/Iterator, top, com/llamalad7/mixinextras/sugar/impl/ref/generated/LocalRefImpl, org/spongepowered/asm/mixin/injection/callback/CallbackInfo, java/lang/Object, int, java/lang/Object, top, top, top, int, int) (Stack[0]) 
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.drawnChatLines:java.util.List
+             invokeinterface java/util/List.size()I
+             aload 0 // reference to self
+             bipush 100
+             invokespecial net/minecraft/client/gui/GuiNewChat.constant$zga000$lunar$setChatLine$maxLines(I)I
+             if_icmple L17
+         }
+         L16 {
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.drawnChatLines:java.util.List
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.drawnChatLines:java.util.List
+             invokeinterface java/util/List.size()I
+             iconst_1
+             isub
+             invokeinterface java/util/List.remove(I)Ljava/lang/Object;
+             pop
+             goto L15
+         }
+         L17 {
+             f_new (Locals[20]: net/minecraft/client/gui/GuiNewChat, net/minecraft/util/IChatComponent, int, int, int, int, java/util/List, int, java/util/Iterator, top, com/llamalad7/mixinextras/sugar/impl/ref/generated/LocalRefImpl, org/spongepowered/asm/mixin/injection/callback/CallbackInfo, java/lang/Object, int, java/lang/Object, top, top, top, int, int) (Stack[0]) 
+             iload 4
+             ifne L21
+         }
+         L18 {
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.chatLines:java.util.List
+             iconst_0
+             new net/minecraft/client/gui/ChatLine
+             dup
+             iload 3 // reference to arg2
+             aload 1 // reference to arg0
+             iload 2 // reference to arg1
+             invokespecial net/minecraft/client/gui/ChatLine.<init>(ILnet/minecraft/util/IChatComponent;I)V
+             astore 14
+             istore 13
+             astore 12
+             aload 0 // reference to self
+             aload 12
+             iload 13
+             aload 14
+             aload 1 // reference to arg0
+             iload 2 // reference to arg1
+             iload 3 // reference to arg2
+             iload 4
+             invokespecial net/minecraft/client/gui/GuiNewChat.redirect$zga000$lunar$setChatLine$addEntry(Ljava/util/List;ILjava/lang/Object;Lnet/minecraft/util/IChatComponent;IIZ)V
+         }
+         L19 {
+             f_new (Locals[20]: net/minecraft/client/gui/GuiNewChat, net/minecraft/util/IChatComponent, int, int, int, int, java/util/List, int, java/util/Iterator, top, com/llamalad7/mixinextras/sugar/impl/ref/generated/LocalRefImpl, org/spongepowered/asm/mixin/injection/callback/CallbackInfo, java/util/List, int, net/minecraft/client/gui/ChatLine, top, top, top, int, int) (Stack[0]) 
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.chatLines:java.util.List
+             invokeinterface java/util/List.size()I
+             aload 0 // reference to self
+             bipush 100
+             invokespecial net/minecraft/client/gui/GuiNewChat.constant$zga000$lunar$setChatLine$maxLines(I)I
+             if_icmple L21
+         }
+         L20 {
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.chatLines:java.util.List
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.chatLines:java.util.List
+             invokeinterface java/util/List.size()I
+             iconst_1
+             isub
+             invokeinterface java/util/List.remove(I)Ljava/lang/Object;
+             pop
+             goto L19
+         }
+         L21 {
+             f_new (Locals[20]: net/minecraft/client/gui/GuiNewChat, net/minecraft/util/IChatComponent, int, int, int, int, java/util/List, int, java/util/Iterator, top, com/llamalad7/mixinextras/sugar/impl/ref/generated/LocalRefImpl, org/spongepowered/asm/mixin/injection/callback/CallbackInfo, java/lang/Object, int, java/lang/Object, top, top, top, int, int) (Stack[0]) 
+             return
+         }
+         L22 {
+         }
+     }
+
+     public void refreshChat() { //()V
+         <localVar:index=0 , name=this , desc=Lnet/minecraft/client/gui/GuiNewChat;, sig=null, start=L0, end=L8>
+         <localVar:index=1 , name=☃ , desc=I, sig=null, start=L3, end=L7>
+         <localVar:index=2 , name=☃ , desc=Lnet/minecraft/client/gui/ChatLine;, sig=null, start=L5, end=L6>
+
+         L0 {
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.drawnChatLines:java.util.List
+             invokeinterface java/util/List.clear()V
+         }
+         L1 {
+             aload 0 // reference to self
+             invokevirtual net/minecraft/client/gui/GuiNewChat.resetScroll()V
+         }
+         L2 {
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.chatLines:java.util.List
+             invokeinterface java/util/List.size()I
+             iconst_1
+             isub
+             istore 1
+         }
+         L3 {
+             f_new (Locals[2]: net/minecraft/client/gui/GuiNewChat, int) (Stack[0]) 
+             iload 1
+             iflt L7
+         }
+         L4 {
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.chatLines:java.util.List
+             iload 1
+             invokeinterface java/util/List.get(I)Ljava/lang/Object;
+             checkcast net/minecraft/client/gui/ChatLine
+             astore 2
+         }
+         L5 {
+             aload 0 // reference to self
+             aload 2
+             invokevirtual net/minecraft/client/gui/ChatLine.getChatComponent()Lnet/minecraft/util/IChatComponent;
+             aload 2
+             invokevirtual net/minecraft/client/gui/ChatLine.getChatLineID()I
+             aload 2
+             invokevirtual net/minecraft/client/gui/ChatLine.getUpdatedCounter()I
+             iconst_1
+             invokespecial net/minecraft/client/gui/GuiNewChat.setChatLine(Lnet/minecraft/util/IChatComponent;IIZ)V
+         }
+         L6 {
+             iinc 1 -1
+             goto L3
+         }
+         L7 {
+             f_new (Locals[2]: net/minecraft/client/gui/GuiNewChat, int) (Stack[0]) 
+             return
+         }
+         L8 {
+         }
+     }
+
+     public java.util.List getSentMessages() { //()Ljava/util/List;
+         <sig:()Ljava/util/List<Ljava/lang/String;>;>         <localVar:index=0 , name=this , desc=Lnet/minecraft/client/gui/GuiNewChat;, sig=null, start=L0, end=L1>
+
+         L0 {
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.sentMessages:java.util.List
+             areturn
+         }
+         L1 {
+         }
+     }
+
+     public void addToSentMessages(java.lang.String arg0) { //(Ljava/lang/String;)V
+         <localVar:index=0 , name=this , desc=Lnet/minecraft/client/gui/GuiNewChat;, sig=null, start=L0, end=L3>
+         <localVar:index=1 , name=☃ , desc=Ljava/lang/String;, sig=null, start=L0, end=L3>
+
+         L0 {
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.sentMessages:java.util.List
+             invokeinterface java/util/List.isEmpty()Z
+             ifne L1
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.sentMessages:java.util.List
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.sentMessages:java.util.List
+             invokeinterface java/util/List.size()I
+             iconst_1
+             isub
+             invokeinterface java/util/List.get(I)Ljava/lang/Object;
+             checkcast java/lang/String
+             aload 1
+             invokevirtual java/lang/String.equals(Ljava/lang/Object;)Z
+             ifne L2
+         }
+         L1 {
+             f_new (Locals[2]: net/minecraft/client/gui/GuiNewChat, java/lang/String) (Stack[0]) 
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.sentMessages:java.util.List
+             aload 1
+             invokeinterface java/util/List.add(Ljava/lang/Object;)Z
+             pop
+         }
+         L2 {
+             f_new (Locals[2]: net/minecraft/client/gui/GuiNewChat, java/lang/String) (Stack[0]) 
+             return
+         }
+         L3 {
+         }
+     }
+
+     public void resetScroll() { //()V
+         <localVar:index=0 , name=this , desc=Lnet/minecraft/client/gui/GuiNewChat;, sig=null, start=L0, end=L3>
+
+         L0 {
+             aload 0 // reference to self
+             iconst_0
+             putfield net/minecraft/client/gui/GuiNewChat.scrollPos:int
+         }
+         L1 {
+             aload 0 // reference to self
+             iconst_0
+             putfield net/minecraft/client/gui/GuiNewChat.isScrolled:boolean
+         }
+         L2 {
+             return
+         }
+         L3 {
+         }
+     }
+
+     public void scroll(int arg0) { //(I)V
+         <localVar:index=0 , name=this , desc=Lnet/minecraft/client/gui/GuiNewChat;, sig=null, start=L0, end=L8>
+         <localVar:index=1 , name=☃ , desc=I, sig=null, start=L0, end=L8>
+         <localVar:index=2 , name=☃ , desc=I, sig=null, start=L2, end=L8>
+
+         L0 {
+             aload 0 // reference to self
+             dup
+             getfield net/minecraft/client/gui/GuiNewChat.scrollPos:int
+             iload 1
+             iadd
+             putfield net/minecraft/client/gui/GuiNewChat.scrollPos:int
+         }
+         L1 {
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.drawnChatLines:java.util.List
+             invokeinterface java/util/List.size()I
+             istore 2
+         }
+         L2 {
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.scrollPos:int
+             iload 2
+             aload 0 // reference to self
+             invokevirtual net/minecraft/client/gui/GuiNewChat.getLineCount()I
+             isub
+             if_icmple L4
+         }
+         L3 {
+             aload 0 // reference to self
+             iload 2
+             aload 0 // reference to self
+             invokevirtual net/minecraft/client/gui/GuiNewChat.getLineCount()I
+             isub
+             putfield net/minecraft/client/gui/GuiNewChat.scrollPos:int
+         }
+         L4 {
+             f_new (Locals[3]: net/minecraft/client/gui/GuiNewChat, int, int) (Stack[0]) 
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.scrollPos:int
+             ifgt L7
+         }
+         L5 {
+             aload 0 // reference to self
+             iconst_0
+             putfield net/minecraft/client/gui/GuiNewChat.scrollPos:int
+         }
+         L6 {
+             aload 0 // reference to self
+             iconst_0
+             putfield net/minecraft/client/gui/GuiNewChat.isScrolled:boolean
+         }
+         L7 {
+             f_new (Locals[3]: net/minecraft/client/gui/GuiNewChat, int, int) (Stack[0]) 
+             return
+         }
+         L8 {
+         }
+     }
+
+     public net.minecraft.util.IChatComponent getChatComponent(int arg0, int arg1) { //(II)Lnet/minecraft/util/IChatComponent;
+         <localVar:index=0 , name=this , desc=Lnet/minecraft/client/gui/GuiNewChat;, sig=null, start=L0, end=L26>
+         <localVar:index=1 , name=☃ , desc=I, sig=null, start=L0, end=L26>
+         <localVar:index=2 , name=☃ , desc=I, sig=null, start=L0, end=L26>
+         <localVar:index=3 , name=☃ , desc=Lnet/minecraft/client/gui/ScaledResolution;, sig=null, start=L3, end=L26>
+         <localVar:index=4 , name=☃ , desc=I, sig=null, start=L4, end=L26>
+         <localVar:index=5 , name=☃ , desc=F, sig=null, start=L5, end=L26>
+         <localVar:index=6 , name=☃ , desc=I, sig=null, start=L6, end=L26>
+         <localVar:index=7 , name=☃ , desc=I, sig=null, start=L7, end=L26>
+         <localVar:index=8 , name=☃ , desc=I, sig=null, start=L12, end=L26>
+         <localVar:index=9 , name=☃ , desc=I, sig=null, start=L14, end=L25>
+         <localVar:index=10 , name=☃ , desc=Lnet/minecraft/client/gui/ChatLine;, sig=null, start=L16, end=L24>
+         <localVar:index=11 , name=☃ , desc=I, sig=null, start=L17, end=L24>
+         <localVar:index=12 , name=☃ , desc=Ljava/util/Iterator;, sig=null, start=L18, end=L24>
+         <localVar:index=13 , name=☃ , desc=Lnet/minecraft/util/IChatComponent;, sig=null, start=L19, end=L23>
+         <localVar:index=14 , name=injectorAllocatedLocal14 , desc=F, sig=null, start=L0, end=L26>
+
+         L0 {
+             aload 0 // reference to self
+             invokevirtual net/minecraft/client/gui/GuiNewChat.getChatOpen()Z
+             ifne L2
+         }
+         L1 {
+             aconst_null
+             areturn
+         }
+         L2 {
+             f_new (Locals[3]: net/minecraft/client/gui/GuiNewChat, int, int) (Stack[0]) 
+             new net/minecraft/client/gui/ScaledResolution
+             dup
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.mc:net.minecraft.client.Minecraft
+             invokespecial net/minecraft/client/gui/ScaledResolution.<init>(Lnet/minecraft/client/Minecraft;)V
+             astore 3
+         }
+         L3 {
+             aload 3
+             invokevirtual net/minecraft/client/gui/ScaledResolution.getScaleFactor()I
+             istore 4
+         }
+         L4 {
+             aload 0 // reference to self
+             invokevirtual net/minecraft/client/gui/GuiNewChat.getChatScale()F
+             fstore 5
+         }
+         L5 {
+             iload 1 // reference to arg0
+             iload 4
+             idiv
+             iconst_3
+             isub
+             istore 6
+         }
+         L6 {
+             iload 2
+             iload 4
+             idiv
+             bipush 27
+             isub
+             istore 7
+         }
+         L7 {
+             iload 6
+             i2f
+             fload 5
+             fdiv
+             invokestatic net/minecraft/util/MathHelper.floor_float(F)I
+             istore 6
+         }
+         L8 {
+             iload 7
+             i2f
+             fload 5
+             fdiv
+             fstore 14
+             aload 0 // reference to self
+             fload 14
+             invokespecial net/minecraft/client/gui/GuiNewChat.redirect$zga000$lunar$getChatComponent$yPos$v1_7(F)I
+             istore 7
+         }
+         L9 {
+             iload 6
+             iflt L10
+             iload 7
+             ifge L11
+         }
+         L10 {
+             f_new (Locals[15]: net/minecraft/client/gui/GuiNewChat, int, int, net/minecraft/client/gui/ScaledResolution, int, float, int, int, top, top, top, top, top, top, float) (Stack[0]) 
+             aconst_null
+             areturn
+         }
+         L11 {
+             f_new (Locals[15]: net/minecraft/client/gui/GuiNewChat, int, int, net/minecraft/client/gui/ScaledResolution, int, float, int, int, top, top, top, top, top, top, float) (Stack[0]) 
+             aload 0 // reference to self
+             invokevirtual net/minecraft/client/gui/GuiNewChat.getLineCount()I
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.drawnChatLines:java.util.List
+             invokeinterface java/util/List.size()I
+             invokestatic java/lang/Math.min(II)I
+             istore 8
+         }
+         L12 {
+             iload 6
+             aload 0 // reference to self
+             invokevirtual net/minecraft/client/gui/GuiNewChat.getChatWidth()I
+             i2f
+             aload 0 // reference to self
+             invokevirtual net/minecraft/client/gui/GuiNewChat.getChatScale()F
+             fdiv
+             invokestatic net/minecraft/util/MathHelper.floor_float(F)I
+             if_icmpgt L25
+             iload 7
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.mc:net.minecraft.client.Minecraft
+             getfield net/minecraft/client/Minecraft.fontRendererObj:net.minecraft.client.gui.FontRenderer
+             getfield net/minecraft/client/gui/FontRenderer.FONT_HEIGHT:int
+             iload 8
+             imul
+             iload 8
+             iadd
+             if_icmpge L25
+         }
+         L13 {
+             iload 7
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.mc:net.minecraft.client.Minecraft
+             getfield net/minecraft/client/Minecraft.fontRendererObj:net.minecraft.client.gui.FontRenderer
+             getfield net/minecraft/client/gui/FontRenderer.FONT_HEIGHT:int
+             idiv
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.scrollPos:int
+             iadd
+             istore 9
+         }
+         L14 {
+             iload 9
+             iflt L24
+             iload 9
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.drawnChatLines:java.util.List
+             invokeinterface java/util/List.size()I
+             if_icmpge L24
+         }
+         L15 {
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.drawnChatLines:java.util.List
+             iload 9
+             invokeinterface java/util/List.get(I)Ljava/lang/Object;
+             checkcast net/minecraft/client/gui/ChatLine
+             astore 10
+         }
+         L16 {
+             iconst_0
+             istore 11
+         }
+         L17 {
+             aload 10
+             aload 0 // reference to self
+             iload 1 // reference to arg0
+             iload 2
+             aconst_null
+             aload 3
+             iload 4
+             fload 5
+             iload 6
+             iload 7
+             iload 8
+             iload 9
+             aload 10
+             iload 11
+             invokevirtual net/minecraft/client/gui/GuiNewChat.handler$zga000$lunar$getLastChatLineHovered(IILorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;Lnet/minecraft/client/gui/ScaledResolution;IFIIIILnet/minecraft/client/gui/ChatLine;I)V
+             invokevirtual net/minecraft/client/gui/ChatLine.getChatComponent()Lnet/minecraft/util/IChatComponent;
+             invokeinterface net/minecraft/util/IChatComponent.iterator()Ljava/util/Iterator;
+             astore 12
+         }
+         L18 {
+             f_new (Locals[15]: net/minecraft/client/gui/GuiNewChat, int, int, net/minecraft/client/gui/ScaledResolution, int, float, int, int, int, int, net/minecraft/client/gui/ChatLine, int, java/util/Iterator, top, float) (Stack[0]) 
+             aload 12
+             invokeinterface java/util/Iterator.hasNext()Z
+             ifeq L24
+             aload 12
+             invokeinterface java/util/Iterator.next()Ljava/lang/Object;
+             checkcast net/minecraft/util/IChatComponent
+             astore 13
+         }
+         L19 {
+             aload 13
+             instanceof net/minecraft/util/ChatComponentText
+             ifeq L23
+         }
+         L20 {
+             iload 11
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.mc:net.minecraft.client.Minecraft
+             getfield net/minecraft/client/Minecraft.fontRendererObj:net.minecraft.client.gui.FontRenderer
+             aload 13
+             checkcast net/minecraft/util/ChatComponentText
+             invokevirtual net/minecraft/util/ChatComponentText.getChatComponentText_TextValue()Ljava/lang/String;
+             iconst_0
+             invokestatic net/minecraft/client/gui/GuiUtilRenderComponents.func_178909_a(Ljava/lang/String;Z)Ljava/lang/String;
+             invokevirtual net/minecraft/client/gui/FontRenderer.getStringWidth(Ljava/lang/String;)I
+             iadd
+             istore 11
+         }
+         L21 {
+             iload 11
+             iload 6
+             if_icmple L23
+         }
+         L22 {
+             aload 13
+             areturn
+         }
+         L23 {
+             f_new (Locals[15]: net/minecraft/client/gui/GuiNewChat, int, int, net/minecraft/client/gui/ScaledResolution, int, float, int, int, int, int, net/minecraft/client/gui/ChatLine, int, java/util/Iterator, net/minecraft/util/IChatComponent, float) (Stack[0]) 
+             goto L18
+         }
+         L24 {
+             f_new (Locals[15]: net/minecraft/client/gui/GuiNewChat, int, int, net/minecraft/client/gui/ScaledResolution, int, float, int, int, int, int, top, top, top, top, float) (Stack[0]) 
+             aconst_null
+             areturn
+         }
+         L25 {
+             f_new (Locals[15]: net/minecraft/client/gui/GuiNewChat, int, int, net/minecraft/client/gui/ScaledResolution, int, float, int, int, int, top, top, top, top, top, float) (Stack[0]) 
+             aconst_null
+             areturn
+         }
+         L26 {
+         }
+     }
+
+     public boolean getChatOpen() { //()Z
+         <localVar:index=0 , name=this , desc=Lnet/minecraft/client/gui/GuiNewChat;, sig=null, start=L0, end=L1>
+
+         L0 {
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.mc:net.minecraft.client.Minecraft
+             getfield net/minecraft/client/Minecraft.currentScreen:net.minecraft.client.gui.GuiScreen
+             instanceof net/minecraft/client/gui/GuiChat
+             ireturn
+         }
+         L1 {
+         }
+     }
+
+     public void deleteChatLine(int arg0) { //(I)V
+         <localVar:index=0 , name=this , desc=Lnet/minecraft/client/gui/GuiNewChat;, sig=null, start=L0, end=L14>
+         <localVar:index=1 , name=☃ , desc=I, sig=null, start=L0, end=L14>
+         <localVar:index=2 , name=☃ , desc=Ljava/util/Iterator;, sig=Ljava/util/Iterator<Lnet/minecraft/client/gui/ChatLine;>;, start=L1, end=L14>
+         <localVar:index=3 , name=☃ , desc=Lnet/minecraft/client/gui/ChatLine;, sig=null, start=L3, end=L5>
+         <localVar:index=3 , name=☃ , desc=Lnet/minecraft/client/gui/ChatLine;, sig=null, start=L9, end=L12>
+
+         L0 {
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.drawnChatLines:java.util.List
+             invokeinterface java/util/List.iterator()Ljava/util/Iterator;
+             astore 2
+         }
+         L1 {
+             f_new (Locals[3]: net/minecraft/client/gui/GuiNewChat, int, java/util/Iterator) (Stack[0]) 
+             aload 2
+             invokeinterface java/util/Iterator.hasNext()Z
+             ifeq L6
+         }
+         L2 {
+             aload 2
+             invokeinterface java/util/Iterator.next()Ljava/lang/Object;
+             checkcast net/minecraft/client/gui/ChatLine
+             astore 3
+         }
+         L3 {
+             aload 3
+             invokevirtual net/minecraft/client/gui/ChatLine.getChatLineID()I
+             iload 1
+             if_icmpne L5
+         }
+         L4 {
+             aload 2
+             invokeinterface java/util/Iterator.remove()V
+         }
+         L5 {
+             f_new (Locals[4]: net/minecraft/client/gui/GuiNewChat, int, java/util/Iterator, net/minecraft/client/gui/ChatLine) (Stack[0]) 
+             goto L1
+         }
+         L6 {
+             f_new (Locals[3]: net/minecraft/client/gui/GuiNewChat, int, java/util/Iterator) (Stack[0]) 
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.chatLines:java.util.List
+             invokeinterface java/util/List.iterator()Ljava/util/Iterator;
+             astore 2
+         }
+         L7 {
+             f_new (Locals[3]: net/minecraft/client/gui/GuiNewChat, int, java/util/Iterator) (Stack[0]) 
+             aload 2
+             invokeinterface java/util/Iterator.hasNext()Z
+             ifeq L13
+         }
+         L8 {
+             aload 2
+             invokeinterface java/util/Iterator.next()Ljava/lang/Object;
+             checkcast net/minecraft/client/gui/ChatLine
+             astore 3
+         }
+         L9 {
+             aload 3
+             invokevirtual net/minecraft/client/gui/ChatLine.getChatLineID()I
+             iload 1
+             if_icmpne L12
+         }
+         L10 {
+             aload 2
+             invokeinterface java/util/Iterator.remove()V
+         }
+         L11 {
+             goto L13
+         }
+         L12 {
+             f_new (Locals[4]: net/minecraft/client/gui/GuiNewChat, int, java/util/Iterator, net/minecraft/client/gui/ChatLine) (Stack[0]) 
+             goto L7
+         }
+         L13 {
+             f_new (Locals[3]: net/minecraft/client/gui/GuiNewChat, int, java/util/Iterator) (Stack[0]) 
+             return
+         }
+         L14 {
+         }
+     }
+
+     public int getChatWidth() { //()I
+         <localVar:index=0 , name=this , desc=Lnet/minecraft/client/gui/GuiNewChat;, sig=null, start=L0, end=L1>
+
+         L0 {
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.mc:net.minecraft.client.Minecraft
+             getfield net/minecraft/client/Minecraft.gameSettings:net.minecraft.client.settings.GameSettings
+             getfield net/minecraft/client/settings/GameSettings.chatWidth:float
+             invokestatic net/minecraft/client/gui/GuiNewChat.calculateChatboxWidth(F)I
+             ireturn
+         }
+         L1 {
+         }
+     }
+
+     public int getChatHeight() { //()I
+         <localVar:index=0 , name=this , desc=Lnet/minecraft/client/gui/GuiNewChat;, sig=null, start=L0, end=L3>
+
+         L0 {
+             aload 0 // reference to self
+             invokevirtual net/minecraft/client/gui/GuiNewChat.getChatOpen()Z
+             ifeq L1
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.mc:net.minecraft.client.Minecraft
+             getfield net/minecraft/client/Minecraft.gameSettings:net.minecraft.client.settings.GameSettings
+             getfield net/minecraft/client/settings/GameSettings.chatHeightFocused:float
+             goto L2
+         }
+         L1 {
+             f_new (Locals[1]: net/minecraft/client/gui/GuiNewChat) (Stack[0]) 
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.mc:net.minecraft.client.Minecraft
+             getfield net/minecraft/client/Minecraft.gameSettings:net.minecraft.client.settings.GameSettings
+             getfield net/minecraft/client/settings/GameSettings.chatHeightUnfocused:float
+         }
+         L2 {
+             f_new (Locals[1]: net/minecraft/client/gui/GuiNewChat) (Stack[1]: float) 
+             invokestatic net/minecraft/client/gui/GuiNewChat.calculateChatboxHeight(F)I
+             ireturn
+         }
+         L3 {
+         }
+     }
+
+     public float getChatScale() { //()F
+         <localVar:index=0 , name=this , desc=Lnet/minecraft/client/gui/GuiNewChat;, sig=null, start=L0, end=L1>
+
+         L0 {
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.mc:net.minecraft.client.Minecraft
+             getfield net/minecraft/client/Minecraft.gameSettings:net.minecraft.client.settings.GameSettings
+             getfield net/minecraft/client/settings/GameSettings.chatScale:float
+             freturn
+         }
+         L1 {
+         }
+     }
+
+     public static int calculateChatboxWidth(float arg0) { //(F)I
+         <localVar:index=0 , name=☃ , desc=F, sig=null, start=L0, end=L3>
+         <localVar:index=1 , name=☃ , desc=I, sig=null, start=L1, end=L3>
+         <localVar:index=2 , name=☃ , desc=I, sig=null, start=L2, end=L3>
+
+         L0 {
+             sipush 320
+             istore 1
+         }
+         L1 {
+             bipush 40
+             istore 2
+         }
+         L2 {
+             fload 0
+             iload 1
+             iload 2
+             isub
+             i2f
+             fmul
+             iload 2
+             i2f
+             fadd
+             invokestatic net/minecraft/util/MathHelper.floor_float(F)I
+             ireturn
+         }
+         L3 {
+         }
+     }
+
+     public static int calculateChatboxHeight(float arg0) { //(F)I
+         <localVar:index=0 , name=☃ , desc=F, sig=null, start=L0, end=L3>
+         <localVar:index=1 , name=☃ , desc=I, sig=null, start=L1, end=L3>
+         <localVar:index=2 , name=☃ , desc=I, sig=null, start=L2, end=L3>
+
+         L0 {
+             sipush 180
+             istore 1
+         }
+         L1 {
+             bipush 20
+             istore 2
+         }
+         L2 {
+             fload 0
+             iload 1
+             iload 2
+             isub
+             i2f
+             fmul
+             iload 2
+             i2f
+             fadd
+             invokestatic net/minecraft/util/MathHelper.floor_float(F)I
+             ireturn
+         }
+         L3 {
+         }
+     }
+
+     public int getLineCount() { //()I
+         <localVar:index=0 , name=this , desc=Lnet/minecraft/client/gui/GuiNewChat;, sig=null, start=L0, end=L1>
+
+         L0 {
+             aload 0 // reference to self
+             invokevirtual net/minecraft/client/gui/GuiNewChat.getChatHeight()I
+             bipush 9
+             idiv
+             ireturn
+         }
+         L1 {
+         }
+     }
+
+     public static  { // <clinit> //()V
+         L0 {
+             invokestatic org/apache/logging/log4j/LogManager.getLogger()Lorg/apache/logging/log4j/Logger;
+             putstatic net/minecraft/client/gui/GuiNewChat.logger:org.apache.logging.log4j.Logger
+             fconst_0
+             putstatic net/minecraft/client/gui/GuiNewChat.lunar$percentTranslated:float
+             ldc -1 (java.lang.Long)
+             putstatic net/minecraft/client/gui/GuiNewChat.lunar$lastUpdate:long
+             return
+         }
+     }
+
+     public static net.minecraft.client.gui.GuiNewChat newInstance(net.minecraft.client.Minecraft arg0) { //(Lnet/minecraft/client/Minecraft;)Lnet/minecraft/client/gui/GuiNewChat;
+             new net/minecraft/client/gui/GuiNewChat
+             dup
+             aload 0
+             invokespecial net/minecraft/client/gui/GuiNewChat.<init>(Lnet/minecraft/client/Minecraft;)V
+             areturn
+     }
+
+     public static net.minecraft.client.gui.GuiNewChat newInstance() { //()Lnet/minecraft/client/gui/GuiNewChat;
+             new net/minecraft/client/gui/GuiNewChat
+             dup
+             invokespecial net/minecraft/client/gui/GuiNewChat.<init>()V
+             areturn
+     }
+
+     public void bridge$addMessage(com.moonsworth.lunar.RIHHROCICHHCHRCORIRRRCICC.HRIOHRIIROHRROORRRHOICCIR.RIHHROCICHHCHRCORIRRRCICC.RIHHROCICHHCHRCORIRRRCICC arg0) { //(Lcom/moonsworth/lunar/RIHHROCICHHCHRCORIRRRCICC/HRIOHRIIROHRROORRRHOICCIR/RIHHROCICHHCHRCORIRRRCICC/RIHHROCICHHCHRCORIRRRCICC;)V
+         <visAnno:desc = Lorg/spongepowered/asm/mixin/transformer/meta/MixinMerged; , values = [mixin, com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.RCIORCIHCCRCHOORORCRIHOIO.RCIORCIHCCRCHOORORCRIHOIO.HRHHOIHOCCCRIOORHRROHOORI.HOCOROIIHRRROIHCCRHCCHHRH, priority, 200, sessionId, 09a44760-496b-41b0-a154-539f6a70fb05]>
+
+         L0 {
+             aload 0 // reference to self
+             aload 1
+             checkcast net/minecraft/util/IChatComponent
+             invokevirtual net/minecraft/client/gui/GuiNewChat.printChatMessage(Lnet/minecraft/util/IChatComponent;)V
+         }
+         L1 {
+             return
+         }
+     }
+
+     public void bridge$addMessageWithId(com.moonsworth.lunar.RIHHROCICHHCHRCORIRRRCICC.HRIOHRIIROHRROORRRHOICCIR.RIHHROCICHHCHRCORIRRRCICC.RIHHROCICHHCHRCORIRRRCICC arg0, int arg1) { //(Lcom/moonsworth/lunar/RIHHROCICHHCHRCORIRRRCICC/HRIOHRIIROHRROORRRHOICCIR/RIHHROCICHHCHRCORIRRRCICC/RIHHROCICHHCHRCORIRRRCICC;I)V
+         <visAnno:desc = Lorg/spongepowered/asm/mixin/transformer/meta/MixinMerged; , values = [mixin, com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.RCIORCIHCCRCHOORORCRIHOIO.RCIORCIHCCRCHOORORCRIHOIO.HRHHOIHOCCCRIOORHRROHOORI.HOCOROIIHRRROIHCCRHCCHHRH, priority, 200, sessionId, 09a44760-496b-41b0-a154-539f6a70fb05]>
+
+         L0 {
+             aload 0 // reference to self
+             aload 1 // reference to arg0
+             checkcast net/minecraft/util/IChatComponent
+             iload 2
+             invokevirtual net/minecraft/client/gui/GuiNewChat.printChatMessageWithOptionalDeletion(Lnet/minecraft/util/IChatComponent;I)V
+         }
+         L1 {
+             return
+         }
+     }
+
+     public void bridge$deleteMessage(int arg0) { //(I)V
+         <visAnno:desc = Lorg/spongepowered/asm/mixin/transformer/meta/MixinMerged; , values = [mixin, com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.RCIORCIHCCRCHOORORCRIHOIO.RCIORCIHCCRCHOORORCRIHOIO.HRHHOIHOCCCRIOORHRROHOORI.HOCOROIIHRRROIHCCRHCCHHRH, priority, 200, sessionId, 09a44760-496b-41b0-a154-539f6a70fb05]>
+
+         L0 {
+             aload 0 // reference to self
+             iload 1
+             invokevirtual net/minecraft/client/gui/GuiNewChat.deleteChatLine(I)V
+         }
+         L1 {
+             return
+         }
+     }
+
+     public boolean bridge$getChatOpen() { //()Z
+         <visAnno:desc = Lorg/spongepowered/asm/mixin/transformer/meta/MixinMerged; , values = [mixin, com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.RCIORCIHCCRCHOORORCRIHOIO.RCIORCIHCCRCHOORORCRIHOIO.HRHHOIHOCCCRIOORHRROHOORI.HOCOROIIHRRROIHCCRHCCHHRH, priority, 200, sessionId, 09a44760-496b-41b0-a154-539f6a70fb05]>
+
+         L0 {
+             aload 0 // reference to self
+             invokevirtual net/minecraft/client/gui/GuiNewChat.getChatOpen()Z
+             ireturn
+         }
+     }
+
+     private net.minecraft.util.IChatComponent lunar$handleChatMessage(net.minecraft.util.IChatComponent arg0, boolean arg1, com.llamalad7.mixinextras.sugar.ref.LocalRef arg2) { //(Lnet/minecraft/util/IChatComponent;ZLcom/llamalad7/mixinextras/sugar/ref/LocalRef;)Lnet/minecraft/util/IChatComponent;
+         <visAnno:desc = Lorg/spongepowered/asm/mixin/Unique; , values = []>
+         <visAnno:desc = Lorg/spongepowered/asm/mixin/transformer/meta/MixinMerged; , values = [mixin, com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.HRHHOIHOCCCRIOORHRROHOORI.RIHHROCICHHCHRCORIRRRCICC.HRHHOIHOCCCRIOORHRROHOORI.HRHHOIHOCCCRIOORHRROHOORI.RRRRHHCCORCIICOOCOOIHHCOR, priority, 200, sessionId, 09a44760-496b-41b0-a154-539f6a70fb05]>
+
+         L0 {
+             iload 2 // reference to arg1
+             ifeq L2
+         }
+         L1 {
+             aload 1 // reference to arg0
+             areturn
+         }
+         L2 {
+             f_new (Locals[4]: net/minecraft/client/gui/GuiNewChat, net/minecraft/util/IChatComponent, int, com/llamalad7/mixinextras/sugar/ref/LocalRef) (Stack[0]) 
+             aload 1 // reference to arg0
+             checkcast com/moonsworth/lunar/RIHHROCICHHCHRCORIRRRCICC/HRIOHRIIROHRROORRRHOICCIR/RIHHROCICHHCHRCORIRRRCICC/RIHHROCICHHCHRCORIRRRCICC
+             invokestatic com/moonsworth/lunar/RIHHROCICHHCHRCORIRRRCICC/RIHHROCICHHCHRCORIRRRCICC/RCIORCIHCCRCHOORORCRIHOIO.asAdventure(Lcom/moonsworth/lunar/RIHHROCICHHCHRCORIRRRCICC/HRIOHRIIROHRROORRRHOICCIR/RIHHROCICHHCHRCORIRRRCICC/RIHHROCICHHCHRCORIRRRCICC;)Lnet/kyori/adventure/text/Component;
+             astore 4
+         }
+         L3 {
+             new com/moonsworth/lunar/client/COCOIOOHRIOIHOHIIICRHRRHO/IRRCOHRHIIICICORRHIIRRHHC/IRRCOHRHIIICICORRHIIRRHHC/HRHHOIHOCCCRIOORHRROHOORI
+             dup
+             aload 4
+             getstatic com/moonsworth/lunar/client/COCOIOOHRIOIHOHIIICRHRRHO/IRRCOHRHIIICICORRHIIRRHHC/IRRCOHRHIIICICORRHIIRRHHC/HRHHOIHOCCCRIOORHRROHOORI$RIHHROCICHHCHRCORIRRRCICC.CHAT_BOX:com.moonsworth.lunar.client.COCOIOOHRIOIHOHIIICRHRRHO.IRRCOHRHIIICICORRHIIRRHHC.IRRCOHRHIIICICORRHIIRRHHC.HRHHOIHOCCCRIOORHRROHOORI$RIHHROCICHHCHRCORIRRRCICC
+             invokespecial com/moonsworth/lunar/client/COCOIOOHRIOIHOHIIICRHRRHO/IRRCOHRHIIICICORRHIIRRHHC/IRRCOHRHIIICICORRHIIRRHHC/HRHHOIHOCCCRIOORHRROHOORI.<init>(Lnet/kyori/adventure/text/Component;Lcom/moonsworth/lunar/client/COCOIOOHRIOIHOHIIICRHRRHO/IRRCOHRHIIICICORRHIIRRHHC/IRRCOHRHIIICICORRHIIRRHHC/HRHHOIHOCCCRIOORHRROHOORI$RIHHROCICHHCHRCORIRRRCICC;)V
+             astore 5
+         }
+         L4 {
+             aload 3
+             aload 5
+             invokeinterface com/llamalad7/mixinextras/sugar/ref/LocalRef.set(Ljava/lang/Object;)V
+         }
+         L5 {
+             invokestatic com/moonsworth/lunar/client/COCOIOOHRIOIHOHIIICRHRRHO/IRRCOHRHIIICICORRHIIRRHHC.HCCHHROHCOCORORICIHIRHIIO()Lcom/moonsworth/lunar/client/COCOIOOHRIOIHOHIIICRHRRHO/IRRCOHRHIIICICORRHIIRRHHC;
+             aload 5
+             invokevirtual com/moonsworth/lunar/client/COCOIOOHRIOIHOHIIICRHRRHO/IRRCOHRHIIICICORRHIIRRHHC.RIHHROCICHHCHRCORIRRRCICC(Lcom/moonsworth/lunar/client/COCOIOOHRIOIHOHIIICRHRRHO/RIHHROCICHHCHRCORIRRRCICC;)Lcom/moonsworth/lunar/client/COCOIOOHRIOIHOHIIICRHRRHO/RIHHROCICHHCHRCORIRRRCICC;
+             pop
+         }
+         L6 {
+             aload 5
+             invokevirtual com/moonsworth/lunar/client/COCOIOOHRIOIHOHIIICRHRRHO/IRRCOHRHIIICICORRHIIRRHHC/IRRCOHRHIIICICORRHIIRRHHC/HRHHOIHOCCCRIOORHRROHOORI.isCancelled()Z
+             ifeq L8
+         }
+         L7 {
+             aconst_null
+             areturn
+         }
+         L8 {
+             f_new (Locals[6]: net/minecraft/client/gui/GuiNewChat, net/minecraft/util/IChatComponent, int, com/llamalad7/mixinextras/sugar/ref/LocalRef, net/kyori/adventure/text/Component, com/moonsworth/lunar/client/COCOIOOHRIOIHOHIIICRHRRHO/IRRCOHRHIIICICORRHIIRRHHC/IRRCOHRHIIICICORRHIIRRHHC/HRHHOIHOCCCRIOORHRROHOORI) (Stack[0]) 
+             aload 5
+             invokevirtual com/moonsworth/lunar/client/COCOIOOHRIOIHOHIIICRHRRHO/IRRCOHRHIIICICORRHIIRRHHC/IRRCOHRHIIICICORRHIIRRHHC/HRHHOIHOCCCRIOORHRROHOORI.isChanged()Z
+             ifne L10
+         }
+         L9 {
+             aload 1 // reference to arg0
+             areturn
+         }
+         L10 {
+             f_new (Locals[6]: net/minecraft/client/gui/GuiNewChat, net/minecraft/util/IChatComponent, int, com/llamalad7/mixinextras/sugar/ref/LocalRef, net/kyori/adventure/text/Component, com/moonsworth/lunar/client/COCOIOOHRIOIHOHIIICRHRRHO/IRRCOHRHIIICICORRHIIRRHHC/IRRCOHRHIIICICORRHIIRRHHC/HRHHOIHOCCCRIOORHRROHOORI) (Stack[0]) 
+             aload 5
+             invokevirtual com/moonsworth/lunar/client/COCOIOOHRIOIHOHIIICRHRRHO/IRRCOHRHIIICICORRHIIRRHHC/IRRCOHRHIIICICORRHIIRRHHC/HRHHOIHOCCCRIOORHRROHOORI.CIOCRORCRCIHICRHOOHHORRHH()Lnet/kyori/adventure/text/Component;
+             invokestatic com/moonsworth/lunar/RIHHROCICHHCHRCORIRRRCICC/RIHHROCICHHCHRCORIRRRCICC/RCIORCIHCCRCHOORORCRIHOIO.asBridge(Lnet/kyori/adventure/text/Component;)Lcom/moonsworth/lunar/RIHHROCICHHCHRCORIRRRCICC/HRIOHRIIROHRROORRRHOICCIR/RIHHROCICHHCHRCORIRRRCICC/RIHHROCICHHCHRCORIRRRCICC;
+             checkcast net/minecraft/util/IChatComponent
+             areturn
+         }
+     }
+
+     private void lunar$removeLastMessage() { //()V
+         <visAnno:desc = Lorg/spongepowered/asm/mixin/Unique; , values = []>
+         <visAnno:desc = Lorg/spongepowered/asm/mixin/transformer/meta/MixinMerged; , values = [mixin, com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.HRHHOIHOCCCRIOORHRROHOORI.RIHHROCICHHCHRCORIRRRCICC.HRHHOIHOCCCRIOORHRROHOORI.HRHHOIHOCCCRIOORHRROHOORI.RRRRHHCCORCIICOOCOOIHHCOR, priority, 200, sessionId, 09a44760-496b-41b0-a154-539f6a70fb05]>
+
+         L0 {
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.chatLines:java.util.List
+             iconst_0
+             invokeinterface java/util/List.remove(I)Ljava/lang/Object;
+             pop
+         }
+         L1 {
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.scrollPos:int
+             istore 1
+         }
+         L2 {
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.isScrolled:boolean
+             istore 2
+         }
+         L3 {
+             aload 0 // reference to self
+             invokevirtual net/minecraft/client/gui/GuiNewChat.refreshChat()V
+         }
+         L4 {
+             aload 0 // reference to self
+             iload 1
+             putfield net/minecraft/client/gui/GuiNewChat.scrollPos:int
+         }
+         L5 {
+             aload 0 // reference to self
+             iload 2
+             putfield net/minecraft/client/gui/GuiNewChat.isScrolled:boolean
+         }
+         L6 {
+             return
+         }
+     }
+
+     private void lunar$handleCancellation(org.spongepowered.asm.mixin.injection.callback.CallbackInfo arg0, com.llamalad7.mixinextras.sugar.ref.LocalRef arg1) { //(Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;Lcom/llamalad7/mixinextras/sugar/ref/LocalRef;)V
+         <visAnno:desc = Lorg/spongepowered/asm/mixin/Unique; , values = []>
+         <visAnno:desc = Lorg/spongepowered/asm/mixin/transformer/meta/MixinMerged; , values = [mixin, com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.HRHHOIHOCCCRIOORHRROHOORI.RIHHROCICHHCHRCORIRRRCICC.HRHHOIHOCCCRIOORHRROHOORI.HRHHOIHOCCCRIOORHRROHOORI.RRRRHHCCORCIICOOCOOIHHCOR, priority, 200, sessionId, 09a44760-496b-41b0-a154-539f6a70fb05]>
+
+         L0 {
+             aload 2
+             invokeinterface com/llamalad7/mixinextras/sugar/ref/LocalRef.get()Ljava/lang/Object;
+             checkcast com/moonsworth/lunar/client/COCOIOOHRIOIHOHIIICRHRRHO/IRRCOHRHIIICICORRHIIRRHHC/IRRCOHRHIIICICORRHIIRRHHC/HRHHOIHOCCCRIOORHRROHOORI
+             astore 3
+         }
+         L1 {
+             aload 3
+             ifnonnull L3
+         }
+         L2 {
+             return
+         }
+         L3 {
+             f_new (Locals[4]: net/minecraft/client/gui/GuiNewChat, org/spongepowered/asm/mixin/injection/callback/CallbackInfo, com/llamalad7/mixinextras/sugar/ref/LocalRef, com/moonsworth/lunar/client/COCOIOOHRIOIHOHIIICRHRRHO/IRRCOHRHIIICICORRHIIRRHHC/IRRCOHRHIIICICORRHIIRRHHC/HRHHOIHOCCCRIOORHRROHOORI) (Stack[0]) 
+             aload 3
+             invokevirtual com/moonsworth/lunar/client/COCOIOOHRIOIHOHIIICRHRRHO/IRRCOHRHIIICICORRHIIRRHHC/IRRCOHRHIIICICORRHIIRRHHC/HRHHOIHOCCCRIOORHRROHOORI.isCancelled()Z
+             ifeq L5
+         }
+         L4 {
+             aload 1 // reference to arg0
+             invokevirtual org/spongepowered/asm/mixin/injection/callback/CallbackInfo.cancel()V
+             goto L6
+         }
+         L5 {
+             f_new (Locals[4]: net/minecraft/client/gui/GuiNewChat, org/spongepowered/asm/mixin/injection/callback/CallbackInfo, com/llamalad7/mixinextras/sugar/ref/LocalRef, com/moonsworth/lunar/client/COCOIOOHRIOIHOHIIICRHRRHO/IRRCOHRHIIICICORRHIIRRHHC/IRRCOHRHIIICICORRHIIRRHHC/HRHHOIHOCCCRIOORHRROHOORI) (Stack[0]) 
+             fconst_0
+             putstatic net/minecraft/client/gui/GuiNewChat.lunar$percentTranslated:float
+         }
+         L6 {
+             f_new (Locals[4]: net/minecraft/client/gui/GuiNewChat, org/spongepowered/asm/mixin/injection/callback/CallbackInfo, com/llamalad7/mixinextras/sugar/ref/LocalRef, com/moonsworth/lunar/client/COCOIOOHRIOIHOHIIICRHRRHO/IRRCOHRHIIICICORRHIIRRHHC/IRRCOHRHIIICICORRHIIRRHHC/HRHHOIHOCCCRIOORHRROHOORI) (Stack[0]) 
+             aload 3
+             invokevirtual com/moonsworth/lunar/client/COCOIOOHRIOIHOHIIICRHRRHO/IRRCOHRHIIICICORRHIIRRHHC/IRRCOHRHIIICICORRHIIRRHHC/HRHHOIHOCCCRIOORHRROHOORI.HIHOROIROIHCCORCHORRIRCOR()Z
+             ifeq L8
+         }
+         L7 {
+             aload 0 // reference to self
+             invokevirtual net/minecraft/client/gui/GuiNewChat.lunar$removeLastMessage()V
+         }
+         L8 {
+             f_new (Locals[4]: net/minecraft/client/gui/GuiNewChat, org/spongepowered/asm/mixin/injection/callback/CallbackInfo, com/llamalad7/mixinextras/sugar/ref/LocalRef, com/moonsworth/lunar/client/COCOIOOHRIOIHOHIIICRHRRHO/IRRCOHRHIIICICORRHIIRRHHC/IRRCOHRHIIICICORRHIIRRHHC/HRHHOIHOCCCRIOORHRROHOORI) (Stack[0]) 
+             return
+         }
+     }
+
+     private net.minecraft.util.IChatComponent localvar$zga000$lunar$modifyText(net.minecraft.util.IChatComponent arg0, boolean arg1, com.llamalad7.mixinextras.sugar.ref.LocalRef arg2) { //(Lnet/minecraft/util/IChatComponent;ZLcom/llamalad7/mixinextras/sugar/ref/LocalRef;)Lnet/minecraft/util/IChatComponent;
+         <visAnno:desc = Lorg/spongepowered/asm/mixin/transformer/meta/MixinMerged; , values = [mixin, com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.HRHHOIHOCCCRIOORHRROHOORI.RIHHROCICHHCHRCORIRRRCICC.HRHHOIHOCCCRIOORHRROHOORI.HRHHOIHOCCCRIOORHRROHOORI.RRRRHHCCORCIICOOCOOIHHCOR, priority, 200, sessionId, 09a44760-496b-41b0-a154-539f6a70fb05]>
+
+         L0 {
+             aload 0 // reference to self
+             aload 1 // reference to arg0
+             iload 2 // reference to arg1
+             aload 3
+             invokevirtual net/minecraft/client/gui/GuiNewChat.lunar$handleChatMessage(Lnet/minecraft/util/IChatComponent;ZLcom/llamalad7/mixinextras/sugar/ref/LocalRef;)Lnet/minecraft/util/IChatComponent;
+             areturn
+         }
+     }
+
+     private void handler$zga000$lunar$cancelAdd(net.minecraft.util.IChatComponent arg0, int arg1, int arg2, boolean arg3, org.spongepowered.asm.mixin.injection.callback.CallbackInfo arg4, com.llamalad7.mixinextras.sugar.ref.LocalRef arg5) { //(Lnet/minecraft/util/IChatComponent;IIZLorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;Lcom/llamalad7/mixinextras/sugar/ref/LocalRef;)V
+         <visAnno:desc = Lorg/spongepowered/asm/mixin/transformer/meta/MixinMerged; , values = [mixin, com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.HRHHOIHOCCCRIOORHRROHOORI.RIHHROCICHHCHRCORIRRRCICC.HRHHOIHOCCCRIOORHRROHOORI.HRHHOIHOCCCRIOORHRROHOORI.RRRRHHCCORCIICOOCOOIHHCOR, priority, 200, sessionId, 09a44760-496b-41b0-a154-539f6a70fb05]>
+
+         L0 {
+             aload 0 // reference to self
+             aload 5 // reference to arg4
+             aload 6
+             invokevirtual net/minecraft/client/gui/GuiNewChat.lunar$handleCancellation(Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;Lcom/llamalad7/mixinextras/sugar/ref/LocalRef;)V
+         }
+         L1 {
+             return
+         }
+     }
+
+     private int constant$zga000$lunar$setChatLine$maxLines(int arg0) { //(I)I
+         <visAnno:desc = Lorg/spongepowered/asm/mixin/transformer/meta/MixinMerged; , values = [mixin, com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.HRHHOIHOCCCRIOORHRROHOORI.RIHHROCICHHCHRCORIRRRCICC.HRHHOIHOCCCRIOORHRROHOORI.HRHHOIHOCCCRIOORHRROHOORI.RRRRHHCCORCIICOOCOOIHHCOR, priority, 200, sessionId, 09a44760-496b-41b0-a154-539f6a70fb05]>
+
+         L0 {
+             invokestatic com/moonsworth/lunar/client/HIIRCOIOCRRHIRCOCIIRIOIOR/CHOOOOHOCHHCHRCCRHCIHCHOR.IRHOCIRCIRHRIRHOORHROHICR()Lcom/moonsworth/lunar/client/IRRCOHRHIIICICORRHIIRRHHC;
+             invokevirtual com/moonsworth/lunar/client/IRRCOHRHIIICICORRHIIRRHHC.OIORHIOIRIHHIHHOHRORHHOCI()Lcom/moonsworth/lunar/client/ROCHIRHIOCCORHIIRRCHHROIC/RRRRHHCCORCIICOOCOOIHHCOR/HRIOHRIIROHRROORRRHOICCIR;
+             invokevirtual com/moonsworth/lunar/client/ROCHIRHIOCCORHIIRRCHHROIC/RRRRHHCCORCIICOOCOOIHHCOR/HRIOHRIIROHRROORRRHOICCIR.RICIHHHIRHRIOORCCOHIIIHHI()Lcom/moonsworth/lunar/client/CIRRIRIIHCOHHHIHOHHCHICHO/IRRCOHRHIIICICORRHIIRRHHC/OCRHCRIOCRHRORRIHIRRRORRO/RIHHROCICHHCHRCORIRRRCICC;
+             invokevirtual com/moonsworth/lunar/client/CIRRIRIIHCOHHHIHOHHCHICHO/IRRCOHRHIIICICORRHIIRRHHC/OCRHCRIOCRHRORRIHIRRRORRO/RIHHROCICHHCHRCORIRRRCICC.IRIRRHRCHHIIIOIIIOCOIIOCC()Lcom/moonsworth/lunar/client/HOCOROIIHRRROIHCCRHCCHHRH/RIHHROCICHHCHRCORIRRRCICC;
+             invokevirtual com/moonsworth/lunar/client/HOCOROIIHRRROIHCCRHCCHHRH/RIHHROCICHHCHRCORIRRRCICC.IIIOOIRRRHHHHCRIORHIIRHOO()Z
+             ifeq L1
+             sipush 1000
+             goto L2
+         }
+         L1 {
+             f_new (Locals[2]: net/minecraft/client/gui/GuiNewChat, int) (Stack[0]) 
+             iload 1
+         }
+         L2 {
+             f_new (Locals[2]: net/minecraft/client/gui/GuiNewChat, int) (Stack[1]: int) 
+             ireturn
+         }
+     }
+
+     private static void lunar$updateChatTranslation(long arg0) { //(J)V
+         <visAnno:desc = Lorg/spongepowered/asm/mixin/Unique; , values = []>
+         <visAnno:desc = Lorg/spongepowered/asm/mixin/transformer/meta/MixinMerged; , values = [mixin, com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.HRHHOIHOCCCRIOORHRROHOORI.RIHHROCICHHCHRCORIRRRCICC.HRHHOIHOCCCRIOORHRROHOORI.HRHHOIHOCCCRIOORHRROHOORI.RRRRHHCCORCIICOOCOOIHHCOR, priority, 200, sessionId, 09a44760-496b-41b0-a154-539f6a70fb05]>
+
+         L0 {
+             getstatic net/minecraft/client/gui/GuiNewChat.lunar$percentTranslated:float
+             fconst_1
+             fcmpg
+             ifge L2
+         }
+         L1 {
+             getstatic net/minecraft/client/gui/GuiNewChat.lunar$percentTranslated:float
+             invokestatic com/moonsworth/lunar/client/HIIRCOIOCRRHIRCOCIIRIOIOR/CHOOOOHOCHHCHRCCRHCIHCHOR.IRHOCIRCIRHRIRHOORHROHICR()Lcom/moonsworth/lunar/client/IRRCOHRHIIICICORRHIIRRHHC;
+             invokevirtual com/moonsworth/lunar/client/IRRCOHRHIIICICORRHIIRRHHC.OIORHIOIRIHHIHHOHRORHHOCI()Lcom/moonsworth/lunar/client/ROCHIRHIOCCORHIIRRCHHROIC/RRRRHHCCORCIICOOCOOIHHCOR/HRIOHRIIROHRROORRRHOICCIR;
+             invokevirtual com/moonsworth/lunar/client/ROCHIRHIOCCORHIIRRCHHROIC/RRRRHHCCORCIICOOCOOIHHCOR/HRIOHRIIROHRROORRRHOICCIR.RICIHHHIRHRIOORCCOHIIIHHI()Lcom/moonsworth/lunar/client/CIRRIRIIHCOHHHIHOHHCHICHO/IRRCOHRHIIICICORRHIIRRHHC/OCRHCRIOCRHRORRIHIRRRORRO/RIHHROCICHHCHRCORIRRRCICC;
+             invokevirtual com/moonsworth/lunar/client/CIRRIRIIHCOHHHIHOHHCHICHO/IRRCOHRHIIICICORRHIIRRHHC/OCRHCRIOCRHRORRIHIRRRORRO/RIHHROCICHHCHRCORIRRRCICC.RIHRIIHORHHHORCHIIHHOOCCH()F
+             lload 0
+             l2f
+             fmul
+             fadd
+             putstatic net/minecraft/client/gui/GuiNewChat.lunar$percentTranslated:float
+         }
+         L2 {
+             f_new (Locals[1]: long) (Stack[0]) 
+             getstatic net/minecraft/client/gui/GuiNewChat.lunar$percentTranslated:float
+             fconst_0
+             fconst_1
+             invokestatic com/moonsworth/lunar/client/HIIRCOIOCRRHIRCOCIIRIOIOR/ICIHCRRIHHCRICROHICIICRCH.ORHROHRIHOOHROCIRRRCCOIHR(FFF)F
+             putstatic net/minecraft/client/gui/GuiNewChat.lunar$percentTranslated:float
+         }
+         L3 {
+             return
+         }
+     }
+
+     private void handler$zga000$lunar$drawChat(int arg0, org.spongepowered.asm.mixin.injection.callback.CallbackInfo arg1) { //(ILorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V
+         <visAnno:desc = Lorg/spongepowered/asm/mixin/transformer/meta/MixinMerged; , values = [mixin, com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.HRHHOIHOCCCRIOORHRROHOORI.RIHHROCICHHCHRCORIRRRCICC.HRHHOIHOCCCRIOORHRROHOORI.HRHHOIHOCCCRIOORHRROHOORI.RRRRHHCCORCIICOOCOOIHHCOR, priority, 200, sessionId, 09a44760-496b-41b0-a154-539f6a70fb05]>
+
+         L0 {
+             invokestatic com/moonsworth/lunar/client/HIHCOHRCIORHIOIIIHRROCHRC/RIHHROCICHHCHRCORIRRRCICC.OOCCCOHOOCOOOCOIRIHRRHHIH()Z
+             ifeq L3
+             invokestatic com/moonsworth/lunar/client/HIHCOHRCIORHIOIIIHRROCHRC/RIHHROCICHHCHRCORIRRRCICC.ORCOIRICCCHOCROORRIOHROOR()Z
+             ifeq L3
+         }
+         L1 {
+             aload 2
+             invokevirtual org/spongepowered/asm/mixin/injection/callback/CallbackInfo.cancel()V
+         }
+         L2 {
+             return
+         }
+         L3 {
+             f_new (Locals[3]: net/minecraft/client/gui/GuiNewChat, int, org/spongepowered/asm/mixin/injection/callback/CallbackInfo) (Stack[0]) 
+             getstatic net/minecraft/client/gui/GuiNewChat.lunar$lastUpdate:long
+             ldc -1 (java.lang.Long)
+             lcmp
+             ifne L7
+         }
+         L4 {
+             invokestatic java/lang/System.currentTimeMillis()J
+             putstatic net/minecraft/client/gui/GuiNewChat.lunar$lastUpdate:long
+         }
+         L5 {
+             aload 2
+             invokevirtual org/spongepowered/asm/mixin/injection/callback/CallbackInfo.cancel()V
+         }
+         L6 {
+             return
+         }
+         L7 {
+             f_new (Locals[3]: net/minecraft/client/gui/GuiNewChat, int, org/spongepowered/asm/mixin/injection/callback/CallbackInfo) (Stack[0]) 
+             invokestatic java/lang/System.currentTimeMillis()J
+             lstore 3
+         }
+         L8 {
+             lload 3
+             getstatic net/minecraft/client/gui/GuiNewChat.lunar$lastUpdate:long
+             lsub
+             lstore 5
+         }
+         L9 {
+             lload 3
+             putstatic net/minecraft/client/gui/GuiNewChat.lunar$lastUpdate:long
+         }
+         L10 {
+             lload 5
+             invokestatic net/minecraft/client/gui/GuiNewChat.lunar$updateChatTranslation(J)V
+         }
+         L11 {
+             getstatic net/minecraft/client/gui/GuiNewChat.lunar$percentTranslated:float
+             fstore 7
+         }
+         L12 {
+             aload 0 // reference to self
+             dconst_1
+             fload 7
+             fconst_1
+             fsub
+             dup
+             fstore 7
+             f2d
+             fload 7
+             f2d
+             ldc 3.0 (java.lang.Double)
+             invokestatic java/lang/Math.pow(DD)D
+             dmul
+             dsub
+             d2f
+             putfield net/minecraft/client/gui/GuiNewChat.lunar$easedPercent:float
+         }
+         L13 {
+             aload 0 // reference to self
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.lunar$easedPercent:float
+             fconst_0
+             fconst_1
+             invokestatic com/moonsworth/lunar/client/HIIRCOIOCRRHIRCOCIIRIOIOR/ICIHCRRIHHCRICROHICIICRCH.ORHROHRIHOOHROCIRRRCCOIHR(FFF)F
+             putfield net/minecraft/client/gui/GuiNewChat.lunar$easedPercent:float
+         }
+         L14 {
+             return
+         }
+     }
+
+     private void redirect$zga000$lunar$translateChat_v1_8(float arg0, float arg1, float arg2) { //(FFF)V
+         <visAnno:desc = Lcom/moonsworth/lunar/ichor/RIHHROCICHHCHRCORIRRRCICC/IRRCOHRHIIICICORRHIIRRHHC; , values = [min, 1]>
+         <visAnno:desc = Lorg/spongepowered/asm/mixin/transformer/meta/MixinMerged; , values = [mixin, com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.HRHHOIHOCCCRIOORHRROHOORI.RIHHROCICHHCHRCORIRRRCICC.HRHHOIHOCCCRIOORHRROHOORI.HRHHOIHOCCCRIOORHRROHOORI.RRRRHHCCORCIICOOCOOIHHCOR, priority, 200, sessionId, 09a44760-496b-41b0-a154-539f6a70fb05]>
+
+         L0 {
+             fload 1 // reference to arg0
+             fload 2 // reference to arg1
+             fload 3
+             invokestatic net/minecraft/client/renderer/GlStateManager.translate(FFF)V
+         }
+         L1 {
+             invokestatic com/moonsworth/lunar/client/HIIRCOIOCRRHIRCOCIIRIOIOR/CHOOOOHOCHHCHRCCRHCIHCHOR.IRHOCIRCIRHRIRHOORHROHICR()Lcom/moonsworth/lunar/client/IRRCOHRHIIICICORRHIIRRHHC;
+             invokevirtual com/moonsworth/lunar/client/IRRCOHRHIIICICORRHIIRRHHC.OIORHIOIRIHHIHHOHRORHHOCI()Lcom/moonsworth/lunar/client/ROCHIRHIOCCORHIIRRCHHROIC/RRRRHHCCORCIICOOCOOIHHCOR/HRIOHRIIROHRROORRRHOICCIR;
+             invokevirtual com/moonsworth/lunar/client/ROCHIRHIOCCORHIIRRCHHROIC/RRRRHHCCORCIICOOCOOIHHCOR/HRIOHRIIROHRROORRRHOICCIR.RICIHHHIRHRIOORCCOHIIIHHI()Lcom/moonsworth/lunar/client/CIRRIRIIHCOHHHIHOHHCHICHO/IRRCOHRHIIICICORRHIIRRHHC/OCRHCRIOCRHRORRIHIRRRORRO/RIHHROCICHHCHRCORIRRRCICC;
+             invokevirtual com/moonsworth/lunar/client/CIRRIRIIHCOHHHIHOHHCHICHO/IRRCOHRHIIICICORRHIIRRHHC/OCRHCRIOCRHRORRIHIRRRORRO/RIHHROCICHHCHRCORIRRRCICC.OHRRIRORIOCHOOOICIIROOIHC()Z
+             ifeq L3
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.isScrolled:boolean
+             ifne L3
+         }
+         L2 {
+             fconst_0
+             ldc 9.0 (java.lang.Float)
+             ldc 9.0 (java.lang.Float)
+             getstatic net/minecraft/client/gui/GuiNewChat.lunar$percentTranslated:float
+             fmul
+             fsub
+             aload 0 // reference to self
+             invokevirtual net/minecraft/client/gui/GuiNewChat.getChatScale()F
+             fmul
+             fconst_0
+             invokestatic net/minecraft/client/renderer/GlStateManager.translate(FFF)V
+         }
+         L3 {
+             f_new (Locals[4]: net/minecraft/client/gui/GuiNewChat, float, float, float) (Stack[0]) 
+             return
+         }
+     }
+
+     private int redirect$zga000$lunar$drawChat$drawStringWithShadow$v1_8(net.minecraft.client.gui.FontRenderer arg0, java.lang.String arg1, float arg2, float arg3, int arg4) { //(Lnet/minecraft/client/gui/FontRenderer;Ljava/lang/String;FFI)I
+         <visAnno:desc = Lcom/moonsworth/lunar/ichor/RIHHROCICHHCHRCORIRRRCICC/IRRCOHRHIIICICORRHIIRRHHC; , values = [min, 1]>
+         <visAnno:desc = Lorg/spongepowered/asm/mixin/transformer/meta/MixinMerged; , values = [mixin, com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.HRHHOIHOCCCRIOORHRROHOORI.RIHHROCICHHCHRCORIRRRCICC.HRHHOIHOCCCRIOORHRROHOORI.HRHHOIHOCCCRIOORHRROHOORI.RRRRHHCCORCIICOOCOOIHHCOR, priority, 200, sessionId, 09a44760-496b-41b0-a154-539f6a70fb05]>
+
+         L0 {
+             aload 0 // reference to self
+             aload 1 // reference to arg0
+             aload 2 // reference to arg1
+             fload 3 // reference to arg2
+             fload 4 // reference to arg3
+             iload 5
+             invokevirtual net/minecraft/client/gui/GuiNewChat.lunar$drawChat$drawStringWithShadow(Lnet/minecraft/client/gui/FontRenderer;Ljava/lang/String;FFI)I
+             ireturn
+         }
+     }
+
+     private int lunar$drawChat$drawStringWithShadow(net.minecraft.client.gui.FontRenderer arg0, java.lang.String arg1, float arg2, float arg3, int arg4) { //(Lnet/minecraft/client/gui/FontRenderer;Ljava/lang/String;FFI)I
+         <visAnno:desc = Lorg/spongepowered/asm/mixin/Unique; , values = []>
+         <visAnno:desc = Lorg/spongepowered/asm/mixin/transformer/meta/MixinMerged; , values = [mixin, com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.HRHHOIHOCCCRIOORHRROHOORI.RIHHROCICHHCHRCORIRRRCICC.HRHHOIHOCCCRIOORHRROHOORI.HRHHOIHOCCCRIOORHRROHOORI.RRRRHHCCORCIICOOCOOIHHCOR, priority, 200, sessionId, 09a44760-496b-41b0-a154-539f6a70fb05]>
+
+         L0 {
+             fload 4 // reference to arg3
+             ldc 8.0 (java.lang.Float)
+             fadd
+             ldc -9.0 (java.lang.Float)
+             fdiv
+             fstore 6
+         }
+         L1 {
+             invokestatic com/moonsworth/lunar/client/HIIRCOIOCRRHIRCOCIIRIOIOR/CHOOOOHOCHHCHRCCRHCIHCHOR.IRHOCIRCIRHRIRHOORHROHICR()Lcom/moonsworth/lunar/client/IRRCOHRHIIICICORRHIIRRHHC;
+             invokevirtual com/moonsworth/lunar/client/IRRCOHRHIIICICORRHIIRRHHC.OIORHIOIRIHHIHHOHRORHHOCI()Lcom/moonsworth/lunar/client/ROCHIRHIOCCORHIIRRCHHROIC/RRRRHHCCORCIICOOCOOIHHCOR/HRIOHRIIROHRROORRRHOICCIR;
+             invokevirtual com/moonsworth/lunar/client/ROCHIRHIOCCORHIIRRCHHROIC/RRRRHHCCORCIICOOCOOIHHCOR/HRIOHRIIROHRROORRRHOICCIR.RICIHHHIRHRIOORCCOHIIIHHI()Lcom/moonsworth/lunar/client/CIRRIRIIHCOHHHIHOHHCHICHO/IRRCOHRHIIICICORRHIIRRHHC/OCRHCRIOCRHRORRIHIRRRORRO/RIHHROCICHHCHRCORIRRRCICC;
+             invokevirtual com/moonsworth/lunar/client/CIRRIRIIHCOHHHIHOHHCHICHO/IRRCOHRHIIICICORRHIIRRHHC/OCRHCRIOCRHRORRIHIRRRORRO/RIHHROCICHHCHRCORIRRRCICC.OHRRIRORIOCHOOOICIIROOIHC()Z
+             ifeq L4
+             fload 6
+             getstatic net/minecraft/client/gui/GuiNewChat.lunar$newLines:int
+             i2f
+             fcmpg
+             ifgt L4
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.isScrolled:boolean
+             ifne L4
+         }
+         L2 {
+             iload 5
+             bipush 24
+             iushr
+             istore 7
+         }
+         L3 {
+             ldc 16777215 (java.lang.Integer)
+             iload 7
+             i2f
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.lunar$easedPercent:float
+             fmul
+             f2i
+             bipush 24
+             ishl
+             iadd
+             istore 5
+         }
+         L4 {
+             f_new (Locals[7]: net/minecraft/client/gui/GuiNewChat, net/minecraft/client/gui/FontRenderer, java/lang/String, float, float, int, float) (Stack[0]) 
+             invokestatic com/moonsworth/lunar/client/HIIRCOIOCRRHIRCOCIIRIOIOR/CHOOOOHOCHHCHRCCRHCIHCHOR.IRHOCIRCIRHRIRHOORHROHICR()Lcom/moonsworth/lunar/client/IRRCOHRHIIICICORRHIIRRHHC;
+             invokevirtual com/moonsworth/lunar/client/IRRCOHRHIIICICORRHIIRRHHC.OIORHIOIRIHHIHHOHRORHHOCI()Lcom/moonsworth/lunar/client/ROCHIRHIOCCORHIIRRCHHROIC/RRRRHHCCORCIICOOCOOIHHCOR/HRIOHRIIROHRROORRRHOICCIR;
+             invokevirtual com/moonsworth/lunar/client/ROCHIRHIOCCORHIIRRCHHROIC/RRRRHHCCORCIICOOCOOIHHCOR/HRIOHRIIROHRROORRRHOICCIR.RICIHHHIRHRIOORCCOHIIIHHI()Lcom/moonsworth/lunar/client/CIRRIRIIHCOHHHIHOHHCHICHO/IRRCOHRHIIICICORRHIIRRHHC/OCRHCRIOCRHRORRIHIRRRORRO/RIHHROCICHHCHRCORIRRRCICC;
+             astore 7
+         }
+         L5 {
+             invokestatic com/moonsworth/lunar/client/HIIRCOIOCRRHIRCOCIIRIOIOR/CHOOOOHOCHHCHRCCRHCIHCHOR.IRHOCIRCIRHRIRHOORHROHICR()Lcom/moonsworth/lunar/client/IRRCOHRHIIICICORRHIIRRHHC;
+             invokevirtual com/moonsworth/lunar/client/IRRCOHRHIIICICORRHIIRRHHC.OIORHIOIRIHHIHHOHRORHHOCI()Lcom/moonsworth/lunar/client/ROCHIRHIOCCORHIIRRCHHROIC/RRRRHHCCORCIICOOCOOIHHCOR/HRIOHRIIROHRROORRRHOICCIR;
+             invokevirtual com/moonsworth/lunar/client/ROCHIRHIOCCORHIIRRCHHROIC/RRRRHHCCORCIICOOCOOIHHCOR/HRIOHRIIROHRROORRRHOICCIR.RICIHHHIRHRIOORCCOHIIIHHI()Lcom/moonsworth/lunar/client/CIRRIRIIHCOHHHIHOHHCHICHO/IRRCOHRHIIICICORRHIIRRHHC/OCRHCRIOCRHRORRIHIRRRORRO/RIHHROCICHHCHRCORIRRRCICC;
+             invokevirtual com/moonsworth/lunar/client/CIRRIRIIHCOHHHIHOHHCHICHO/IRRCOHRHIIICICORRHIIRRHHC/OCRHCRIOCRHRORRIHIRRRORRO/RIHHROCICHHCHRCORIRRRCICC.HHIHOIHCCCCCHHRIRIROIRCRC()Lcom/moonsworth/lunar/client/HOCOROIIHRRROIHCCRHCCHHRH/RIHHROCICHHCHRCORIRRRCICC;
+             invokevirtual com/moonsworth/lunar/client/HOCOROIIHRRROIHCCRHCCHHRH/RIHHROCICHHCHRCORIRRRCICC.IIIOOIRRRHHHHCRIORHIIRHOO()Z
+             istore 8
+         }
+         L6 {
+             aload 7
+             invokevirtual com/moonsworth/lunar/client/CIRRIRIIHCOHHHIHOHHCHICHO/IRRCOHRHIIICICORRHIIRRHHC/OCRHCRIOCRHRORRIHIRRRORRO/RIHHROCICHHCHRCORIRRRCICC.isEnabled()Z
+             ifeq L7
+             aload 7
+             invokevirtual com/moonsworth/lunar/client/CIRRIRIIHCOHHHIHOHHCHICHO/IRRCOHRHIIICICORRHIIRRHHC/OCRHCRIOCRHRORRIHIRRRORRO/RIHHROCICHHCHRCORIRRRCICC.OCICHHHICHOOOHCCOCCIHHHOH()Lcom/moonsworth/lunar/client/HOCOROIIHRRROIHCCRHCCHHRH/RIHHROCICHHCHRCORIRRRCICC;
+             invokevirtual com/moonsworth/lunar/client/HOCOROIIHRRROIHCCRHCCHHRH/RIHHROCICHHCHRCORIRRRCICC.IIIOOIRRRHHHHCRIORHIIRHOO()Z
+             ifeq L8
+         }
+         L7 {
+             f_new (Locals[9]: net/minecraft/client/gui/GuiNewChat, net/minecraft/client/gui/FontRenderer, java/lang/String, float, float, int, float, com/moonsworth/lunar/client/CIRRIRIIHCOHHHIHOHHCHICHO/IRRCOHRHIIICICORRHIIRRHHC/OCRHCRIOCRHRORRIHIRRRORRO/RIHHROCICHHCHRCORIRRRCICC, int) (Stack[0]) 
+             iconst_1
+             goto L9
+         }
+         L8 {
+             f_new (Locals[9]: net/minecraft/client/gui/GuiNewChat, net/minecraft/client/gui/FontRenderer, java/lang/String, float, float, int, float, com/moonsworth/lunar/client/CIRRIRIIHCOHHHIHOHHCHICHO/IRRCOHRHIIICICORRHIIRRHHC/OCRHCRIOCRHRORRIHIRRRORRO/RIHHROCICHHCHRCORIRRRCICC, int) (Stack[0]) 
+             iconst_0
+         }
+         L9 {
+             f_new (Locals[9]: net/minecraft/client/gui/GuiNewChat, net/minecraft/client/gui/FontRenderer, java/lang/String, float, float, int, float, com/moonsworth/lunar/client/CIRRIRIIHCOHHHIHOHHCHICHO/IRRCOHRHIIICICORRHIIRRHHC/OCRHCRIOCRHRORRIHIRRRORRO/RIHHROCICHHCHRCORIRRRCICC, int) (Stack[1]: int) 
+             istore 9
+         }
+         L10 {
+             aload 1 // reference to arg0
+             checkcast com/moonsworth/lunar/RIHHROCICHHCHRCORIRRRCICC/OCRHCRIOCRHRORRIHIRRRORRO/IRRCOHRHIIICICORRHIIRRHHC/RCIORCIHCCRCHOORORCRIHOIO
+             aload 2 // reference to arg1
+             fload 3 // reference to arg2
+             fload 4 // reference to arg3
+             iload 8
+             ifeq L11
+             bipush 12
+             goto L12
+         }
+         L11 {
+             f_new (Locals[10]: net/minecraft/client/gui/GuiNewChat, net/minecraft/client/gui/FontRenderer, java/lang/String, float, float, int, float, com/moonsworth/lunar/client/CIRRIRIIHCOHHHIHOHHCHICHO/IRRCOHRHIIICICORRHIIRRHHC/OCRHCRIOCRHRORRIHIRRRORRO/RIHHROCICHHCHRCORIRRRCICC, int, int) (Stack[4]: com/moonsworth/lunar/RIHHROCICHHCHRCORIRRRCICC/OCRHCRIOCRHRORRIHIRRRORRO/IRRCOHRHIIICICORRHIIRRHHC/RCIORCIHCCRCHOORORCRIHOIO, java/lang/String, float, float) 
+             iconst_0
+         }
+         L12 {
+             f_new (Locals[10]: net/minecraft/client/gui/GuiNewChat, net/minecraft/client/gui/FontRenderer, java/lang/String, float, float, int, float, com/moonsworth/lunar/client/CIRRIRIIHCOHHHIHOHHCHICHO/IRRCOHRHIIICICORRHIIRRHHC/OCRHCRIOCRHRORRIHIRRRORRO/RIHHROCICHHCHRCORIRRRCICC, int, int) (Stack[5]: com/moonsworth/lunar/RIHHROCICHHCHRCORIRRRCICC/OCRHCRIOCRHRORRIHIRRRORRO/IRRCOHRHIIICICORRHIIRRHHC/RCIORCIHCCRCHOORORCRIHOIO, java/lang/String, float, float, int) 
+             i2f
+             fsub
+             iload 5
+             iload 9
+             invokeinterface com/moonsworth/lunar/RIHHROCICHHCHRCORIRRRCICC/OCRHCRIOCRHRORRIHIRRRORRO/IRRCOHRHIIICICORRHIIRRHHC/RCIORCIHCCRCHOORORCRIHOIO.bridge$drawString(Ljava/lang/String;FFIZ)F
+             f2i
+             ireturn
+         }
+     }
+
+     private void redirect$zga000$lunar$drawChat$getChatOpen_v1_8(float arg0, float arg1, float arg2, int arg3) { //(FFFI)V
+         <visAnno:desc = Lcom/moonsworth/lunar/ichor/RIHHROCICHHCHRCORIRRRCICC/IRRCOHRHIIICICORRHIIRRHHC; , values = [min, 1]>
+         <visAnno:desc = Lorg/spongepowered/asm/mixin/transformer/meta/MixinMerged; , values = [mixin, com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.HRHHOIHOCCCRIOORHRROHOORI.RIHHROCICHHCHRCORIRRRCICC.HRHHOIHOCCCRIOORHRROHOORI.HRHHOIHOCCCRIOORHRROHOORI.RRRRHHCCORCIICOOCOOIHHCOR, priority, 200, sessionId, 09a44760-496b-41b0-a154-539f6a70fb05]>
+
+         L0 {
+             fload 1 // reference to arg0
+             fload 2 // reference to arg1
+             fload 3 // reference to arg2
+             invokestatic net/minecraft/client/renderer/GlStateManager.scale(FFF)V
+         }
+         L1 {
+             aload 0 // reference to self
+             iload 4
+             invokevirtual net/minecraft/client/gui/GuiNewChat.lunar$drawChat$getChatOpen(I)V
+         }
+         L2 {
+             return
+         }
+     }
+
+     private void lunar$drawChat$getChatOpen(int arg0) { //(I)V
+         <visAnno:desc = Lorg/spongepowered/asm/mixin/Unique; , values = []>
+         <visAnno:desc = Lorg/spongepowered/asm/mixin/transformer/meta/MixinMerged; , values = [mixin, com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.HRHHOIHOCCCRIOORHRROHOORI.RIHHROCICHHCHRCORIRRRCICC.HRHHOIHOCCCRIOORHRROHOORI.HRHHOIHOCCCRIOORHRROHOORI.RRRRHHCCORCIICOOCOOIHHCOR, priority, 200, sessionId, 09a44760-496b-41b0-a154-539f6a70fb05]>
+
+         L0 {
+             aload 0 // reference to self
+             invokevirtual net/minecraft/client/gui/GuiNewChat.getLineCount()I
+             istore 2
+         }
+         L1 {
+             aload 0 // reference to self
+             invokevirtual net/minecraft/client/gui/GuiNewChat.getChatOpen()Z
+             istore 3
+         }
+         L2 {
+             aload 0 // reference to self
+             invokevirtual net/minecraft/client/gui/GuiNewChat.getChatScale()F
+             fstore 4
+         }
+         L3 {
+             aload 0 // reference to self
+             invokevirtual net/minecraft/client/gui/GuiNewChat.getChatWidth()I
+             i2f
+             fload 4
+             fdiv
+             fstore 5
+         }
+         L4 {
+             goto L6
+         }
+         L5 {
+             f_new (Locals[0]) (Stack[1]: java/lang/Throwable) 
+             nop
+             nop
+             nop
+             nop
+             nop
+             nop
+             nop
+             athrow
+         }
+         L6 {
+             f_new (Locals[6]: net/minecraft/client/gui/GuiNewChat, int, int, int, float, float) (Stack[0]) 
+             fload 5
+             invokestatic net/minecraft/util/MathHelper.ceiling_float_int(F)I
+             istore 6
+         }
+         L7 {
+             invokestatic com/moonsworth/lunar/client/HIIRCOIOCRRHIRCOCIIRIOIOR/CHOOOOHOCHHCHRCCRHCIHCHOR.IRHOCIRCIRHRIRHOORHROHICR()Lcom/moonsworth/lunar/client/IRRCOHRHIIICICORRHIIRRHHC;
+             invokevirtual com/moonsworth/lunar/client/IRRCOHRHIIICICORRHIIRRHHC.OIORHIOIRIHHIHHOHRORHHOCI()Lcom/moonsworth/lunar/client/ROCHIRHIOCCORHIIRRCHHROIC/RRRRHHCCORCIICOOCOOIHHCOR/HRIOHRIIROHRROORRRHOICCIR;
+             invokevirtual com/moonsworth/lunar/client/ROCHIRHIOCCORHIIRRCHHROIC/RRRRHHCCORCIICOOCOOIHHCOR/HRIOHRIIROHRROORRRHOICCIR.RICIHHHIRHRIOORCCOHIIIHHI()Lcom/moonsworth/lunar/client/CIRRIRIIHCOHHHIHOHHCHICHO/IRRCOHRHIIICICORRHIIRRHHC/OCRHCRIOCRHRORRIHIRRRORRO/RIHHROCICHHCHRCORIRRRCICC;
+             invokevirtual com/moonsworth/lunar/client/CIRRIRIIHCOHHHIHOHHCHICHO/IRRCOHRHIIICICORRHIIRRHHC/OCRHCRIOCRHRORRIHIRRRORRO/RIHHROCICHHCHRCORIRRRCICC.isEnabled()Z
+             ifeq L8
+             invokestatic com/moonsworth/lunar/client/HIIRCOIOCRRHIRCOCIIRIOIOR/CHOOOOHOCHHCHRCCRHCIHCHOR.IRHOCIRCIRHRIRHOORHROHICR()Lcom/moonsworth/lunar/client/IRRCOHRHIIICICORRHIIRRHHC;
+             invokevirtual com/moonsworth/lunar/client/IRRCOHRHIIICICORRHIIRRHHC.OIORHIOIRIHHIHHOHRORHHOCI()Lcom/moonsworth/lunar/client/ROCHIRHIOCCORHIIRRCHHROIC/RRRRHHCCORCIICOOCOOIHHCOR/HRIOHRIIROHRROORRRHOICCIR;
+             invokevirtual com/moonsworth/lunar/client/ROCHIRHIOCCORHIIRRCHHROIC/RRRRHHCCORCIICOOCOOIHHCOR/HRIOHRIIROHRROORRRHOICCIR.RICIHHHIRHRIOORCCOHIIIHHI()Lcom/moonsworth/lunar/client/CIRRIRIIHCOHHHIHOHHCHICHO/IRRCOHRHIIICICORRHIIRRHHC/OCRHCRIOCRHRORRIHIRRRORRO/RIHHROCICHHCHRCORIRRRCICC;
+             invokevirtual com/moonsworth/lunar/client/CIRRIRIIHCOHHHIHOHHCHICHO/IRRCOHRHIIICICORRHIIRRHHC/OCRHCRIOCRHRORRIHIRRRORRO/RIHHROCICHHCHRCORIRRRCICC.RHOHIOOROIOHHCIRRCHCHORCR()Lcom/moonsworth/lunar/client/HOCOROIIHRRROIHCCRHCCHHRH/ROCHIRHIOCCORHIIRRCHHROIC;
+             invokevirtual com/moonsworth/lunar/client/HOCOROIIHRRROIHCCRHCCHHRH/ROCHIRHIOCCORHIIRRCHHROIC.get()Ljava/lang/Object;
+             checkcast java/lang/Float
+             invokevirtual java/lang/Float.floatValue()F
+             goto L9
+         }
+         L8 {
+             f_new (Locals[7]: net/minecraft/client/gui/GuiNewChat, int, int, int, float, float, int) (Stack[0]) 
+             fconst_1
+         }
+         L9 {
+             f_new (Locals[7]: net/minecraft/client/gui/GuiNewChat, int, int, int, float, float, int) (Stack[1]: float) 
+             fstore 7
+         }
+         L10 {
+             invokestatic com/moonsworth/lunar/client/HIIRCOIOCRRHIRCOCIIRIOIOR/CHOOOOHOCHHCHRCCRHCIHCHOR.IRHOCIRCIRHRIRHOORHROHICR()Lcom/moonsworth/lunar/client/IRRCOHRHIIICICORRHIIRRHHC;
+             invokevirtual com/moonsworth/lunar/client/IRRCOHRHIIICICORRHIIRRHHC.OIORHIOIRIHHIHHOHRORHHOCI()Lcom/moonsworth/lunar/client/ROCHIRHIOCCORHIIRRCHHROIC/RRRRHHCCORCIICOOCOOIHHCOR/HRIOHRIIROHRROORRRHOICCIR;
+             invokevirtual com/moonsworth/lunar/client/ROCHIRHIOCCORHIIRRCHHROIC/RRRRHHCCORCIICOOCOOIHHCOR/HRIOHRIIROHRROORRRHOICCIR.RICIHHHIRHRIOORCCOHIIIHHI()Lcom/moonsworth/lunar/client/CIRRIRIIHCOHHHIHOHHCHICHO/IRRCOHRHIIICICORRHIIRRHHC/OCRHCRIOCRHRORRIHIRRRORRO/RIHHROCICHHCHRCORIRRRCICC;
+             invokevirtual com/moonsworth/lunar/client/CIRRIRIIHCOHHHIHOHHCHICHO/IRRCOHRHIIICICORRHIIRRHHC/OCRHCRIOCRHRORRIHIRRRORRO/RIHHROCICHHCHRCORIRRRCICC.HHIHOIHCCCCCHHRIRIROIRCRC()Lcom/moonsworth/lunar/client/HOCOROIIHRRROIHCCRHCCHHRH/RIHHROCICHHCHRCORIRRRCICC;
+             invokevirtual com/moonsworth/lunar/client/HOCOROIIHRRROIHCCRHCCHHRH/RIHHROCICHHCHRCORIRRRCICC.IIIOOIRRRHHHHCRIORHIIRHOO()Z
+             istore 8
+         }
+         L11 {
+             fload 7
+             fconst_0
+             fcmpl
+             ifle L34
+         }
+         L12 {
+             iconst_0
+             istore 9
+         }
+         L13 {
+             iconst_0
+             istore 10
+         }
+         L14 {
+             f_new (Locals[11]: net/minecraft/client/gui/GuiNewChat, int, int, int, float, float, int, float, int, int, int) (Stack[0]) 
+             iload 10
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.scrollPos:int
+             iadd
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.drawnChatLines:java.util.List
+             invokeinterface java/util/List.size()I
+             if_icmpge L29
+             iload 10
+             iload 2
+             if_icmpge L29
+         }
+         L15 {
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.drawnChatLines:java.util.List
+             iload 10
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.scrollPos:int
+             iadd
+             invokeinterface java/util/List.get(I)Ljava/lang/Object;
+             checkcast net/minecraft/client/gui/ChatLine
+             astore 11
+         }
+         L16 {
+             aload 11
+             ifnull L28
+         }
+         L17 {
+             iload 1
+             aload 11
+             invokevirtual net/minecraft/client/gui/ChatLine.getUpdatedCounter()I
+             isub
+             istore 12
+         }
+         L18 {
+             iload 12
+             i2d
+             ldc 200.0 (java.lang.Double)
+             ddiv
+             dstore 13
+         }
+         L19 {
+             dconst_1
+             dload 13
+             dsub
+             dstore 13
+         }
+         L20 {
+             dload 13
+             ldc 10.0 (java.lang.Double)
+             dmul
+             dstore 13
+         }
+         L21 {
+             goto L23
+         }
+         L22 {
+             f_new (Locals[0]) (Stack[1]: java/lang/Throwable) 
+             nop
+             nop
+             nop
+             nop
+             nop
+             nop
+             nop
+             nop
+             nop
+             athrow
+         }
+         L23 {
+             f_new (Locals[14]: net/minecraft/client/gui/GuiNewChat, int, int, int, float, float, int, float, int, int, int, net/minecraft/client/gui/ChatLine, int, double) (Stack[0]) 
+             dload 13
+             dconst_0
+             dconst_1
+             invokestatic net/minecraft/util/MathHelper.clamp_double(DDD)D
+             dstore 13
+         }
+         L24 {
+             dload 13
+             dload 13
+             dmul
+             dstore 13
+         }
+         L25 {
+             ldc 255.0 (java.lang.Double)
+             dload 13
+             dmul
+             d2i
+             istore 15
+         }
+         L26 {
+             iload 15
+             sipush 254
+             if_icmpge L27
+             iload 3
+             ifeq L28
+         }
+         L27 {
+             f_new (Locals[15]: net/minecraft/client/gui/GuiNewChat, int, int, int, float, float, int, float, int, int, int, net/minecraft/client/gui/ChatLine, int, double, int) (Stack[0]) 
+             iload 9
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.mc:net.minecraft.client.Minecraft
+             getfield net/minecraft/client/Minecraft.fontRendererObj:net.minecraft.client.gui.FontRenderer
+             getfield net/minecraft/client/gui/FontRenderer.FONT_HEIGHT:int
+             isub
+             istore 9
+         }
+         L28 {
+             f_new (Locals[12]: net/minecraft/client/gui/GuiNewChat, int, int, int, float, float, int, float, int, int, int, net/minecraft/client/gui/ChatLine) (Stack[0]) 
+             iinc 10 1
+             goto L14
+         }
+         L29 {
+             f_new (Locals[11]: net/minecraft/client/gui/GuiNewChat, int, int, int, float, float, int, float, int, int, int) (Stack[0]) 
+             iconst_0
+             iload 8
+             ifeq L30
+             bipush -12
+             goto L31
+         }
+         L30 {
+             f_new (Locals[11]: net/minecraft/client/gui/GuiNewChat, int, int, int, float, float, int, float, int, int, int) (Stack[1]: int) 
+             iconst_0
+         }
+         L31 {
+             f_new (Locals[11]: net/minecraft/client/gui/GuiNewChat, int, int, int, float, float, int, float, int, int, int) (Stack[2]: int, int) 
+             iload 6
+             iconst_4
+             iadd
+             iload 9
+             iload 8
+             ifeq L32
+             bipush -12
+             goto L33
+         }
+         L32 {
+             f_new (Locals[11]: net/minecraft/client/gui/GuiNewChat, int, int, int, float, float, int, float, int, int, int) (Stack[4]: int, int, int, int) 
+             iconst_0
+         }
+         L33 {
+             f_new (Locals[11]: net/minecraft/client/gui/GuiNewChat, int, int, int, float, float, int, float, int, int, int) (Stack[5]: int, int, int, int, int) 
+             iadd
+             ldc 127.0 (java.lang.Float)
+             fload 7
+             fmul
+             f2i
+             bipush 24
+             ishl
+             invokestatic net/minecraft/client/gui/Gui.drawRect(IIIII)V
+         }
+         L34 {
+             f_new (Locals[9]: net/minecraft/client/gui/GuiNewChat, int, int, int, float, float, int, float, int) (Stack[0]) 
+             return
+         }
+     }
+
+     private void redirect$zga000$lunar$drawChat$drawRect(int arg0, int arg1, int arg2, int arg3, int arg4) { //(IIIII)V
+         <visAnno:desc = Lorg/spongepowered/asm/mixin/transformer/meta/MixinMerged; , values = [mixin, com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.HRHHOIHOCCCRIOORHRROHOORI.RIHHROCICHHCHRCORIRRRCICC.HRHHOIHOCCCRIOORHRROHOORI.HRHHOIHOCCCRIOORHRROHOORI.RRRRHHCCORCIICOOCOOIHHCOR, priority, 200, sessionId, 09a44760-496b-41b0-a154-539f6a70fb05]>
+
+         L0 {
+             invokestatic com/moonsworth/lunar/client/HIIRCOIOCRRHIRCOCIIRIOIOR/CHOOOOHOCHHCHRCCRHCIHCHOR.IRHOCIRCIRHRIRHOORHROHICR()Lcom/moonsworth/lunar/client/IRRCOHRHIIICICORRHIIRRHHC;
+             invokevirtual com/moonsworth/lunar/client/IRRCOHRHIIICICORRHIIRRHHC.OIORHIOIRIHHIHHOHRORHHOCI()Lcom/moonsworth/lunar/client/ROCHIRHIOCCORHIIRRCHHROIC/RRRRHHCCORCIICOOCOOIHHCOR/HRIOHRIIROHRROORRRHOICCIR;
+             invokevirtual com/moonsworth/lunar/client/ROCHIRHIOCCORHIIRRCHHROIC/RRRRHHCCORCIICOOCOOIHHCOR/HRIOHRIIROHRROORRRHOICCIR.RICIHHHIRHRIOORCCOHIIIHHI()Lcom/moonsworth/lunar/client/CIRRIRIIHCOHHHIHOHHCHICHO/IRRCOHRHIIICICORRHIIRRHHC/OCRHCRIOCRHRORRIHIRRRORRO/RIHHROCICHHCHRCORIRRRCICC;
+             invokevirtual com/moonsworth/lunar/client/CIRRIRIIHCOHHHIHOHHCHICHO/IRRCOHRHIIICICORRHIIRRHHC/OCRHCRIOCRHRORRIHIRRRORRO/RIHHROCICHHCHRCORIRRRCICC.HHIHOIHCCCCCHHRIRIROIRCRC()Lcom/moonsworth/lunar/client/HOCOROIIHRRROIHCCRHCCHHRH/RIHHROCICHHCHRCORIRRRCICC;
+             invokevirtual com/moonsworth/lunar/client/HOCOROIIHRRROIHCCRHCCHHRH/RIHHROCICHHCHRCORIRRRCICC.IIIOOIRRRHHHHCRIORHIIRHOO()Z
+             istore 6
+         }
+         L1 {
+             invokestatic com/moonsworth/lunar/client/HIIRCOIOCRRHIRCOCIIRIOIOR/CHOOOOHOCHHCHRCCRHCIHCHOR.IRHOCIRCIRHRIRHOORHROHICR()Lcom/moonsworth/lunar/client/IRRCOHRHIIICICORRHIIRRHHC;
+             invokevirtual com/moonsworth/lunar/client/IRRCOHRHIIICICORRHIIRRHHC.OIORHIOIRIHHIHHOHRORHHOCI()Lcom/moonsworth/lunar/client/ROCHIRHIOCCORHIIRRCHHROIC/RRRRHHCCORCIICOOCOOIHHCOR/HRIOHRIIROHRROORRRHOICCIR;
+             invokevirtual com/moonsworth/lunar/client/ROCHIRHIOCCORHIIRRCHHROIC/RRRRHHCCORCIICOOCOOIHHCOR/HRIOHRIIROHRROORRRHOICCIR.RICIHHHIRHRIOORCCOHIIIHHI()Lcom/moonsworth/lunar/client/CIRRIRIIHCOHHHIHOHHCHICHO/IRRCOHRHIIICICORRHIIRRHHC/OCRHCRIOCRHRORRIHIRRRORRO/RIHHROCICHHCHRCORIRRRCICC;
+             invokevirtual com/moonsworth/lunar/client/CIRRIRIIHCOHHHIHOHHCHICHO/IRRCOHRHIIICICORRHIIRRHHC/OCRHCRIOCRHRORRIHIRRRORRO/RIHHROCICHHCHRCORIRRRCICC.isEnabled()Z
+             ifeq L2
+             invokestatic com/moonsworth/lunar/client/HIIRCOIOCRRHIRCOCIIRIOIOR/CHOOOOHOCHHCHRCCRHCIHCHOR.IRHOCIRCIRHRIRHOORHROHICR()Lcom/moonsworth/lunar/client/IRRCOHRHIIICICORRHIIRRHHC;
+             invokevirtual com/moonsworth/lunar/client/IRRCOHRHIIICICORRHIIRRHHC.OIORHIOIRIHHIHHOHRORHHOCI()Lcom/moonsworth/lunar/client/ROCHIRHIOCCORHIIRRCHHROIC/RRRRHHCCORCIICOOCOOIHHCOR/HRIOHRIIROHRROORRRHOICCIR;
+             invokevirtual com/moonsworth/lunar/client/ROCHIRHIOCCORHIIRRCHHROIC/RRRRHHCCORCIICOOCOOIHHCOR/HRIOHRIIROHRROORRRHOICCIR.RICIHHHIRHRIOORCCOHIIIHHI()Lcom/moonsworth/lunar/client/CIRRIRIIHCOHHHIHOHHCHICHO/IRRCOHRHIIICICORRHIIRRHHC/OCRHCRIOCRHRORRIHIRRRORRO/RIHHROCICHHCHRCORIRRRCICC;
+             invokevirtual com/moonsworth/lunar/client/CIRRIRIIHCOHHHIHOHHCHICHO/IRRCOHRHIIICICORRHIIRRHHC/OCRHCRIOCRHRORRIHIRRRORRO/RIHHROCICHHCHRCORIRRRCICC.RHOHIOOROIOHHCIRRCHCHORCR()Lcom/moonsworth/lunar/client/HOCOROIIHRRROIHCCRHCCHHRH/ROCHIRHIOCCORHIIRRCHHROIC;
+             invokevirtual com/moonsworth/lunar/client/HOCOROIIHRRROIHCCRHCCHHRH/ROCHIRHIOCCORHIIRRCHHROIC.get()Ljava/lang/Object;
+             checkcast java/lang/Float
+             invokevirtual java/lang/Float.floatValue()F
+             goto L3
+         }
+         L2 {
+             f_new (Locals[7]: net/minecraft/client/gui/GuiNewChat, int, int, int, int, int, int) (Stack[0]) 
+             fconst_1
+         }
+         L3 {
+             f_new (Locals[7]: net/minecraft/client/gui/GuiNewChat, int, int, int, int, int, int) (Stack[1]: float) 
+             fstore 7
+         }
+         L4 {
+             fload 7
+             fconst_0
+             fcmpl
+             ifle L12
+         }
+         L5 {
+             iload 5
+             bipush 24
+             ishr
+             i2b
+             sipush 255
+             iand
+             istore 8
+         }
+         L6 {
+             iload 8
+             bipush 127
+             if_icmpge L12
+         }
+         L7 {
+             iload 1 // reference to arg0
+             iload 2 // reference to arg1
+             iload 6
+             ifeq L8
+             bipush -12
+             goto L9
+         }
+         L8 {
+             f_new (Locals[9]: net/minecraft/client/gui/GuiNewChat, int, int, int, int, int, int, float, int) (Stack[2]: int, int) 
+             iconst_0
+         }
+         L9 {
+             f_new (Locals[9]: net/minecraft/client/gui/GuiNewChat, int, int, int, int, int, int, float, int) (Stack[3]: int, int, int) 
+             iadd
+             iload 3 // reference to arg2
+             iload 4 // reference to arg3
+             iload 6
+             ifeq L10
+             bipush -12
+             goto L11
+         }
+         L10 {
+             f_new (Locals[9]: net/minecraft/client/gui/GuiNewChat, int, int, int, int, int, int, float, int) (Stack[4]: int, int, int, int) 
+             iconst_0
+         }
+         L11 {
+             f_new (Locals[9]: net/minecraft/client/gui/GuiNewChat, int, int, int, int, int, int, float, int) (Stack[5]: int, int, int, int, int) 
+             iadd
+             fload 7
+             iload 8
+             i2f
+             fmul
+             f2i
+             bipush 24
+             ishl
+             invokestatic net/minecraft/client/gui/Gui.drawRect(IIIII)V
+         }
+         L12 {
+             f_new (Locals[8]: net/minecraft/client/gui/GuiNewChat, int, int, int, int, int, int, float) (Stack[0]) 
+             return
+         }
+     }
+
+     private void redirect$zga000$lunar$setChatLine$addEntry(java.util.List arg0, int arg1, java.lang.Object arg2, net.minecraft.util.IChatComponent arg3, int arg4, int arg5, boolean arg6) { //(Ljava/util/List;ILjava/lang/Object;Lnet/minecraft/util/IChatComponent;IIZ)V
+         <visAnno:desc = Lorg/spongepowered/asm/mixin/transformer/meta/MixinMerged; , values = [mixin, com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.HRHHOIHOCCCRIOORHRROHOORI.RIHHROCICHHCHRCORIRRRCICC.HRHHOIHOCCCRIOORHRROHOORI.HRHHOIHOCCCRIOORHRROHOORI.RRRRHHCCORCIICOOCOOIHHCOR, priority, 200, sessionId, 09a44760-496b-41b0-a154-539f6a70fb05]>
+
+         L0 {
+             aload 3 // reference to arg2
+             instanceof net/minecraft/client/gui/ChatLine
+             ifeq L2
+         }
+         L1 {
+             aload 3 // reference to arg2
+             checkcast com/moonsworth/lunar/RIHHROCICHHCHRCORIRRRCICC/OCRHCRIOCRHRORRIHIRRRORRO/IRRCOHRHIIICICORRHIIRRHHC/RIHHROCICHHCHRCORIRRRCICC
+             aload 4 // reference to arg3
+             invokeinterface net/minecraft/util/IChatComponent.getFormattedText()Ljava/lang/String;
+             invokeinterface com/moonsworth/lunar/RIHHROCICHHCHRCORIRRRCICC/OCRHCRIOCRHRORRIHIRRRORRO/IRRCOHRHIIICICORRHIIRRHHC/RIHHROCICHHCHRCORIRRRCICC.bridge$setChatMessage(Ljava/lang/String;)V
+         }
+         L2 {
+             f_new (Locals[8]: net/minecraft/client/gui/GuiNewChat, java/util/List, int, java/lang/Object, net/minecraft/util/IChatComponent, int, int, int) (Stack[0]) 
+             aload 1 // reference to arg0
+             iload 2 // reference to arg1
+             aload 3 // reference to arg2
+             invokeinterface java/util/List.add(ILjava/lang/Object;)V
+         }
+         L3 {
+             return
+         }
+     }
+
+     private void handler$zga000$lunar$setChatLine(net.minecraft.util.IChatComponent arg0, int arg1, int arg2, boolean arg3, org.spongepowered.asm.mixin.injection.callback.CallbackInfo arg4) { //(Lnet/minecraft/util/IChatComponent;IIZLorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V
+         <visAnno:desc = Lcom/moonsworth/lunar/ichor/RIHHROCICHHCHRCORIRRRCICC/IRRCOHRHIIICICORRHIIRRHHC; , values = [min, 1]>
+         <visAnno:desc = Lorg/spongepowered/asm/mixin/transformer/meta/MixinMerged; , values = [mixin, com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.HRHHOIHOCCCRIOORHRROHOORI.RIHHROCICHHCHRCORIRRRCICC.HRHHOIHOCCCRIOORHRROHOORI.HRHHOIHOCCCRIOORHRROHOORI.RRRRHHCCORCIICOOCOOIHHCOR, priority, 200, sessionId, 09a44760-496b-41b0-a154-539f6a70fb05]>
+
+         L0 {
+             aload 0 // reference to self
+             invokevirtual net/minecraft/client/gui/GuiNewChat.getChatWidth()I
+             i2f
+             aload 0 // reference to self
+             invokevirtual net/minecraft/client/gui/GuiNewChat.getChatScale()F
+             fdiv
+             fstore 6
+         }
+         L1 {
+             goto L3
+         }
+         L2 {
+             f_new (Locals[0]) (Stack[1]: java/lang/Throwable) 
+             nop
+             nop
+             nop
+             nop
+             nop
+             nop
+             nop
+             athrow
+         }
+         L3 {
+             f_new (Locals[7]: net/minecraft/client/gui/GuiNewChat, net/minecraft/util/IChatComponent, int, int, int, org/spongepowered/asm/mixin/injection/callback/CallbackInfo, float) (Stack[0]) 
+             fload 6
+             invokestatic net/minecraft/util/MathHelper.floor_float(F)I
+             istore 7
+         }
+         L4 {
+             aload 1 // reference to arg0
+             iload 7
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.mc:net.minecraft.client.Minecraft
+             getfield net/minecraft/client/Minecraft.fontRendererObj:net.minecraft.client.gui.FontRenderer
+             iconst_0
+             iconst_0
+             invokestatic net/minecraft/client/gui/GuiUtilRenderComponents.splitText(Lnet/minecraft/util/IChatComponent;ILnet/minecraft/client/gui/FontRenderer;ZZ)Ljava/util/List;
+             astore 8
+         }
+         L5 {
+             aload 8
+             invokeinterface java/util/List.size()I
+             iconst_1
+             isub
+             putstatic net/minecraft/client/gui/GuiNewChat.lunar$newLines:int
+         }
+         L6 {
+             return
+         }
+     }
+
+     private int redirect$zga000$lunar$getChatComponent$yPos$v1_7(float arg0) { //(F)I
+         <visAnno:desc = Lcom/moonsworth/lunar/ichor/RIHHROCICHHCHRCORIRRRCICC/IRRCOHRHIIICICORRHIIRRHHC; , values = [max, 1]>
+         <visAnno:desc = Lorg/spongepowered/asm/mixin/transformer/meta/MixinMerged; , values = [mixin, com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.HRHHOIHOCCCRIOORHRROHOORI.RIHHROCICHHCHRCORIRRRCICC.HRHHOIHOCCCRIOORHRROHOORI.HRHHOIHOCCCRIOORHRROHOORI.RRRRHHCCORCIICOOCOOIHHCOR, priority, 200, sessionId, 09a44760-496b-41b0-a154-539f6a70fb05]>
+
+         L0 {
+             fload 1
+             invokestatic net/minecraft/util/MathHelper.floor_float(F)I
+             invokestatic com/moonsworth/lunar/client/HIIRCOIOCRRHIRCOCIIRIOIOR/CHOOOOHOCHHCHRCCRHCIHCHOR.IRHOCIRCIRHRIRHOORHROHICR()Lcom/moonsworth/lunar/client/IRRCOHRHIIICICORRHIIRRHHC;
+             invokevirtual com/moonsworth/lunar/client/IRRCOHRHIIICICORRHIIRRHHC.OIORHIOIRIHHIHHOHRORHHOCI()Lcom/moonsworth/lunar/client/ROCHIRHIOCCORHIIRRCHHROIC/RRRRHHCCORCIICOOCOOIHHCOR/HRIOHRIIROHRROORRRHOICCIR;
+             invokevirtual com/moonsworth/lunar/client/ROCHIRHIOCCORHIIRRCHHROIC/RRRRHHCCORCIICOOCOOIHHCOR/HRIOHRIIROHRROORRRHOICCIR.RICIHHHIRHRIOORCCOHIIIHHI()Lcom/moonsworth/lunar/client/CIRRIRIIHCOHHHIHOHHCHICHO/IRRCOHRHIIICICORRHIIRRHHC/OCRHCRIOCRHRORRIHIRRRORRO/RIHHROCICHHCHRCORIRRRCICC;
+             invokevirtual com/moonsworth/lunar/client/CIRRIRIIHCOHHHIHOHHCHICHO/IRRCOHRHIIICICORRHIIRRHHC/OCRHCRIOCRHRORRIHIRRRORRO/RIHHROCICHHCHRCORIRRRCICC.HHIHOIHCCCCCHHRIRIROIRCRC()Lcom/moonsworth/lunar/client/HOCOROIIHRRROIHCCRHCCHHRH/RIHHROCICHHCHRCORIRRRCICC;
+             invokevirtual com/moonsworth/lunar/client/HOCOROIIHRRROIHCCRHCCHHRH/RIHHROCICHHCHRCORIRRRCICC.IIIOOIRRRHHHHCRIORHIIRHOO()Z
+             ifeq L1
+             bipush 12
+             goto L2
+         }
+         L1 {
+             f_new (Locals[2]: net/minecraft/client/gui/GuiNewChat, float) (Stack[1]: int) 
+             iconst_0
+         }
+         L2 {
+             f_new (Locals[2]: net/minecraft/client/gui/GuiNewChat, float) (Stack[2]: int, int) 
+             isub
+             ireturn
+         }
+     }
+
+     private java.util.List redirect$zga000$lunar$splitChatLines(net.minecraft.util.IChatComponent arg0, int arg1, net.minecraft.client.gui.FontRenderer arg2, boolean arg3, boolean arg4) { //(Lnet/minecraft/util/IChatComponent;ILnet/minecraft/client/gui/FontRenderer;ZZ)Ljava/util/List;
+         <visAnno:desc = Lcom/moonsworth/lunar/ichor/RIHHROCICHHCHRCORIRRRCICC/IRRCOHRHIIICICORRHIIRRHHC; , values = [min, 1]>
+         <visAnno:desc = Lorg/spongepowered/asm/mixin/transformer/meta/MixinMerged; , values = [mixin, com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.HRHHOIHOCCCRIOORHRROHOORI.RIHHROCICHHCHRCORIRRRCICC.HRHHOIHOCCCRIOORHRROHOORI.HRHHOIHOCCCRIOORHRROHOORI.RRRRHHCCORCIICOOCOOIHHCOR, priority, 200, sessionId, 09a44760-496b-41b0-a154-539f6a70fb05]>
+
+         L0 {
+             aload 1 // reference to arg0
+             iload 2 // reference to arg1
+             aload 3 // reference to arg2
+             iload 4 // reference to arg3
+             iload 5
+             invokestatic net/minecraft/client/gui/GuiUtilRenderComponents.splitText(Lnet/minecraft/util/IChatComponent;ILnet/minecraft/client/gui/FontRenderer;ZZ)Ljava/util/List;
+             areturn
+         }
+     }
+
+     public void handler$zga000$lunar$getLastChatLineHovered(int arg0, int arg1, org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable arg2, net.minecraft.client.gui.ScaledResolution arg3, int arg4, float arg5, int arg6, int arg7, int arg8, int arg9, net.minecraft.client.gui.ChatLine arg10, int arg11) { //(IILorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;Lnet/minecraft/client/gui/ScaledResolution;IFIIIILnet/minecraft/client/gui/ChatLine;I)V
+         <visAnno:desc = Lorg/spongepowered/asm/mixin/transformer/meta/MixinMerged; , values = [mixin, com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.HRHHOIHOCCCRIOORHRROHOORI.RIHHROCICHHCHRCORIRRRCICC.HRHHOIHOCCCRIOORHRROHOORI.HRHHOIHOCCCRIOORHRROHOORI.RRRRHHCCORCIICOOCOOIHHCOR, priority, 200, sessionId, 09a44760-496b-41b0-a154-539f6a70fb05]>
+
+         L0 {
+             aload 11 // reference to arg10
+             checkcast com/moonsworth/lunar/RIHHROCICHHCHRCORIRRRCICC/OCRHCRIOCRHRORRIHIRRRORRO/IRRCOHRHIIICICORRHIIRRHHC/RIHHROCICHHCHRCORIRRRCICC
+             invokestatic com/moonsworth/lunar/client/CIRRIRIIHCOHHHIHOHHCHICHO/IRRCOHRHIIICICORRHIIRRHHC/OCRHCRIOCRHRORRIHIRRRORRO/RIHHROCICHHCHRCORIRRRCICC.RIHHROCICHHCHRCORIRRRCICC(Lcom/moonsworth/lunar/RIHHROCICHHCHRCORIRRRCICC/OCRHCRIOCRHRORRIHIRRRORRO/IRRCOHRHIIICICORRHIIRRHHC/RIHHROCICHHCHRCORIRRRCICC;)V
+         }
+         L1 {
+             return
+         }
+     }
+
+     private void handler$zzo000$captureChatLine(int arg0, org.spongepowered.asm.mixin.injection.callback.CallbackInfo arg1, int arg2, boolean arg3, int arg4, int arg5, float arg6, float arg7, int arg8, int arg9, net.minecraft.client.gui.ChatLine arg10, int arg11, double arg12, int arg13, int arg14, int arg15) { //(ILorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;IZIIFFIILnet/minecraft/client/gui/ChatLine;IDIII)V
+         <localVar:index=0 , name=this , desc=Lnet/minecraft/client/gui/GuiNewChat;, sig=null, start=L0, end=L3>
+         <localVar:index=1 , name=updateCounter , desc=I, sig=null, start=L0, end=L3>
+         <localVar:index=2 , name=ci , desc=Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;, sig=null, start=L0, end=L3>
+         <localVar:index=3 , name=i , desc=I, sig=null, start=L0, end=L3>
+         <localVar:index=4 , name=bl , desc=Z, sig=null, start=L0, end=L3>
+         <localVar:index=5 , name=j , desc=I, sig=null, start=L0, end=L3>
+         <localVar:index=6 , name=k , desc=I, sig=null, start=L0, end=L3>
+         <localVar:index=7 , name=f , desc=F, sig=null, start=L0, end=L3>
+         <localVar:index=8 , name=g , desc=F, sig=null, start=L0, end=L3>
+         <localVar:index=9 , name=l , desc=I, sig=null, start=L0, end=L3>
+         <localVar:index=10 , name=m , desc=I, sig=null, start=L0, end=L3>
+         <localVar:index=11 , name=chatLine , desc=Lnet/minecraft/client/gui/ChatLine;, sig=null, start=L0, end=L3>
+         <localVar:index=12 , name=n , desc=I, sig=null, start=L0, end=L3>
+         <localVar:index=13 , name=d , desc=D, sig=null, start=L0, end=L3>
+         <localVar:index=15 , name=o , desc=I, sig=null, start=L0, end=L3>
+         <localVar:index=16 , name=p , desc=I, sig=null, start=L0, end=L3>
+         <localVar:index=17 , name=q , desc=I, sig=null, start=L0, end=L3>
+
+         <visAnno:desc = Lorg/spongepowered/asm/mixin/transformer/meta/MixinMerged; , values = [mixin, me.ballmc.ChatHeads.mixins.GuiNewChatMixin_TextRendering, priority, 1000, sessionId, e3af1fd8-0f41-418a-8d4a-e48ffb1d18c6]>
+
+         L0 {
+             getstatic java/lang/System.out:java.io.PrintStream
+             ldc "In captureChatLine" (java.lang.String)
+             invokevirtual java/io/PrintStream.println(Ljava/lang/String;)V
+         }
+         L1 {
+             aload 0 // reference to self
+             aload 11 // reference to arg10
+             putfield net/minecraft/client/gui/GuiNewChat.chatting$drawingLine:net.minecraft.client.gui.ChatLine
+         }
+         L2 {
+             return
+         }
+         L3 {
+         }
+     }
+
+     private void redirect$zzo000$redirectDrawString(java.lang.String arg0, float arg1, float arg2, int arg3) { //(Ljava/lang/String;FFI)V
+         <localVar:index=0 , name=this , desc=Lnet/minecraft/client/gui/GuiNewChat;, sig=null, start=L0, end=L3>
+         <localVar:index=1 , name=text , desc=Ljava/lang/String;, sig=null, start=L0, end=L3>
+         <localVar:index=2 , name=x , desc=F, sig=null, start=L0, end=L3>
+         <localVar:index=3 , name=y , desc=F, sig=null, start=L0, end=L3>
+         <localVar:index=4 , name=color , desc=I, sig=null, start=L0, end=L3>
+
+         <visAnno:desc = Lorg/spongepowered/asm/mixin/transformer/meta/MixinMerged; , values = [mixin, me.ballmc.ChatHeads.mixins.GuiNewChatMixin_TextRendering, priority, 1000, sessionId, e3af1fd8-0f41-418a-8d4a-e48ffb1d18c6]>
+
+         L0 {
+             getstatic java/lang/System.out:java.io.PrintStream
+             ldc "In drawStringWithShadow" (java.lang.String)
+             invokevirtual java/io/PrintStream.println(Ljava/lang/String;)V
+         }
+         L1 {
+             aload 1 // reference to arg0
+             fload 2 // reference to arg1
+             fload 3 // reference to arg2
+             iload 4
+             aload 0 // reference to self
+             getfield net/minecraft/client/gui/GuiNewChat.chatting$drawingLine:net.minecraft.client.gui.ChatLine
+             invokestatic me/ballmc/ChatHeads/Main.redirectDrawString(Ljava/lang/String;FFILnet/minecraft/client/gui/ChatLine;)I
+             pop
+         }
+         L2 {
+             return
+         }
+         L3 {
+         }
+     }
+// The following inner classes couldn't be decompiled: net/minecraft/entity/player/EntityPlayer$EnumChatVisibility 
+}

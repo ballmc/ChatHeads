@@ -1,0 +1,749 @@
+package net.minecraft.client.gui;
+
+import com.google.common.collect.Lists;
+import com.llamalad7.mixinextras.sugar.impl.ref.generated.LocalRefImpl;
+import com.llamalad7.mixinextras.sugar.ref.LocalRef;
+import com.moonsworth.lunar.RIHHROCICHHCHRCORIRRRCICC.HRIOHRIIROHRROORRRHOICCIR.RIHHROCICHHCHRCORIRRRCICC.RIHHROCICHHCHRCORIRRRCICC;
+import com.moonsworth.lunar.RIHHROCICHHCHRCORIRRRCICC.OCRHCRIOCRHRORRIHIRRRORRO.IRRCOHRHIIICICORRHIIRRHHC.ROCHIRHIOCCORHIIRRCHHROIC;
+import com.moonsworth.lunar.RIHHROCICHHCHRCORIRRRCICC.RIHHROCICHHCHRCORIRRRCICC.RCIORCIHCCRCHOORORCRIHOIO;
+import com.moonsworth.lunar.client.COCOIOOHRIOIHOHIIICRHRRHO.IRRCOHRHIIICICORRHIIRRHHC;
+import com.moonsworth.lunar.client.COCOIOOHRIOIHOHIIICRHRRHO.IRRCOHRHIIICICORRHIIRRHHC.IRRCOHRHIIICICORRHIIRRHHC.HRHHOIHOCCCRIOORHRROHOORI;
+import com.moonsworth.lunar.client.HIIRCOIOCRRHIRCOCIIRIOIOR.CHOOOOHOCHHCHRCCRHCIHCHOR;
+import com.moonsworth.lunar.client.HIIRCOIOCRRHIRCOCIIRIOIOR.ICIHCRRIHHCRICROHICIICRCH;
+import com.moonsworth.lunar.ichor.RIHHROCICHHCHRCORIRRRCICC.COHRHRCROCHROHCCROHCOIROH;
+import java.util.Iterator;
+import java.util.List;
+import me.ballmc.ChatHeads.Main;
+import net.kyori.adventure.text.Component;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.entity.player.EntityPlayer.EnumChatVisibility;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.IChatComponent;
+import net.minecraft.util.MathHelper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.spongepowered.asm.mixin.Debug;
+import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.transformer.meta.MixinMerged;
+
+@COHRHRCROCHROHCCROHCOIROH
+@Debug(
+   export = true
+)
+public class GuiNewChat extends Gui implements ROCHIRHIOCCORHIIRRCHHROIC {
+   public static Logger logger = LogManager.getLogger();
+   public Minecraft mc;
+   public List sentMessages = Lists.newArrayList();
+   public List chatLines = Lists.newArrayList();
+   public List drawnChatLines = Lists.newArrayList();
+   public int scrollPos;
+   public boolean isScrolled;
+   @Unique
+   @MixinMerged(
+      mixin = "com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.HRHHOIHOCCCRIOORHRROHOORI.RIHHROCICHHCHRCORIRRRCICC.HRHHOIHOCCCRIOORHRROHOORI.HRHHOIHOCCCRIOORHRROHOORI.RRRRHHCCORCIICOOCOOIHHCOR",
+      priority = 200,
+      sessionId = "09a44760-496b-41b0-a154-539f6a70fb05"
+   )
+   private static float lunar$percentTranslated = 0.0F;
+   @Unique
+   @MixinMerged(
+      mixin = "com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.HRHHOIHOCCCRIOORHRROHOORI.RIHHROCICHHCHRCORIRRRCICC.HRHHOIHOCCCRIOORHRROHOORI.HRHHOIHOCCCRIOORHRROHOORI.RRRRHHCCORCIICOOCOOIHHCOR",
+      priority = 200,
+      sessionId = "09a44760-496b-41b0-a154-539f6a70fb05"
+   )
+   private static long lunar$lastUpdate = -1L;
+   @Unique
+   @MixinMerged(
+      mixin = "com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.HRHHOIHOCCCRIOORHRROHOORI.RIHHROCICHHCHRCORIRRRCICC.HRHHOIHOCCCRIOORHRROHOORI.HRHHOIHOCCCRIOORHRROHOORI.RRRRHHCCORCIICOOCOOIHHCOR",
+      priority = 200,
+      sessionId = "09a44760-496b-41b0-a154-539f6a70fb05"
+   )
+   private float lunar$easedPercent;
+   @Unique
+   @MixinMerged(
+      mixin = "com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.HRHHOIHOCCCRIOORHRROHOORI.RIHHROCICHHCHRCORIRRRCICC.HRHHOIHOCCCRIOORHRROHOORI.HRHHOIHOCCCRIOORHRROHOORI.RRRRHHCCORCIICOOCOOIHHCOR",
+      priority = 200,
+      sessionId = "09a44760-496b-41b0-a154-539f6a70fb05"
+   )
+   private static int lunar$newLines;
+   @Unique
+   @MixinMerged(
+      mixin = "me.ballmc.ChatHeads.mixins.GuiNewChatMixin_TextRendering",
+      priority = 1000,
+      sessionId = "e3af1fd8-0f41-418a-8d4a-e48ffb1d18c6"
+   )
+   private ChatLine chatting$drawingLine = null;
+
+   public GuiNewChat(Minecraft var1) {
+      this.mc = var1;
+   }
+
+   public void drawChat(int var1) {
+      CallbackInfo callbackInfo18 = new CallbackInfo("drawChat", true);
+      this.handler$zga000$lunar$drawChat(var1, callbackInfo18);
+      if (!callbackInfo18.isCancelled()) {
+         if (this.mc.gameSettings.chatVisibility != EnumChatVisibility.HIDDEN) {
+            int var2 = this.getLineCount();
+            boolean var3 = false;
+            int var4 = 0;
+            int var5 = this.drawnChatLines.size();
+            float var6 = this.mc.gameSettings.chatOpacity * 0.9F + 0.1F;
+            if (var5 > 0) {
+               if (this.getChatOpen()) {
+                  var3 = true;
+               }
+
+               float var7 = this.getChatScale();
+               int var8 = MathHelper.ceiling_float_int((float)this.getChatWidth() / var7);
+               GlStateManager.pushMatrix();
+               int injectorAllocatedLocal21 = 0.0F;
+               int injectorAllocatedLocal20 = 20.0F;
+               int injectorAllocatedLocal19 = 2.0F;
+               this.redirect$zga000$lunar$translateChat_v1_8(injectorAllocatedLocal19, injectorAllocatedLocal20, injectorAllocatedLocal21);
+               injectorAllocatedLocal21 = 1.0F;
+               this.redirect$zga000$lunar$drawChat$getChatOpen_v1_8(var7, var7, injectorAllocatedLocal21, var1);
+
+               int var9;
+               int var11;
+               int var14;
+               int var15;
+               for(var9 = 0; var9 + this.scrollPos < this.drawnChatLines.size() && var9 < var2; ++var9) {
+                  ChatLine var10 = (ChatLine)this.drawnChatLines.get(var9 + this.scrollPos);
+                  if (var10 != null) {
+                     var11 = var1 - var10.getUpdatedCounter();
+                     if (var11 < 200 || var3) {
+                        double var12 = (double)var11 / 200.0;
+                        var12 = 1.0 - var12;
+                        var12 *= 10.0;
+                        var12 = MathHelper.clamp_double(var12, 0.0, 1.0);
+                        var12 *= var12;
+                        var14 = (int)(255.0 * var12);
+                        if (var3) {
+                           var14 = 255;
+                        }
+
+                        var14 = (int)((float)var14 * var6);
+                        ++var4;
+                        if (var14 > 3) {
+                           var15 = 0;
+                           int var16 = -var9 * 9;
+                           int var10001 = var16 - 9;
+                           int var10002 = var15 + var8 + 4;
+                           int injectorAllocatedLocal23 = var14 / 2 << 24;
+                           int injectorAllocatedLocal21 = var10002;
+                           int injectorAllocatedLocal20 = var10001;
+                           this.redirect$zga000$lunar$drawChat$drawRect(var15, injectorAllocatedLocal20, injectorAllocatedLocal21, var16, injectorAllocatedLocal23);
+                           this.handler$zzo000$captureChatLine(var1, (CallbackInfo)null, var2, var3, var4, var5, var6, var7, var8, var9, var10, var11, var12, var14, var15, var16);
+                           String var17 = var10.getChatComponent().getFormattedText();
+                           GlStateManager.enableBlend();
+                           float var26 = (float)var15;
+                           float var10003 = (float)(var16 - 8);
+                           injectorAllocatedLocal23 = 16777215 + (var14 << 24);
+                           int injectorAllocatedLocal22 = var10003;
+                           injectorAllocatedLocal21 = var26;
+                           int injectorAllocatedLocal19 = this.mc.fontRendererObj;
+                           this.redirect$zga000$lunar$drawChat$drawStringWithShadow$v1_8(injectorAllocatedLocal19, var17, injectorAllocatedLocal21, injectorAllocatedLocal22, injectorAllocatedLocal23);
+                           GlStateManager.disableAlpha();
+                           GlStateManager.disableBlend();
+                        }
+                     }
+                  }
+               }
+
+               if (var3) {
+                  var9 = this.mc.fontRendererObj.FONT_HEIGHT;
+                  GlStateManager.translate(-3.0F, 0.0F, 0.0F);
+                  int var24 = var5 * var9 + var5;
+                  var11 = var4 * var9 + var4;
+                  int var25 = this.scrollPos * var11 / var5;
+                  int var13 = var11 * var11 / var24;
+                  if (var24 != var11) {
+                     var14 = var25 > 0 ? 170 : 96;
+                     var15 = this.isScrolled ? 13382451 : 3355562;
+                     drawRect(0, -var25, 2, -var25 - var13, var15 + (var14 << 24));
+                     drawRect(2, -var25, 1, -var25 - var13, 13421772 + (var14 << 24));
+                  }
+               }
+
+               GlStateManager.popMatrix();
+            }
+         }
+      }
+   }
+
+   public void clearChatMessages() {
+      this.drawnChatLines.clear();
+      this.chatLines.clear();
+      this.sentMessages.clear();
+   }
+
+   public void printChatMessage(IChatComponent var1) {
+      this.printChatMessageWithOptionalDeletion(var1, 0);
+   }
+
+   public void printChatMessageWithOptionalDeletion(IChatComponent var1, int var2) {
+      this.setChatLine(var1, var2, this.mc.ingameGUI.getUpdateCounter(), false);
+      logger.info("[CHAT] " + var1.getUnformattedText());
+   }
+
+   public void setChatLine(IChatComponent var1, int var2, int var3, boolean var4) {
+      LocalRef sharedRef10 = new LocalRefImpl();
+      sharedRef10.init((Object)null);
+      var1 = this.localvar$zga000$lunar$modifyText(var1, var4, sharedRef10);
+      CallbackInfo callbackInfo11 = new CallbackInfo("setChatLine", true);
+      this.handler$zga000$lunar$cancelAdd(var1, var2, var3, var4, callbackInfo11, sharedRef10);
+      if (!callbackInfo11.isCancelled()) {
+         this.handler$zga000$lunar$setChatLine(var1, var2, var3, var4, (CallbackInfo)null);
+         if (var2 != 0) {
+            this.deleteChatLine(var2);
+         }
+
+         int var5 = MathHelper.floor_float((float)this.getChatWidth() / this.getChatScale());
+         boolean injectorAllocatedLocal19 = false;
+         boolean injectorAllocatedLocal18 = false;
+         FontRenderer injectorAllocatedLocal14 = this.mc.fontRendererObj;
+         List var6 = this.redirect$zga000$lunar$splitChatLines(var1, var5, injectorAllocatedLocal14, injectorAllocatedLocal18, injectorAllocatedLocal19);
+         boolean var7 = this.getChatOpen();
+         Iterator var8 = var6.iterator();
+
+         List injectorAllocatedLocal12;
+         byte injectorAllocatedLocal13;
+         List var10000;
+         ChatLine injectorAllocatedLocal14;
+         while(var8.hasNext()) {
+            IChatComponent var9 = (IChatComponent)var8.next();
+            if (var7 && this.scrollPos > 0) {
+               this.isScrolled = true;
+               this.scroll(1);
+            }
+
+            var10000 = this.drawnChatLines;
+            injectorAllocatedLocal14 = new ChatLine(var3, var9, var2);
+            injectorAllocatedLocal13 = 0;
+            injectorAllocatedLocal12 = var10000;
+            this.redirect$zga000$lunar$setChatLine$addEntry(injectorAllocatedLocal12, injectorAllocatedLocal13, injectorAllocatedLocal14, var1, var2, var3, var4);
+         }
+
+         while(this.drawnChatLines.size() > this.constant$zga000$lunar$setChatLine$maxLines(100)) {
+            this.drawnChatLines.remove(this.drawnChatLines.size() - 1);
+         }
+
+         if (!var4) {
+            var10000 = this.chatLines;
+            injectorAllocatedLocal14 = new ChatLine(var3, var1, var2);
+            injectorAllocatedLocal13 = 0;
+            injectorAllocatedLocal12 = var10000;
+            this.redirect$zga000$lunar$setChatLine$addEntry(injectorAllocatedLocal12, injectorAllocatedLocal13, injectorAllocatedLocal14, var1, var2, var3, var4);
+
+            while(this.chatLines.size() > this.constant$zga000$lunar$setChatLine$maxLines(100)) {
+               this.chatLines.remove(this.chatLines.size() - 1);
+            }
+         }
+
+      }
+   }
+
+   public void refreshChat() {
+      this.drawnChatLines.clear();
+      this.resetScroll();
+
+      for(int var1 = this.chatLines.size() - 1; var1 >= 0; --var1) {
+         ChatLine var2 = (ChatLine)this.chatLines.get(var1);
+         this.setChatLine(var2.getChatComponent(), var2.getChatLineID(), var2.getUpdatedCounter(), true);
+      }
+
+   }
+
+   public List getSentMessages() {
+      return this.sentMessages;
+   }
+
+   public void addToSentMessages(String var1) {
+      if (this.sentMessages.isEmpty() || !((String)this.sentMessages.get(this.sentMessages.size() - 1)).equals(var1)) {
+         this.sentMessages.add(var1);
+      }
+
+   }
+
+   public void resetScroll() {
+      this.scrollPos = 0;
+      this.isScrolled = false;
+   }
+
+   public void scroll(int var1) {
+      this.scrollPos += var1;
+      int var2 = this.drawnChatLines.size();
+      if (this.scrollPos > var2 - this.getLineCount()) {
+         this.scrollPos = var2 - this.getLineCount();
+      }
+
+      if (this.scrollPos <= 0) {
+         this.scrollPos = 0;
+         this.isScrolled = false;
+      }
+
+   }
+
+   public IChatComponent getChatComponent(int var1, int var2) {
+      if (!this.getChatOpen()) {
+         return null;
+      } else {
+         ScaledResolution var3 = new ScaledResolution(this.mc);
+         int var4 = var3.getScaleFactor();
+         float var5 = this.getChatScale();
+         int var6 = var1 / var4 - 3;
+         int var7 = var2 / var4 - 27;
+         var6 = MathHelper.floor_float((float)var6 / var5);
+         float injectorAllocatedLocal14 = (float)var7 / var5;
+         var7 = this.redirect$zga000$lunar$getChatComponent$yPos$v1_7(injectorAllocatedLocal14);
+         if (var6 >= 0 && var7 >= 0) {
+            int var8 = Math.min(this.getLineCount(), this.drawnChatLines.size());
+            if (var6 <= MathHelper.floor_float((float)this.getChatWidth() / this.getChatScale()) && var7 < this.mc.fontRendererObj.FONT_HEIGHT * var8 + var8) {
+               int var9 = var7 / this.mc.fontRendererObj.FONT_HEIGHT + this.scrollPos;
+               if (var9 >= 0 && var9 < this.drawnChatLines.size()) {
+                  ChatLine var10 = (ChatLine)this.drawnChatLines.get(var9);
+                  int var11 = 0;
+                  this.handler$zga000$lunar$getLastChatLineHovered(var1, var2, (CallbackInfoReturnable)null, var3, var4, var5, var6, var7, var8, var9, var10, var11);
+                  Iterator var12 = var10.getChatComponent().iterator();
+
+                  while(var12.hasNext()) {
+                     IChatComponent var13 = (IChatComponent)var12.next();
+                     if (var13 instanceof ChatComponentText) {
+                        var11 += this.mc.fontRendererObj.getStringWidth(GuiUtilRenderComponents.func_178909_a(((ChatComponentText)var13).getChatComponentText_TextValue(), false));
+                        if (var11 > var6) {
+                           return var13;
+                        }
+                     }
+                  }
+               }
+
+               return null;
+            } else {
+               return null;
+            }
+         } else {
+            return null;
+         }
+      }
+   }
+
+   public boolean getChatOpen() {
+      return this.mc.currentScreen instanceof GuiChat;
+   }
+
+   public void deleteChatLine(int var1) {
+      Iterator var2 = this.drawnChatLines.iterator();
+
+      ChatLine var3;
+      while(var2.hasNext()) {
+         var3 = (ChatLine)var2.next();
+         if (var3.getChatLineID() == var1) {
+            var2.remove();
+         }
+      }
+
+      var2 = this.chatLines.iterator();
+
+      while(var2.hasNext()) {
+         var3 = (ChatLine)var2.next();
+         if (var3.getChatLineID() == var1) {
+            var2.remove();
+            break;
+         }
+      }
+
+   }
+
+   public int getChatWidth() {
+      return calculateChatboxWidth(this.mc.gameSettings.chatWidth);
+   }
+
+   public int getChatHeight() {
+      return calculateChatboxHeight(this.getChatOpen() ? this.mc.gameSettings.chatHeightFocused : this.mc.gameSettings.chatHeightUnfocused);
+   }
+
+   public float getChatScale() {
+      return this.mc.gameSettings.chatScale;
+   }
+
+   public static int calculateChatboxWidth(float var0) {
+      int var1 = 320;
+      int var2 = 40;
+      return MathHelper.floor_float(var0 * (float)(var1 - var2) + (float)var2);
+   }
+
+   public static int calculateChatboxHeight(float var0) {
+      int var1 = 180;
+      int var2 = 20;
+      return MathHelper.floor_float(var0 * (float)(var1 - var2) + (float)var2);
+   }
+
+   public int getLineCount() {
+      return this.getChatHeight() / 9;
+   }
+
+   public static GuiNewChat newInstance(Minecraft var0) {
+      return new GuiNewChat(var0);
+   }
+
+   public static GuiNewChat newInstance() {
+      // $FF: Couldn't be decompiled
+   }
+
+   @MixinMerged(
+      mixin = "com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.RCIORCIHCCRCHOORORCRIHOIO.RCIORCIHCCRCHOORORCRIHOIO.HRHHOIHOCCCRIOORHRROHOORI.HOCOROIIHRRROIHCCRHCCHHRH",
+      priority = 200,
+      sessionId = "09a44760-496b-41b0-a154-539f6a70fb05"
+   )
+   public void bridge$addMessage(RIHHROCICHHCHRCORIRRRCICC var1) {
+      this.printChatMessage((IChatComponent)var1);
+   }
+
+   @MixinMerged(
+      mixin = "com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.RCIORCIHCCRCHOORORCRIHOIO.RCIORCIHCCRCHOORORCRIHOIO.HRHHOIHOCCCRIOORHRROHOORI.HOCOROIIHRRROIHCCRHCCHHRH",
+      priority = 200,
+      sessionId = "09a44760-496b-41b0-a154-539f6a70fb05"
+   )
+   public void bridge$addMessageWithId(RIHHROCICHHCHRCORIRRRCICC var1, int var2) {
+      this.printChatMessageWithOptionalDeletion((IChatComponent)var1, var2);
+   }
+
+   @MixinMerged(
+      mixin = "com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.RCIORCIHCCRCHOORORCRIHOIO.RCIORCIHCCRCHOORORCRIHOIO.HRHHOIHOCCCRIOORHRROHOORI.HOCOROIIHRRROIHCCRHCCHHRH",
+      priority = 200,
+      sessionId = "09a44760-496b-41b0-a154-539f6a70fb05"
+   )
+   public void bridge$deleteMessage(int var1) {
+      this.deleteChatLine(var1);
+   }
+
+   @MixinMerged(
+      mixin = "com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.RCIORCIHCCRCHOORORCRIHOIO.RCIORCIHCCRCHOORORCRIHOIO.HRHHOIHOCCCRIOORHRROHOORI.HOCOROIIHRRROIHCCRHCCHHRH",
+      priority = 200,
+      sessionId = "09a44760-496b-41b0-a154-539f6a70fb05"
+   )
+   public boolean bridge$getChatOpen() {
+      return this.getChatOpen();
+   }
+
+   @Unique
+   @MixinMerged(
+      mixin = "com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.HRHHOIHOCCCRIOORHRROHOORI.RIHHROCICHHCHRCORIRRRCICC.HRHHOIHOCCCRIOORHRROHOORI.HRHHOIHOCCCRIOORHRROHOORI.RRRRHHCCORCIICOOCOOIHHCOR",
+      priority = 200,
+      sessionId = "09a44760-496b-41b0-a154-539f6a70fb05"
+   )
+   private IChatComponent lunar$handleChatMessage(IChatComponent var1, boolean var2, LocalRef var3) {
+      if (var2) {
+         return var1;
+      } else {
+         Component var4 = RCIORCIHCCRCHOORORCRIHOIO.asAdventure((RIHHROCICHHCHRCORIRRRCICC)var1);
+         HRHHOIHOCCCRIOORHRROHOORI var5 = new HRHHOIHOCCCRIOORHRROHOORI(var4, com.moonsworth.lunar.client.COCOIOOHRIOIHOHIIICRHRRHO.IRRCOHRHIIICICORRHIIRRHHC.IRRCOHRHIIICICORRHIIRRHHC.HRHHOIHOCCCRIOORHRROHOORI.RIHHROCICHHCHRCORIRRRCICC.CHAT_BOX);
+         var3.set(var5);
+         IRRCOHRHIIICICORRHIIRRHHC.HCCHHROHCOCORORICIHIRHIIO().RIHHROCICHHCHRCORIRRRCICC(var5);
+         if (var5.isCancelled()) {
+            return null;
+         } else {
+            return !var5.isChanged() ? var1 : (IChatComponent)RCIORCIHCCRCHOORORCRIHOIO.asBridge(var5.CIOCRORCRCIHICRHOOHHORRHH());
+         }
+      }
+   }
+
+   @Unique
+   @MixinMerged(
+      mixin = "com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.HRHHOIHOCCCRIOORHRROHOORI.RIHHROCICHHCHRCORIRRRCICC.HRHHOIHOCCCRIOORHRROHOORI.HRHHOIHOCCCRIOORHRROHOORI.RRRRHHCCORCIICOOCOOIHHCOR",
+      priority = 200,
+      sessionId = "09a44760-496b-41b0-a154-539f6a70fb05"
+   )
+   private void lunar$removeLastMessage() {
+      this.chatLines.remove(0);
+      int var1 = this.scrollPos;
+      boolean var2 = this.isScrolled;
+      this.refreshChat();
+      this.scrollPos = var1;
+      this.isScrolled = var2;
+   }
+
+   @Unique
+   @MixinMerged(
+      mixin = "com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.HRHHOIHOCCCRIOORHRROHOORI.RIHHROCICHHCHRCORIRRRCICC.HRHHOIHOCCCRIOORHRROHOORI.HRHHOIHOCCCRIOORHRROHOORI.RRRRHHCCORCIICOOCOOIHHCOR",
+      priority = 200,
+      sessionId = "09a44760-496b-41b0-a154-539f6a70fb05"
+   )
+   private void lunar$handleCancellation(CallbackInfo var1, LocalRef var2) {
+      HRHHOIHOCCCRIOORHRROHOORI var3 = (HRHHOIHOCCCRIOORHRROHOORI)var2.get();
+      if (var3 != null) {
+         if (var3.isCancelled()) {
+            var1.cancel();
+         } else {
+            lunar$percentTranslated = 0.0F;
+         }
+
+         if (var3.HIHOROIROIHCCORCHORRIRCOR()) {
+            this.lunar$removeLastMessage();
+         }
+
+      }
+   }
+
+   @MixinMerged(
+      mixin = "com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.HRHHOIHOCCCRIOORHRROHOORI.RIHHROCICHHCHRCORIRRRCICC.HRHHOIHOCCCRIOORHRROHOORI.HRHHOIHOCCCRIOORHRROHOORI.RRRRHHCCORCIICOOCOOIHHCOR",
+      priority = 200,
+      sessionId = "09a44760-496b-41b0-a154-539f6a70fb05"
+   )
+   private IChatComponent localvar$zga000$lunar$modifyText(IChatComponent var1, boolean var2, LocalRef var3) {
+      return this.lunar$handleChatMessage(var1, var2, var3);
+   }
+
+   @MixinMerged(
+      mixin = "com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.HRHHOIHOCCCRIOORHRROHOORI.RIHHROCICHHCHRCORIRRRCICC.HRHHOIHOCCCRIOORHRROHOORI.HRHHOIHOCCCRIOORHRROHOORI.RRRRHHCCORCIICOOCOOIHHCOR",
+      priority = 200,
+      sessionId = "09a44760-496b-41b0-a154-539f6a70fb05"
+   )
+   private void handler$zga000$lunar$cancelAdd(IChatComponent var1, int var2, int var3, boolean var4, CallbackInfo var5, LocalRef var6) {
+      this.lunar$handleCancellation(var5, var6);
+   }
+
+   @MixinMerged(
+      mixin = "com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.HRHHOIHOCCCRIOORHRROHOORI.RIHHROCICHHCHRCORIRRRCICC.HRHHOIHOCCCRIOORHRROHOORI.HRHHOIHOCCCRIOORHRROHOORI.RRRRHHCCORCIICOOCOOIHHCOR",
+      priority = 200,
+      sessionId = "09a44760-496b-41b0-a154-539f6a70fb05"
+   )
+   private int constant$zga000$lunar$setChatLine$maxLines(int var1) {
+      return CHOOOOHOCHHCHRCCRHCIHCHOR.IRHOCIRCIRHRIRHOORHROHICR().OIORHIOIRIHHIHHOHRORHHOCI().RICIHHHIRHRIOORCCOHIIIHHI().IRIRRHRCHHIIIOIIIOCOIIOCC().IIIOOIRRRHHHHCRIORHIIRHOO() ? 1000 : var1;
+   }
+
+   @Unique
+   @MixinMerged(
+      mixin = "com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.HRHHOIHOCCCRIOORHRROHOORI.RIHHROCICHHCHRCORIRRRCICC.HRHHOIHOCCCRIOORHRROHOORI.HRHHOIHOCCCRIOORHRROHOORI.RRRRHHCCORCIICOOCOOIHHCOR",
+      priority = 200,
+      sessionId = "09a44760-496b-41b0-a154-539f6a70fb05"
+   )
+   private static void lunar$updateChatTranslation(long var0) {
+      if (lunar$percentTranslated < 1.0F) {
+         lunar$percentTranslated += CHOOOOHOCHHCHRCCRHCIHCHOR.IRHOCIRCIRHRIRHOORHROHICR().OIORHIOIRIHHIHHOHRORHHOCI().RICIHHHIRHRIOORCCOHIIIHHI().RIHRIIHORHHHORCHIIHHOOCCH() * (float)var0;
+      }
+
+      lunar$percentTranslated = ICIHCRRIHHCRICROHICIICRCH.ORHROHRIHOOHROCIRRRCCOIHR(lunar$percentTranslated, 0.0F, 1.0F);
+   }
+
+   @MixinMerged(
+      mixin = "com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.HRHHOIHOCCCRIOORHRROHOORI.RIHHROCICHHCHRCORIRRRCICC.HRHHOIHOCCCRIOORHRROHOORI.HRHHOIHOCCCRIOORHRROHOORI.RRRRHHCCORCIICOOCOOIHHCOR",
+      priority = 200,
+      sessionId = "09a44760-496b-41b0-a154-539f6a70fb05"
+   )
+   private void handler$zga000$lunar$drawChat(int var1, CallbackInfo var2) {
+      if (com.moonsworth.lunar.client.HIHCOHRCIORHIOIIIHRROCHRC.RIHHROCICHHCHRCORIRRRCICC.OOCCCOHOOCOOOCOIRIHRRHHIH() && com.moonsworth.lunar.client.HIHCOHRCIORHIOIIIHRROCHRC.RIHHROCICHHCHRCORIRRRCICC.ORCOIRICCCHOCROORRIOHROOR()) {
+         var2.cancel();
+      } else if (lunar$lastUpdate == -1L) {
+         lunar$lastUpdate = System.currentTimeMillis();
+         var2.cancel();
+      } else {
+         long var3 = System.currentTimeMillis();
+         long var5 = var3 - lunar$lastUpdate;
+         lunar$lastUpdate = var3;
+         lunar$updateChatTranslation(var5);
+         float var7 = lunar$percentTranslated;
+         this.lunar$easedPercent = (float)(1.0 - (double)(--var7) * Math.pow((double)var7, 3.0));
+         this.lunar$easedPercent = ICIHCRRIHHCRICROHICIICRCH.ORHROHRIHOOHROCIRRRCCOIHR(this.lunar$easedPercent, 0.0F, 1.0F);
+      }
+   }
+
+   @com.moonsworth.lunar.ichor.RIHHROCICHHCHRCORIRRRCICC.IRRCOHRHIIICICORRHIIRRHHC(
+      min = 1
+   )
+   @MixinMerged(
+      mixin = "com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.HRHHOIHOCCCRIOORHRROHOORI.RIHHROCICHHCHRCORIRRRCICC.HRHHOIHOCCCRIOORHRROHOORI.HRHHOIHOCCCRIOORHRROHOORI.RRRRHHCCORCIICOOCOOIHHCOR",
+      priority = 200,
+      sessionId = "09a44760-496b-41b0-a154-539f6a70fb05"
+   )
+   private void redirect$zga000$lunar$translateChat_v1_8(float var1, float var2, float var3) {
+      GlStateManager.translate(var1, var2, var3);
+      if (CHOOOOHOCHHCHRCCRHCIHCHOR.IRHOCIRCIRHRIRHOORHROHICR().OIORHIOIRIHHIHHOHRORHHOCI().RICIHHHIRHRIOORCCOHIIIHHI().OHRRIRORIOCHOOOICIIROOIHC() && !this.isScrolled) {
+         GlStateManager.translate(0.0F, (9.0F - 9.0F * lunar$percentTranslated) * this.getChatScale(), 0.0F);
+      }
+
+   }
+
+   @com.moonsworth.lunar.ichor.RIHHROCICHHCHRCORIRRRCICC.IRRCOHRHIIICICORRHIIRRHHC(
+      min = 1
+   )
+   @MixinMerged(
+      mixin = "com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.HRHHOIHOCCCRIOORHRROHOORI.RIHHROCICHHCHRCORIRRRCICC.HRHHOIHOCCCRIOORHRROHOORI.HRHHOIHOCCCRIOORHRROHOORI.RRRRHHCCORCIICOOCOOIHHCOR",
+      priority = 200,
+      sessionId = "09a44760-496b-41b0-a154-539f6a70fb05"
+   )
+   private int redirect$zga000$lunar$drawChat$drawStringWithShadow$v1_8(FontRenderer var1, String var2, float var3, float var4, int var5) {
+      return this.lunar$drawChat$drawStringWithShadow(var1, var2, var3, var4, var5);
+   }
+
+   @Unique
+   @MixinMerged(
+      mixin = "com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.HRHHOIHOCCCRIOORHRROHOORI.RIHHROCICHHCHRCORIRRRCICC.HRHHOIHOCCCRIOORHRROHOORI.HRHHOIHOCCCRIOORHRROHOORI.RRRRHHCCORCIICOOCOOIHHCOR",
+      priority = 200,
+      sessionId = "09a44760-496b-41b0-a154-539f6a70fb05"
+   )
+   private int lunar$drawChat$drawStringWithShadow(FontRenderer var1, String var2, float var3, float var4, int var5) {
+      float var6 = (var4 + 8.0F) / -9.0F;
+      if (CHOOOOHOCHHCHRCCRHCIHCHOR.IRHOCIRCIRHRIRHOORHROHICR().OIORHIOIRIHHIHHOHRORHHOCI().RICIHHHIRHRIOORCCOHIIIHHI().OHRRIRORIOCHOOOICIIROOIHC() && var6 <= (float)lunar$newLines && !this.isScrolled) {
+         int var7 = var5 >>> 24;
+         var5 = 16777215 + ((int)((float)var7 * this.lunar$easedPercent) << 24);
+      }
+
+      com.moonsworth.lunar.client.CIRRIRIIHCOHHHIHOHHCHICHO.IRRCOHRHIIICICORRHIIRRHHC.OCRHCRIOCRHRORRIHIRRRORRO.RIHHROCICHHCHRCORIRRRCICC var10 = CHOOOOHOCHHCHRCCRHCIHCHOR.IRHOCIRCIRHRIRHOORHROHICR().OIORHIOIRIHHIHHOHRORHHOCI().RICIHHHIRHRIOORCCOHIIIHHI();
+      boolean var8 = CHOOOOHOCHHCHRCCRHCIHCHOR.IRHOCIRCIRHRIRHOORHROHICR().OIORHIOIRIHHIHHOHRORHHOCI().RICIHHHIRHRIOORCCOHIIIHHI().HHIHOIHCCCCCHHRIRIROIRCRC().IIIOOIRRRHHHHCRIORHIIRHOO();
+      boolean var9 = !var10.isEnabled() || var10.OCICHHHICHOOOHCCOCCIHHHOH().IIIOOIRRRHHHHCRIORHIIRHOO();
+      return (int)((com.moonsworth.lunar.RIHHROCICHHCHRCORIRRRCICC.OCRHCRIOCRHRORRIHIRRRORRO.IRRCOHRHIIICICORRHIIRRHHC.RCIORCIHCCRCHOORORCRIHOIO)var1).bridge$drawString(var2, var3, var4 - (float)(var8 ? 12 : 0), var5, var9);
+   }
+
+   @com.moonsworth.lunar.ichor.RIHHROCICHHCHRCORIRRRCICC.IRRCOHRHIIICICORRHIIRRHHC(
+      min = 1
+   )
+   @MixinMerged(
+      mixin = "com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.HRHHOIHOCCCRIOORHRROHOORI.RIHHROCICHHCHRCORIRRRCICC.HRHHOIHOCCCRIOORHRROHOORI.HRHHOIHOCCCRIOORHRROHOORI.RRRRHHCCORCIICOOCOOIHHCOR",
+      priority = 200,
+      sessionId = "09a44760-496b-41b0-a154-539f6a70fb05"
+   )
+   private void redirect$zga000$lunar$drawChat$getChatOpen_v1_8(float var1, float var2, float var3, int var4) {
+      GlStateManager.scale(var1, var2, var3);
+      this.lunar$drawChat$getChatOpen(var4);
+   }
+
+   @Unique
+   @MixinMerged(
+      mixin = "com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.HRHHOIHOCCCRIOORHRROHOORI.RIHHROCICHHCHRCORIRRRCICC.HRHHOIHOCCCRIOORHRROHOORI.HRHHOIHOCCCRIOORHRROHOORI.RRRRHHCCORCIICOOCOOIHHCOR",
+      priority = 200,
+      sessionId = "09a44760-496b-41b0-a154-539f6a70fb05"
+   )
+   private void lunar$drawChat$getChatOpen(int var1) {
+      int var2 = this.getLineCount();
+      boolean var3 = this.getChatOpen();
+      float var4 = this.getChatScale();
+      float var5 = (float)this.getChatWidth() / var4;
+      int var6 = MathHelper.ceiling_float_int(var5);
+      float var7 = CHOOOOHOCHHCHRCCRHCIHCHOR.IRHOCIRCIRHRIRHOORHROHICR().OIORHIOIRIHHIHHOHRORHHOCI().RICIHHHIRHRIOORCCOHIIIHHI().isEnabled() ? (Float)CHOOOOHOCHHCHRCCRHCIHCHOR.IRHOCIRCIRHRIRHOORHROHICR().OIORHIOIRIHHIHHOHRORHHOCI().RICIHHHIRHRIOORCCOHIIIHHI().RHOHIOOROIOHHCIRRCHCHORCR().get() : 1.0F;
+      boolean var8 = CHOOOOHOCHHCHRCCRHCIHCHOR.IRHOCIRCIRHRIRHOORHROHICR().OIORHIOIRIHHIHHOHRORHHOCI().RICIHHHIRHRIOORCCOHIIIHHI().HHIHOIHCCCCCHHRIRIROIRCRC().IIIOOIRRRHHHHCRIORHIIRHOO();
+      if (var7 > 0.0F) {
+         int var9 = 0;
+
+         for(int var10 = 0; var10 + this.scrollPos < this.drawnChatLines.size() && var10 < var2; ++var10) {
+            ChatLine var11 = (ChatLine)this.drawnChatLines.get(var10 + this.scrollPos);
+            if (var11 != null) {
+               int var12 = var1 - var11.getUpdatedCounter();
+               double var13 = (double)var12 / 200.0;
+               var13 = 1.0 - var13;
+               var13 *= 10.0;
+               var13 = MathHelper.clamp_double(var13, 0.0, 1.0);
+               var13 *= var13;
+               int var15 = (int)(255.0 * var13);
+               if (var15 >= 254 || var3) {
+                  var9 -= this.mc.fontRendererObj.FONT_HEIGHT;
+               }
+            }
+         }
+
+         Gui.drawRect(0, var8 ? -12 : 0, var6 + 4, var9 + (var8 ? -12 : 0), (int)(127.0F * var7) << 24);
+      }
+
+   }
+
+   @MixinMerged(
+      mixin = "com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.HRHHOIHOCCCRIOORHRROHOORI.RIHHROCICHHCHRCORIRRRCICC.HRHHOIHOCCCRIOORHRROHOORI.HRHHOIHOCCCRIOORHRROHOORI.RRRRHHCCORCIICOOCOOIHHCOR",
+      priority = 200,
+      sessionId = "09a44760-496b-41b0-a154-539f6a70fb05"
+   )
+   private void redirect$zga000$lunar$drawChat$drawRect(int var1, int var2, int var3, int var4, int var5) {
+      boolean var6 = CHOOOOHOCHHCHRCCRHCIHCHOR.IRHOCIRCIRHRIRHOORHROHICR().OIORHIOIRIHHIHHOHRORHHOCI().RICIHHHIRHRIOORCCOHIIIHHI().HHIHOIHCCCCCHHRIRIROIRCRC().IIIOOIRRRHHHHCRIORHIIRHOO();
+      float var7 = CHOOOOHOCHHCHRCCRHCIHCHOR.IRHOCIRCIRHRIRHOORHROHICR().OIORHIOIRIHHIHHOHRORHHOCI().RICIHHHIRHRIOORCCOHIIIHHI().isEnabled() ? (Float)CHOOOOHOCHHCHRCCRHCIHCHOR.IRHOCIRCIRHRIRHOORHROHICR().OIORHIOIRIHHIHHOHRORHHOCI().RICIHHHIRHRIOORCCOHIIIHHI().RHOHIOOROIOHHCIRRCHCHORCR().get() : 1.0F;
+      if (var7 > 0.0F) {
+         int var8 = (byte)(var5 >> 24) & 255;
+         if (var8 < 127) {
+            Gui.drawRect(var1, var2 + (var6 ? -12 : 0), var3, var4 + (var6 ? -12 : 0), (int)(var7 * (float)var8) << 24);
+         }
+      }
+
+   }
+
+   @MixinMerged(
+      mixin = "com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.HRHHOIHOCCCRIOORHRROHOORI.RIHHROCICHHCHRCORIRRRCICC.HRHHOIHOCCCRIOORHRROHOORI.HRHHOIHOCCCRIOORHRROHOORI.RRRRHHCCORCIICOOCOOIHHCOR",
+      priority = 200,
+      sessionId = "09a44760-496b-41b0-a154-539f6a70fb05"
+   )
+   private void redirect$zga000$lunar$setChatLine$addEntry(List var1, int var2, Object var3, IChatComponent var4, int var5, int var6, boolean var7) {
+      if (var3 instanceof ChatLine) {
+         ((com.moonsworth.lunar.RIHHROCICHHCHRCORIRRRCICC.OCRHCRIOCRHRORRIHIRRRORRO.IRRCOHRHIIICICORRHIIRRHHC.RIHHROCICHHCHRCORIRRRCICC)var3).bridge$setChatMessage(var4.getFormattedText());
+      }
+
+      var1.add(var2, var3);
+   }
+
+   @com.moonsworth.lunar.ichor.RIHHROCICHHCHRCORIRRRCICC.IRRCOHRHIIICICORRHIIRRHHC(
+      min = 1
+   )
+   @MixinMerged(
+      mixin = "com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.HRHHOIHOCCCRIOORHRROHOORI.RIHHROCICHHCHRCORIRRRCICC.HRHHOIHOCCCRIOORHRROHOORI.HRHHOIHOCCCRIOORHRROHOORI.RRRRHHCCORCIICOOCOOIHHCOR",
+      priority = 200,
+      sessionId = "09a44760-496b-41b0-a154-539f6a70fb05"
+   )
+   private void handler$zga000$lunar$setChatLine(IChatComponent var1, int var2, int var3, boolean var4, CallbackInfo var5) {
+      float var6 = (float)this.getChatWidth() / this.getChatScale();
+      int var7 = MathHelper.floor_float(var6);
+      List var8 = GuiUtilRenderComponents.splitText(var1, var7, this.mc.fontRendererObj, false, false);
+      lunar$newLines = var8.size() - 1;
+   }
+
+   @com.moonsworth.lunar.ichor.RIHHROCICHHCHRCORIRRRCICC.IRRCOHRHIIICICORRHIIRRHHC(
+      max = 1
+   )
+   @MixinMerged(
+      mixin = "com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.HRHHOIHOCCCRIOORHRROHOORI.RIHHROCICHHCHRCORIRRRCICC.HRHHOIHOCCCRIOORHRROHOORI.HRHHOIHOCCCRIOORHRROHOORI.RRRRHHCCORCIICOOCOOIHHCOR",
+      priority = 200,
+      sessionId = "09a44760-496b-41b0-a154-539f6a70fb05"
+   )
+   private int redirect$zga000$lunar$getChatComponent$yPos$v1_7(float var1) {
+      return MathHelper.floor_float(var1) - (CHOOOOHOCHHCHRCCRHCIHCHOR.IRHOCIRCIRHRIRHOORHROHICR().OIORHIOIRIHHIHHOHRORHHOCI().RICIHHHIRHRIOORCCOHIIIHHI().HHIHOIHCCCCCHHRIRIROIRCRC().IIIOOIRRRHHHHCRIORHIIRHOO() ? 12 : 0);
+   }
+
+   @com.moonsworth.lunar.ichor.RIHHROCICHHCHRCORIRRRCICC.IRRCOHRHIIICICORRHIIRRHHC(
+      min = 1
+   )
+   @MixinMerged(
+      mixin = "com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.HRHHOIHOCCCRIOORHRROHOORI.RIHHROCICHHCHRCORIRRRCICC.HRHHOIHOCCCRIOORHRROHOORI.HRHHOIHOCCCRIOORHRROHOORI.RRRRHHCCORCIICOOCOOIHHCOR",
+      priority = 200,
+      sessionId = "09a44760-496b-41b0-a154-539f6a70fb05"
+   )
+   private List redirect$zga000$lunar$splitChatLines(IChatComponent var1, int var2, FontRenderer var3, boolean var4, boolean var5) {
+      return GuiUtilRenderComponents.splitText(var1, var2, var3, var4, var5);
+   }
+
+   @MixinMerged(
+      mixin = "com.moonsworth.lunar.OCRHCRIOCRHRORRIHIRRRORRO.HRHHOIHOCCCRIOORHRROHOORI.RIHHROCICHHCHRCORIRRRCICC.HRHHOIHOCCCRIOORHRROHOORI.HRHHOIHOCCCRIOORHRROHOORI.RRRRHHCCORCIICOOCOOIHHCOR",
+      priority = 200,
+      sessionId = "09a44760-496b-41b0-a154-539f6a70fb05"
+   )
+   public void handler$zga000$lunar$getLastChatLineHovered(int var1, int var2, CallbackInfoReturnable var3, ScaledResolution var4, int var5, float var6, int var7, int var8, int var9, int var10, ChatLine var11, int var12) {
+      com.moonsworth.lunar.client.CIRRIRIIHCOHHHIHOHHCHICHO.IRRCOHRHIIICICORRHIIRRHHC.OCRHCRIOCRHRORRIHIRRRORRO.RIHHROCICHHCHRCORIRRRCICC.RIHHROCICHHCHRCORIRRRCICC((com.moonsworth.lunar.RIHHROCICHHCHRCORIRRRCICC.OCRHCRIOCRHRORRIHIRRRORRO.IRRCOHRHIIICICORRHIIRRHHC.RIHHROCICHHCHRCORIRRRCICC)var11);
+   }
+
+   @MixinMerged(
+      mixin = "me.ballmc.ChatHeads.mixins.GuiNewChatMixin_TextRendering",
+      priority = 1000,
+      sessionId = "e3af1fd8-0f41-418a-8d4a-e48ffb1d18c6"
+   )
+   private void handler$zzo000$captureChatLine(int updateCounter, CallbackInfo ci, int i, boolean bl, int j, int k, float f, float g, int l, int m, ChatLine chatLine, int n, double d, int o, int p, int q) {
+      System.out.println("In captureChatLine");
+      this.chatting$drawingLine = chatLine;
+   }
+
+   @MixinMerged(
+      mixin = "me.ballmc.ChatHeads.mixins.GuiNewChatMixin_TextRendering",
+      priority = 1000,
+      sessionId = "e3af1fd8-0f41-418a-8d4a-e48ffb1d18c6"
+   )
+   private void redirect$zzo000$redirectDrawString(String text, float x, float y, int color) {
+      System.out.println("In drawStringWithShadow");
+      Main.redirectDrawString(text, x, y, color, this.chatting$drawingLine);
+   }
+}
