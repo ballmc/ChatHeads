@@ -20,6 +20,7 @@ import com.llamalad7.mixinextras.MixinExtrasBootstrap;
 
 public class Main implements ModInitializer {
     public static boolean enabled = true;
+    public static ChatLine chatting$drawingLine = null;
 
     public static void setEnabled(boolean value) {
         enabled = value;
@@ -62,8 +63,8 @@ public class Main implements ModInitializer {
     @Override
     public void preInit() {
         System.out.println("Initializing ChatHeads!");
-        MixinExtrasBootstrap.init();
-        System.out.println("Init mixinextras guru");
+        // MixinExtrasBootstrap.init();
+        // System.out.println("Init mixinextras guru");
         CommandBus.register(new ChatHeadsToggle());
         // EventBus.subscribe(new RenderGameOverlayListener());
     }

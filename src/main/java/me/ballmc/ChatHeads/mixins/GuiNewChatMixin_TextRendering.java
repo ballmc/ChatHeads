@@ -24,22 +24,22 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 
+import me.ballmc.ChatHeads.Main;
+
 @Debug(export = true)
 @Mixin(value = GuiNewChat.class, priority = 50)
 public class GuiNewChatMixin_TextRendering {
-    @Unique
-    private ChatLine chatting$drawingLine = null;
-
     @Inject(method = "drawChat", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/ChatLine;getChatComponent()Lnet/minecraft/util/IChatComponent;"), locals = LocalCapture.CAPTURE_FAILSOFT)
     private void captureChatLine(int updateCounter, CallbackInfo ci, int i, boolean bl, int j, int k, float f, float g, int l, int m, ChatLine chatLine, int n, double d, int o, int p, int q) {
-      chatting$drawingLine = chatLine;
+      System.out.println("Chatline id: " + chatLine.getChatComponent().getFormattedText());
+      Main.chatting$drawingLine = chatLine;
     }
 
-    @Redirect(method = "drawChat", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/FontRenderer;drawStringWithShadow(Ljava/lang/String;FFI)I"))
-    private void redirectDrawString(String text, float x, float y, int color) {
-        System.out.println("In drawStringWithShadow");
-        Main.redirectDrawString(text, x, y, color, chatting$drawingLine);
-    }
+    // @Redirect(method = "drawChat", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/FontRenderer;drawStringWithShadow(Ljava/lang/String;FFI)I"))
+    // private void redirectDrawString(String text, float x, float y, int color) {
+    //     System.out.println("In drawStringWithShadow");
+    //     Main.redirectDrawString(text, x, y, color, Main.chatting$drawingLine);
+    // }
 
     // @WrapOperation(method = "drawChat", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/FontRenderer;drawStringWithShadow(Ljava/lang/String;FFI)I"))
     // private int wrapfunc(FontRenderer instance, String text, float x, float y, int color, Operation<Integer> original) {
