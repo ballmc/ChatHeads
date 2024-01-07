@@ -16,6 +16,8 @@ import net.minecraft.client.renderer.GlStateManager;
 import java.lang.ref.WeakReference;
 import java.util.HashSet;
 
+import com.llamalad7.mixinextras.MixinExtrasBootstrap;
+
 public class Main implements ModInitializer {
     public static boolean enabled = true;
 
@@ -36,8 +38,7 @@ public class Main implements ModInitializer {
     }
 
     public static int redirectDrawString(String text, float x, float y, int color, ChatLine chatLine) {
-    float actualX = x;
-    if (enabled) {
+        float actualX = x;
         System.out.println("In redirectDrawString");
         ChatLineHook hook = (ChatLineHook) chatLine;
         if (hook.chatting$hasDetected()) {
@@ -51,39 +52,18 @@ public class Main implements ModInitializer {
             Minecraft.getMinecraft().getTextureManager().bindTexture(networkPlayerInfo.getLocationSkin());
             GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
             GlStateManager.color(1.0f, 1.0f, 1.0f, color / 255f);
-            Gui.drawScaledCustomSizeModalRect(
-                (int) x,
-                (int) (y - 1f),
-                8.0f,
-                8.0f,
-                8,
-                8,
-                8,
-                8,
-                64.0f,
-                64.0f
-            );
-            Gui.drawScaledCustomSizeModalRect(
-                (int) x,
-                (int) (y - 1f),
-                40.0f,
-                8.0f,
-                8,
-                8,
-                8,
-                8,
-                64.0f,
-                64.0f
-            );
+            Gui.drawScaledCustomSizeModalRect((int) x, (int) (y - 1f), 8.0f, 8.0f, 8, 8, 8, 8, 64.0f, 64.0f);
+            Gui.drawScaledCustomSizeModalRect((int) x, (int) (y - 1f), 40.0f, 8.0f, 8, 8, 8, 8, 64.0f, 64.0f);
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
         }
+        return Minecraft.getMinecraft().fontRendererObj.drawString(text, actualX, y, color, true);
     }
-    return Minecraft.getMinecraft().fontRendererObj.drawString(text, actualX, y, color, true);
-}
 
     @Override
     public void preInit() {
         System.out.println("Initializing ChatHeads!");
+        MixinExtrasBootstrap.init();
+        System.out.println("Init mixinextras guru");
         CommandBus.register(new ChatHeadsToggle());
         // EventBus.subscribe(new RenderGameOverlayListener());
     }
