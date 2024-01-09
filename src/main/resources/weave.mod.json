@@ -4,8 +4,5 @@
   ],
   "entrypoints": [
     "me.ballmc.ChatHeads.Main"
-  ],
-  "hooks": [
-    "me.ballmc.hooks.newhook"
   ]
 }
