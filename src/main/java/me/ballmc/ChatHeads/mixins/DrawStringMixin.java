@@ -40,13 +40,7 @@ public class DrawStringMixin {
 
   @Inject(method = "drawChat", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/ChatLine;getChatComponent()Lnet/minecraft/util/IChatComponent;"), locals = LocalCapture.CAPTURE_FAILSOFT)
   private void captureChatLine(int updateCounter, CallbackInfo ci, int i, boolean bl, int j, int k, float f, float g, int l, int m, ChatLine chatLine, int n, double d, int o, int p, int q) {
-    // check if chatLine is nunll
-    if (chatLine == null) {
-      System.out.println("Chatline is null");
-    } else {
-      // System.out.println("Chatline text: " + chatLine.getChatComponent().getFormattedText());
-        chatting$drawingLine = chatLine;
-    }
+    chatting$drawingLine = chatLine;
   }
 
   @ModifyVariable(method = "drawChat", at = @At(value = "STORE"), require = 1, ordinal = 7)
@@ -58,14 +52,16 @@ public class DrawStringMixin {
 
   @ModifyVariable(method = "drawChat", at = @At(value = "STORE"), require = 1, ordinal = 8)
     private int setxrender(int x) {
-      if (Main.enabled == false) {
-        return x;
-      }
-        float temp = (int)x;
+      if (Main.enabled == true) {
+        float temp = x;
+        int temp2 = 0;
         ChatLineHook hook = (ChatLineHook) chatting$drawingLine;
+        if (hook == null) {
+            return x;
+        }
         if (hook.chatting$hasDetected()) {
             temp += 10f;
-            x = (int)temp;
+            temp2 = (int)temp;
         }
         NetworkPlayerInfo networkPlayerInfo = hook.chatting$getPlayerInfo();
         if (networkPlayerInfo != null) {
@@ -79,7 +75,10 @@ public class DrawStringMixin {
             Gui.drawScaledCustomSizeModalRect((int) x, (int) (y_var - 1f), 40.0f, 8.0f, 8, 8, 8, 8, 64.0f, 64.0f);
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
         }
+        return temp2;
+      } else {
         return x;
+      }
     }
 
     @ModifyVariable(method = "drawChat", at = @At(value = "STORE"), require = 1, ordinal = 9)
