@@ -84,6 +84,7 @@ public class ChatLineMixin implements ChatLineHook {
 
     @Override
     public boolean chatting$hasDetected() {
+        System.out.println("chatting detect value: " + detected);
         return detected;
     }
 
