@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import me.ballmc.ChatHeads.Main.ChatLineHook;
 
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
@@ -18,7 +19,7 @@ import java.util.Map;
 import me.ballmc.ChatHeads.Main.*;
 
 @Mixin(ChatLine.class)
-public class ChatLineMixin implements ChatLineHook {
+public class ChatLineMixin implements ChatLineHook{
     private boolean detected = false;
     private boolean first = true;
     private NetworkPlayerInfo playerInfo;
