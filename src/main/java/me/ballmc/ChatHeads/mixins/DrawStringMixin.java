@@ -43,6 +43,8 @@ public class DrawStringMixin {
     chatting$drawingLine = chatLine;
   }
 
+  //ordinals 7,8,9 are variables l1, i2, j2 respectively
+
   @ModifyVariable(method = "drawChat", at = @At(value = "STORE"), require = 1, ordinal = 7)
   private int setl1(int l1) {
       // System.out.println("set l1: " + l1);
