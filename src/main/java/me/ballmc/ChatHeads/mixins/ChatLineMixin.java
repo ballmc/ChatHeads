@@ -4,7 +4,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ChatLine;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.client.network.NetworkPlayerInfo;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -16,7 +15,6 @@ import me.ballmc.ChatHeads.Main.ChatLineHook;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
-import me.ballmc.ChatHeads.Main.*;
 
 @Mixin(ChatLine.class)
 public class ChatLineMixin implements ChatLineHook{
@@ -30,7 +28,6 @@ public class ChatLineMixin implements ChatLineHook{
 
     @Inject(method = "<init>", at = @At("RETURN"))
     private void onInit(int i, IChatComponent iChatComponent, int j, CallbackInfo ci) {
-        System.out.println("In ChatLineMixin");
         lastUniqueId++;
         uniqueId = lastUniqueId;
         chatting$chatLines.add(new WeakReference<>((ChatLine) (Object) this));
@@ -38,8 +35,9 @@ public class ChatLineMixin implements ChatLineHook{
         if (netHandler == null) return;
         Map<String, NetworkPlayerInfo> nicknameCache = new HashMap<>();
         try {
-            for (String word : iChatComponent.getFormattedText().split("(§.)|\\W")) {
+            for (String word : iChatComponent.getFormattedText().split("(\u00A7.)|\\W")) {
                 if (word.isEmpty()) continue;
+                System.out.println("word: " + word);
                 playerInfo = netHandler.getPlayerInfo(word);
                 if (playerInfo == null) {
                     playerInfo = getPlayerFromNickname(word, netHandler, nicknameCache);
@@ -79,13 +77,11 @@ public class ChatLineMixin implements ChatLineHook{
             // use prepared cache
             return nicknameCache.get(word);
         }
-
         return null;
     }
 
     @Override
     public boolean chatting$hasDetected() {
-        System.out.println("chatting detect value: " + detected);
         return detected;
     }
 
